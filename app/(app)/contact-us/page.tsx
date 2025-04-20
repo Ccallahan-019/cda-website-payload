@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getApolloClient } from "@/graghql/apolloClient";
 import { GET_CONTACT_FORM } from "@/graghql/queries/contactFormQuery";
 import ContactForm from "../../../components/ui/forms/ContactForm";
