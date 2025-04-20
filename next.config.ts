@@ -5,10 +5,17 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '/**',
+        protocol: 'https',
+        hostname: 'cda-website-payload.vercel.app',
+        port: '',
+        pathname: 'api/**',
+        search: '?undefined',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cda-pa.org',
+        port: '',
+        pathname: 'api/**',
         search: '?undefined',
       },
     ],
