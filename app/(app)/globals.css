@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  --color-background: white;
+  --color-foreground: #59168b;
+
+  --color-card: hsl(240 5% 96%);
+  --color-card-foreground: oklch(0.438 0.218 303.724);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: oklch(0.438 0.218 303.724);
+
+  --color-primary: #59168b;
+  --color-primary-foreground: #f3e8ff;
+
+  --color-secondary: #ad46ff;
+  --color-secondary-foreground: #f3e8ff;
+
+  --color-muted: #f3e8ff;
+  --color-muted-foreground: #59168b;
+
+  --color-accent: #fcc800;
+  --color-accent-foreground: #1e2939;
+
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+
+  --color-border: #dba21d;
+  --color-input: hsl(214.3 31.8% 91.4%);
+  --color-ring: oklch(0.438 0.218 303.724);
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 96rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@theme static {
+  --color-background: white;
+  --color-foreground: #59168b;
+
+  --color-card: hsl(240 5% 96%);
+  --color-card-foreground: oklch(0.438 0.218 303.724);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: oklch(0.438 0.218 303.724);
+
+  --color-primary: #59168b;
+  --color-primary-foreground: #f3e8ff;
+
+  --color-secondary: #ad46ff;
+  --color-secondary-foreground: #f3e8ff;
+
+  --color-muted: #f3e8ff;
+  --color-muted-foreground: #59168b;
+
+  --color-accent: #fcc800;
+  --color-accent-foreground: #1e2939;
+
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+
+  --color-border: #dba21d;
+  --color-input: hsl(214.3 31.8% 91.4%);
+  --color-ring: oklch(0.438 0.218 303.724);
+
+  --breakpoint-3xl: '1920px';
+}
+
+@layer components {
+  .payload-richtext {
+    h1 {
+      font-size: var(--text-5xl);
+      margin: 16px 0 16px 0;
+      color: var(--color-primary);
+    }
+    h2 {
+      font-size: var(--text-4xl);
+      margin: 12px 0 12px 0;
+      color: var(--color-primary);
+    }
+    h3 {
+      font-size: var(--text-3xl);
+      margin: 8px 0 8px 0;
+      color: var(--color-primary);
+    }
+    h4 {
+      font-size: var(--text-2xl);
+      margin: 4px 0 4px 0;
+      color: var(--color-primary);
+    }
+
+    p {
+      font-size: var(--text-lg);
+      color: var(--color-gray-800);
+      margin: 8px 0 8px 0;
+    }
+
+    a {
+      color: var(--color-gray-800);
+      text-decoration: underline;
+    }
+    a:hover {
+      color: var(--color-muted);
+    }
+
+    hr {
+      margin: 12px 0 12px 0;
+      border-color: var(--color-gray-400);
+    }
+
+    blockquote {
+      border-left: 16px solid var(--color-gray-700);
+      margin: 16px 0 16px 0;
+    }
+
+    ol {
+      list-style: decimal;
+      padding-left: 24px;
+      margin: 8px 0 8px 0;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: 24px;
+      margin: 8px 0 8px 0;
+    }
+
+    li {
+      margin: 4px 0 4px 0;
+      font-size: var(--text-lg);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
