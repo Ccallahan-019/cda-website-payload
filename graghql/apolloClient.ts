@@ -1,14 +1,22 @@
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { HttpLink } from '@apollo/client';
+import {
+  registerApolloClient,
+  ApolloClient,
+  InMemoryCache,
+} from "@apollo/client-integration-nextjs";
 import fetch from 'cross-fetch';
 
-export async function getClient(token?: string) {
-  return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
-    link: new HttpLink({
-      uri: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/graphql`, // your Payload GraphQL URL
-      fetch,
-      headers: token ? { Authorization: `JWT ${token}` } : {},
-    }),
-    cache: new InMemoryCache(),
-  });
+export function getApolloClient(token?: string) {
+  const { getClient } = registerApolloClient(() => {
+    return new ApolloClient({
+      cache: new InMemoryCache(),
+      link:new HttpLink({
+        uri: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/graphql`,
+        fetch,
+        headers: token ? { Authorization: `JWT ${token}` } : {},
+      })
+    })
+  })
+
+  return getClient();
 }

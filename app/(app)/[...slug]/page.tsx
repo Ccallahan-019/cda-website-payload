@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getClient } from "@/graghql/apolloClient";
+import { getApolloClient } from "@/graghql/apolloClient";
 import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pageQuery";
 import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
@@ -9,7 +9,7 @@ import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 
 export async function generateStaticParams() {
-  const client = await getClient();
+  const client = getApolloClient();
   const pages = await client.query({
     query: GET_SLUGS,
   });
@@ -30,7 +30,7 @@ const queryPageBySlug = async ({ path }: { path: string }) => {
   const cookieStore = await cookies();
   const token = draft ? cookieStore.get('payload-token')?.value : undefined;
 
-  const client = await getClient(token);
+  const client = getApolloClient(token);
   
   const { data } = await client.query({
     query: GET_PAGE_BY_SLUG,

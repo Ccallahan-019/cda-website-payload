@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "@/globals/header/Header";
 import type { Header as HeaderProps } from "@/payload-types";
 import Footer from "../../globals/footer/Footer";
-import { getClient } from "@/graghql/apolloClient";
+import { getApolloClient } from "@/graghql/apolloClient";
 import { GET_HEADER } from "@/graghql/queries/headerQuery";
 import { GET_FOOTER } from "@/graghql/queries/footerQuery";
 import { GET_BACKGROUND } from "@/graghql/queries/backgroundQuery";
@@ -26,7 +26,7 @@ export default async function RootLayout({
 }>) {
   const { isEnabled } = await draftMode();
 
-  const client = await getClient();
+  const client = getApolloClient();
   const { data: headerData } = await client.query({
     query: GET_HEADER
   });

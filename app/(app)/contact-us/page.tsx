@@ -1,10 +1,10 @@
-import { getClient } from "@/graghql/apolloClient";
+import { getApolloClient } from "@/graghql/apolloClient";
 import { GET_CONTACT_FORM } from "@/graghql/queries/contactFormQuery";
 import ContactForm from "../../../components/ui/forms/ContactForm";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 
 export default async function ContactPage() {
-    const client = await getClient();
+    const client = getApolloClient();
       
     const { data } = await client.query({
         query: GET_CONTACT_FORM,

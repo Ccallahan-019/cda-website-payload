@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.6",
+    "@apollo/client-integration-nextjs": "^0.12.1",
     "@faceless-ui/scroll-info": "^2.0.0",
     "@payloadcms/admin-bar": "^3.35.1",
     "@payloadcms/db-vercel-postgres": "^3.32.0",
