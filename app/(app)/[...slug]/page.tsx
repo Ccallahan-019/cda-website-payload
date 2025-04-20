@@ -9,7 +9,7 @@ import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 
 export async function generateStaticParams() {
-  const client = getClient();
+  const client = await getClient();
   const pages = await client.query({
     query: GET_SLUGS,
   });
@@ -30,7 +30,7 @@ const queryPageBySlug = async ({ path }: { path: string }) => {
   const cookieStore = await cookies();
   const token = draft ? cookieStore.get('payload-token')?.value : undefined;
 
-  const client = getClient(token);
+  const client = await getClient(token);
   
   const { data } = await client.query({
     query: GET_PAGE_BY_SLUG,

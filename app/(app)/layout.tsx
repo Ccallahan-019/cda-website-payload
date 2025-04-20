@@ -26,7 +26,7 @@ export default async function RootLayout({
 }>) {
   const { isEnabled } = await draftMode();
 
-  const client = getClient();
+  const client = await getClient();
   const { data: headerData } = await client.query({
     query: GET_HEADER
   });

@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import fetch from 'cross-fetch';
 
-export function getClient(token?: string) {
+export async function getClient(token?: string) {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({

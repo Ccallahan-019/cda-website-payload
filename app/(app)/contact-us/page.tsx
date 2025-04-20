@@ -4,7 +4,7 @@ import ContactForm from "../../../components/ui/forms/ContactForm";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 
 export default async function ContactPage() {
-    const client = getClient();
+    const client = await getClient();
       
     const { data } = await client.query({
         query: GET_CONTACT_FORM,
