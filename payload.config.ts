@@ -68,6 +68,7 @@ export default buildConfig({
       },
       // Token provided by Vercel once Blob storage is added to your Vercel project
       token: process.env.BLOB_READ_WRITE_TOKEN,
+      clientUploads: true
     }),
   ],
 })
