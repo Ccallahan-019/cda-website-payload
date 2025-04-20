@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { getApolloClient } from "@/graghql/apolloClient";
 import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pageQuery";
-import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { RenderHero } from "@/heros/RenderHero";
 import type { Document } from "payload";
