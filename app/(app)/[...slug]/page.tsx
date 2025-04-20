@@ -1,19 +1,22 @@
 import { notFound } from "next/navigation";
 import { getApolloClient } from "@/graghql/apolloClient";
 import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pageQuery";
+import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { RenderHero } from "@/heros/RenderHero";
 import type { Document } from "payload";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 
-export default async function PageTemplate({
-  params,
-}: {
-  params: { slug?: string[] };
-}) {
+type Args = {
+  params: Promise<{
+    slug?: string[]
+  }>
+}
+
+export default async function PageTemplate({ params }: Args) {
   const { isEnabled: draft } = await draftMode();
-  const slug = params.slug || ["home"];
+  const slug = (await params).slug || ["home"];
   const path = slug.join("/");
 
   const cookieStore = await cookies();
