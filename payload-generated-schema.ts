@@ -17,21 +17,84 @@ import {
   numeric,
   integer,
   jsonb,
-  text,
   boolean,
-  type AnyPgColumn,
+  text,
   pgEnum,
 } from "@payloadcms/db-vercel-postgres/drizzle/pg-core";
 import { sql, relations } from "@payloadcms/db-vercel-postgres/drizzle";
+export const enum_news_post_status = pgEnum("enum_news_post_status", [
+  "draft",
+  "published",
+]);
+export const enum__news_post_v_version_status = pgEnum(
+  "enum__news_post_v_version_status",
+  ["draft", "published"],
+);
+export const enum_page_hero_links_link_type = pgEnum(
+  "enum_page_hero_links_link_type",
+  ["reference", "custom"],
+);
+export const enum_page_hero_links_link_appearance = pgEnum(
+  "enum_page_hero_links_link_appearance",
+  ["default", "outline", "ghost", "destructive", "link", "secondary"],
+);
 export const enum_page_blocks_content_columns_size = pgEnum(
   "enum_page_blocks_content_columns_size",
   ["oneThird", "half", "twoThirds", "full"],
+);
+export const enum_page_blocks_side_bar_alignment = pgEnum(
+  "enum_page_blocks_side_bar_alignment",
+  ["left", "right"],
+);
+export const enum_page_blocks_media_with_text_media_size = pgEnum(
+  "enum_page_blocks_media_with_text_media_size",
+  ["oneThird", "half", "twoThirds"],
+);
+export const enum_page_blocks_media_with_text_media_alignment = pgEnum(
+  "enum_page_blocks_media_with_text_media_alignment",
+  ["left", "right"],
 );
 export const enum_page_hero_type = pgEnum("enum_page_hero_type", [
   "none",
   "highImpact",
   "lowImpact",
 ]);
+export const enum_page_status = pgEnum("enum_page_status", [
+  "draft",
+  "published",
+]);
+export const enum__page_v_version_hero_links_link_type = pgEnum(
+  "enum__page_v_version_hero_links_link_type",
+  ["reference", "custom"],
+);
+export const enum__page_v_version_hero_links_link_appearance = pgEnum(
+  "enum__page_v_version_hero_links_link_appearance",
+  ["default", "outline", "ghost", "destructive", "link", "secondary"],
+);
+export const enum__page_v_blocks_content_columns_size = pgEnum(
+  "enum__page_v_blocks_content_columns_size",
+  ["oneThird", "half", "twoThirds", "full"],
+);
+export const enum__page_v_blocks_side_bar_alignment = pgEnum(
+  "enum__page_v_blocks_side_bar_alignment",
+  ["left", "right"],
+);
+export const enum__page_v_blocks_media_with_text_media_size = pgEnum(
+  "enum__page_v_blocks_media_with_text_media_size",
+  ["oneThird", "half", "twoThirds"],
+);
+export const enum__page_v_blocks_media_with_text_media_alignment = pgEnum(
+  "enum__page_v_blocks_media_with_text_media_alignment",
+  ["left", "right"],
+);
+export const enum__page_v_version_hero_type = pgEnum(
+  "enum__page_v_version_hero_type",
+  ["none", "highImpact", "lowImpact"],
+);
+export const enum__page_v_version_status = pgEnum(
+  "enum__page_v_version_status",
+  ["draft", "published"],
+);
 export const enum_contact_contact_type = pgEnum("enum_contact_contact_type", [
   "national",
   "state",
@@ -43,19 +106,108 @@ export const enum_event_event_type = pgEnum("enum_event_event_type", [
   "local",
   "diocesan",
 ]);
+export const enum_event_status = pgEnum("enum_event_status", [
+  "draft",
+  "published",
+]);
+export const enum__event_v_version_event_type = pgEnum(
+  "enum__event_v_version_event_type",
+  ["national", "state", "local", "diocesan"],
+);
+export const enum__event_v_version_status = pgEnum(
+  "enum__event_v_version_status",
+  ["draft", "published"],
+);
 export const enum_project_project_type = pgEnum("enum_project_project_type", [
   "national",
   "state",
   "local",
 ]);
+export const enum_project_status = pgEnum("enum_project_status", [
+  "draft",
+  "published",
+]);
+export const enum__project_v_version_project_type = pgEnum(
+  "enum__project_v_version_project_type",
+  ["national", "state", "local"],
+);
+export const enum__project_v_version_status = pgEnum(
+  "enum__project_v_version_status",
+  ["draft", "published"],
+);
 export const enum_charity_charity_type = pgEnum("enum_charity_charity_type", [
   "national",
   "state",
   "local",
 ]);
+export const enum_charity_status = pgEnum("enum_charity_status", [
+  "draft",
+  "published",
+]);
+export const enum__charity_v_version_charity_type = pgEnum(
+  "enum__charity_v_version_charity_type",
+  ["national", "state", "local"],
+);
+export const enum__charity_v_version_status = pgEnum(
+  "enum__charity_v_version_status",
+  ["draft", "published"],
+);
 export const enum_fundraiser_fundraiser_type = pgEnum(
   "enum_fundraiser_fundraiser_type",
   ["national", "state", "local"],
+);
+export const enum_fundraiser_status = pgEnum("enum_fundraiser_status", [
+  "draft",
+  "published",
+]);
+export const enum__fundraiser_v_version_fundraiser_type = pgEnum(
+  "enum__fundraiser_v_version_fundraiser_type",
+  ["national", "state", "local"],
+);
+export const enum__fundraiser_v_version_status = pgEnum(
+  "enum__fundraiser_v_version_status",
+  ["draft", "published"],
+);
+export const enum_local_court_status = pgEnum("enum_local_court_status", [
+  "draft",
+  "published",
+]);
+export const enum__local_court_v_version_status = pgEnum(
+  "enum__local_court_v_version_status",
+  ["draft", "published"],
+);
+export const enum_newsletter_type = pgEnum("enum_newsletter_type", [
+  "local",
+  "state",
+  "national",
+]);
+export const enum_payload_jobs_log_task_slug = pgEnum(
+  "enum_payload_jobs_log_task_slug",
+  ["inline", "schedulePublish"],
+);
+export const enum_payload_jobs_log_state = pgEnum(
+  "enum_payload_jobs_log_state",
+  ["failed", "succeeded"],
+);
+export const enum_payload_jobs_task_slug = pgEnum(
+  "enum_payload_jobs_task_slug",
+  ["inline", "schedulePublish"],
+);
+export const enum_header_nav_items_sub_nav_links_link_type = pgEnum(
+  "enum_header_nav_items_sub_nav_links_link_type",
+  ["reference", "custom"],
+);
+export const enum_header_nav_items_sub_nav_links_link_appearance = pgEnum(
+  "enum_header_nav_items_sub_nav_links_link_appearance",
+  ["default", "outline", "ghost", "destructive", "link", "secondary"],
+);
+export const enum_header_nav_items_link_type = pgEnum(
+  "enum_header_nav_items_link_type",
+  ["reference", "custom"],
+);
+export const enum_header_nav_items_link_appearance = pgEnum(
+  "enum_header_nav_items_link_appearance",
+  ["default", "outline", "ghost", "destructive", "link", "secondary"],
 );
 
 export const media = pgTable(
@@ -98,12 +250,13 @@ export const news_post = pgTable(
   "news_post",
   {
     id: serial("id").primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description").notNull(),
-    link: integer("link_id").references(() => page.id, {
+    title: varchar("title"),
+    description: varchar("description"),
+    heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
-    linkText: varchar("link_text"),
+    content: jsonb("content"),
+    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -118,15 +271,158 @@ export const news_post = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_news_post_status("_status").default("draft"),
   },
   (columns) => ({
-    news_post_link_idx: index("news_post_link_idx").on(columns.link),
+    news_post_hero_image_idx: index("news_post_hero_image_idx").on(
+      columns.heroImage,
+    ),
+    news_post_slug_idx: uniqueIndex("news_post_slug_idx").on(columns.slug),
     news_post_updated_at_idx: index("news_post_updated_at_idx").on(
       columns.updatedAt,
     ),
     news_post_created_at_idx: index("news_post_created_at_idx").on(
       columns.createdAt,
     ),
+    news_post__status_idx: index("news_post__status_idx").on(columns._status),
+  }),
+);
+
+export const news_post_rels = pgTable(
+  "news_post_rels",
+  {
+    id: serial("id").primaryKey(),
+    order: integer("order"),
+    parent: integer("parent_id").notNull(),
+    path: varchar("path").notNull(),
+    newsPostID: integer("news_post_id"),
+  },
+  (columns) => ({
+    order: index("news_post_rels_order_idx").on(columns.order),
+    parentIdx: index("news_post_rels_parent_idx").on(columns.parent),
+    pathIdx: index("news_post_rels_path_idx").on(columns.path),
+    news_post_rels_news_post_id_idx: index(
+      "news_post_rels_news_post_id_idx",
+    ).on(columns.newsPostID),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [news_post.id],
+      name: "news_post_rels_parent_fk",
+    }).onDelete("cascade"),
+    newsPostIdFk: foreignKey({
+      columns: [columns["newsPostID"]],
+      foreignColumns: [news_post.id],
+      name: "news_post_rels_news_post_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _news_post_v = pgTable(
+  "_news_post_v",
+  {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => news_post.id, {
+      onDelete: "set null",
+    }),
+    version_title: varchar("version_title"),
+    version_description: varchar("version_description"),
+    version_heroImage: integer("version_hero_image_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_content: jsonb("version_content"),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__news_post_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _news_post_v_parent_idx: index("_news_post_v_parent_idx").on(
+      columns.parent,
+    ),
+    _news_post_v_version_version_hero_image_idx: index(
+      "_news_post_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
+    _news_post_v_version_version_slug_idx: index(
+      "_news_post_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _news_post_v_version_version_updated_at_idx: index(
+      "_news_post_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _news_post_v_version_version_created_at_idx: index(
+      "_news_post_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _news_post_v_version_version__status_idx: index(
+      "_news_post_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _news_post_v_created_at_idx: index("_news_post_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _news_post_v_updated_at_idx: index("_news_post_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _news_post_v_latest_idx: index("_news_post_v_latest_idx").on(
+      columns.latest,
+    ),
+    _news_post_v_autosave_idx: index("_news_post_v_autosave_idx").on(
+      columns.autosave,
+    ),
+  }),
+);
+
+export const _news_post_v_rels = pgTable(
+  "_news_post_v_rels",
+  {
+    id: serial("id").primaryKey(),
+    order: integer("order"),
+    parent: integer("parent_id").notNull(),
+    path: varchar("path").notNull(),
+    newsPostID: integer("news_post_id"),
+  },
+  (columns) => ({
+    order: index("_news_post_v_rels_order_idx").on(columns.order),
+    parentIdx: index("_news_post_v_rels_parent_idx").on(columns.parent),
+    pathIdx: index("_news_post_v_rels_path_idx").on(columns.path),
+    _news_post_v_rels_news_post_id_idx: index(
+      "_news_post_v_rels_news_post_id_idx",
+    ).on(columns.newsPostID),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [_news_post_v.id],
+      name: "_news_post_v_rels_parent_fk",
+    }).onDelete("cascade"),
+    newsPostIdFk: foreignKey({
+      columns: [columns["newsPostID"]],
+      foreignColumns: [news_post.id],
+      name: "_news_post_v_rels_news_post_fk",
+    }).onDelete("cascade"),
   }),
 );
 
@@ -168,6 +464,38 @@ export const users = pgTable(
     users_updated_at_idx: index("users_updated_at_idx").on(columns.updatedAt),
     users_created_at_idx: index("users_created_at_idx").on(columns.createdAt),
     users_email_idx: uniqueIndex("users_email_idx").on(columns.email),
+  }),
+);
+
+export const page_hero_links = pgTable(
+  "page_hero_links",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    link_type: enum_page_hero_links_link_type("link_type").default("reference"),
+    link_newTab: boolean("link_new_tab"),
+    link_reference: integer("link_reference_id").references(() => page.id, {
+      onDelete: "set null",
+    }),
+    link_url: varchar("link_url"),
+    link_label: varchar("link_label"),
+    link_appearance:
+      enum_page_hero_links_link_appearance("link_appearance").default(
+        "default",
+      ),
+  },
+  (columns) => ({
+    _orderIdx: index("page_hero_links_order_idx").on(columns._order),
+    _parentIDIdx: index("page_hero_links_parent_id_idx").on(columns._parentID),
+    page_hero_links_link_link_reference_idx: index(
+      "page_hero_links_link_link_reference_idx",
+    ).on(columns.link_reference),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page.id],
+      name: "page_hero_links_parent_id_fk",
+    }).onDelete("cascade"),
   }),
 );
 
@@ -224,7 +552,7 @@ export const page_blocks_stats_bar_stats = pgTable(
     _order: integer("_order").notNull(),
     _parentID: varchar("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    statNumber: numeric("stat_number").notNull(),
+    statNumber: numeric("stat_number"),
     statPostfix: varchar("stat_postfix"),
     statDescription: varchar("stat_description"),
   },
@@ -250,7 +578,7 @@ export const page_blocks_stats_bar = pgTable(
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
-    richText: jsonb("rich_text").notNull(),
+    richText: jsonb("rich_text"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
@@ -273,8 +601,8 @@ export const page_blocks_side_bar_sections = pgTable(
     _order: integer("_order").notNull(),
     _parentID: varchar("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    sectionHeading: varchar("section_heading").notNull(),
-    sectionRichText: jsonb("section_rich_text").notNull(),
+    sectionHeading: varchar("section_heading"),
+    sectionRichText: jsonb("section_rich_text"),
   },
   (columns) => ({
     _orderIdx: index("page_blocks_side_bar_sections_order_idx").on(
@@ -298,6 +626,8 @@ export const page_blocks_side_bar = pgTable(
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
+    alignment:
+      enum_page_blocks_side_bar_alignment("alignment").default("right"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
@@ -314,74 +644,102 @@ export const page_blocks_side_bar = pgTable(
   }),
 );
 
-export const page_blocks_page_heading_block = pgTable(
-  "page_blocks_page_heading_block",
+export const page_blocks_contact_cards_contacts_to_list = pgTable(
+  "page_blocks_contact_cards_contacts_to_list",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: varchar("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    contactToList: integer("contact_to_list_id").references(() => contact.id, {
+      onDelete: "set null",
+    }),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_contact_cards_contacts_to_list_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "page_blocks_contact_cards_contacts_to_list_parent_id_idx",
+    ).on(columns._parentID),
+    page_blocks_contact_cards_contacts_to_list_contact_to_list_idx: index(
+      "page_blocks_contact_cards_contacts_to_list_contact_to_list_idx",
+    ).on(columns.contactToList),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page_blocks_contact_cards.id],
+      name: "page_blocks_contact_cards_contacts_to_list_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_contact_cards = pgTable(
+  "page_blocks_contact_cards",
   {
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
-    heading: varchar("heading"),
+    richText: jsonb("rich_text"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_page_heading_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_page_heading_block_parent_id_idx").on(
+    _orderIdx: index("page_blocks_contact_cards_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_contact_cards_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("page_blocks_page_heading_block_path_idx").on(
-      columns._path,
-    ),
+    _pathIdx: index("page_blocks_contact_cards_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [page.id],
-      name: "page_blocks_page_heading_block_parent_id_fk",
+      name: "page_blocks_contact_cards_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const page_blocks_hero_banner_block = pgTable(
-  "page_blocks_hero_banner_block",
+export const page_blocks_tabs_tabs = pgTable(
+  "page_blocks_tabs_tabs",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: varchar("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    tabLabel: varchar("tab_label"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_tabs_tabs_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_tabs_tabs_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page_blocks_tabs.id],
+      name: "page_blocks_tabs_tabs_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_tabs = pgTable(
+  "page_blocks_tabs",
   {
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
-    heroText: jsonb("hero_text").notNull(),
-    heroImage: integer("hero_image_id").references(() => media.id, {
-      onDelete: "set null",
-    }),
-    link: integer("link_id").references(() => page.id, {
-      onDelete: "set null",
-    }),
     blockName: varchar("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_hero_banner_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_hero_banner_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_hero_banner_block_path_idx").on(columns._path),
-    page_blocks_hero_banner_block_hero_image_idx: index(
-      "page_blocks_hero_banner_block_hero_image_idx",
-    ).on(columns.heroImage),
-    page_blocks_hero_banner_block_link_idx: index(
-      "page_blocks_hero_banner_block_link_idx",
-    ).on(columns.link),
+    _orderIdx: index("page_blocks_tabs_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_tabs_parent_id_idx").on(columns._parentID),
+    _pathIdx: index("page_blocks_tabs_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [page.id],
-      name: "page_blocks_hero_banner_block_parent_id_fk",
+      name: "page_blocks_tabs_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const page_blocks_news_postings_block_posts = pgTable(
-  "page_blocks_news_postings_block_posts",
+export const page_blocks_news_posts_posts = pgTable(
+  "page_blocks_news_posts_posts",
   {
     _order: integer("_order").notNull(),
     _parentID: varchar("_parent_id").notNull(),
@@ -391,462 +749,315 @@ export const page_blocks_news_postings_block_posts = pgTable(
     }),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_news_postings_block_posts_order_idx").on(
+    _orderIdx: index("page_blocks_news_posts_posts_order_idx").on(
       columns._order,
     ),
-    _parentIDIdx: index(
-      "page_blocks_news_postings_block_posts_parent_id_idx",
-    ).on(columns._parentID),
-    page_blocks_news_postings_block_posts_post_idx: index(
-      "page_blocks_news_postings_block_posts_post_idx",
+    _parentIDIdx: index("page_blocks_news_posts_posts_parent_id_idx").on(
+      columns._parentID,
+    ),
+    page_blocks_news_posts_posts_post_idx: index(
+      "page_blocks_news_posts_posts_post_idx",
     ).on(columns.post),
     _parentIDFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_news_postings_block.id],
-      name: "page_blocks_news_postings_block_posts_parent_id_fk",
+      foreignColumns: [page_blocks_news_posts.id],
+      name: "page_blocks_news_posts_posts_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const page_blocks_news_postings_block = pgTable(
-  "page_blocks_news_postings_block",
+export const page_blocks_news_posts = pgTable(
+  "page_blocks_news_posts",
   {
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description"),
+    richText: jsonb("rich_text"),
+    pagination: boolean("pagination").default(false),
+    rowsPerPage: numeric("rows_per_page").default("10"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_news_postings_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_news_postings_block_parent_id_idx").on(
+    _orderIdx: index("page_blocks_news_posts_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_news_posts_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("page_blocks_news_postings_block_path_idx").on(
-      columns._path,
-    ),
+    _pathIdx: index("page_blocks_news_posts_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [page.id],
-      name: "page_blocks_news_postings_block_parent_id_fk",
+      name: "page_blocks_news_posts_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const page_blocks_rich_text_block = pgTable(
-  "page_blocks_rich_text_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    richTextTitle: varchar("rich_text_title"),
-    text: jsonb("text").notNull(),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_rich_text_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_rich_text_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_rich_text_block_path_idx").on(columns._path),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_rich_text_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_stats_block_stats = pgTable(
-  "page_blocks_stats_block_stats",
+export const page_blocks_court_listing_courts = pgTable(
+  "page_blocks_court_listing_courts",
   {
     _order: integer("_order").notNull(),
     _parentID: varchar("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    statNumber: numeric("stat_number").notNull(),
-    statPostfix: varchar("stat_postfix"),
-    statDescription: varchar("stat_description"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_stats_block_stats_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_stats_block_stats_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_stats_block.id],
-      name: "page_blocks_stats_block_stats_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_stats_block = pgTable(
-  "page_blocks_stats_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    statsTitle: varchar("stats_title").notNull(),
-    statsDescription: varchar("stats_description"),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_stats_block_order_idx").on(columns._order),
-    _parentIDIdx: index("page_blocks_stats_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_stats_block_path_idx").on(columns._path),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_stats_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_district_deputies_block = pgTable(
-  "page_blocks_district_deputies_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description"),
-    diocese: integer("diocese_id")
-      .notNull()
-      .references(() => diocese.id, {
-        onDelete: "set null",
-      }),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_district_deputies_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_district_deputies_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_district_deputies_block_path_idx").on(
-      columns._path,
-    ),
-    page_blocks_district_deputies_block_diocese_idx: index(
-      "page_blocks_district_deputies_block_diocese_idx",
-    ).on(columns.diocese),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_district_deputies_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_state_officers_block_contacts = pgTable(
-  "page_blocks_state_officers_block_contacts",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: varchar("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    contact: integer("contact_id").references(() => contact.id, {
+    court: integer("court_id").references(() => local_court.id, {
       onDelete: "set null",
     }),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_state_officers_block_contacts_order_idx").on(
+    _orderIdx: index("page_blocks_court_listing_courts_order_idx").on(
       columns._order,
     ),
-    _parentIDIdx: index(
-      "page_blocks_state_officers_block_contacts_parent_id_idx",
-    ).on(columns._parentID),
-    page_blocks_state_officers_block_contacts_contact_idx: index(
-      "page_blocks_state_officers_block_contacts_contact_idx",
-    ).on(columns.contact),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_state_officers_block.id],
-      name: "page_blocks_state_officers_block_contacts_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_state_officers_block = pgTable(
-  "page_blocks_state_officers_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description"),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_state_officers_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_state_officers_block_parent_id_idx").on(
+    _parentIDIdx: index("page_blocks_court_listing_courts_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("page_blocks_state_officers_block_path_idx").on(
-      columns._path,
-    ),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_state_officers_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_state_chairmen_block_chairmen = pgTable(
-  "page_blocks_state_chairmen_block_chairmen",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: varchar("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    chairman: integer("chairman_id")
-      .notNull()
-      .references(() => contact.id, {
-        onDelete: "set null",
-      }),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_state_chairmen_block_chairmen_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "page_blocks_state_chairmen_block_chairmen_parent_id_idx",
-    ).on(columns._parentID),
-    page_blocks_state_chairmen_block_chairmen_chairman_idx: index(
-      "page_blocks_state_chairmen_block_chairmen_chairman_idx",
-    ).on(columns.chairman),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_state_chairmen_block.id],
-      name: "page_blocks_state_chairmen_block_chairmen_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_state_chairmen_block = pgTable(
-  "page_blocks_state_chairmen_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description"),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_state_chairmen_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_state_chairmen_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_state_chairmen_block_path_idx").on(
-      columns._path,
-    ),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_state_chairmen_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_side_bar_layout_block_sections = pgTable(
-  "page_blocks_side_bar_layout_block_sections",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: varchar("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    sectionTitle: varchar("section_title").notNull(),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_side_bar_layout_block_sections_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "page_blocks_side_bar_layout_block_sections_parent_id_idx",
-    ).on(columns._parentID),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_side_bar_layout_block.id],
-      name: "page_blocks_side_bar_layout_block_sections_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_side_bar_layout_block = pgTable(
-  "page_blocks_side_bar_layout_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_side_bar_layout_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_side_bar_layout_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_side_bar_layout_block_path_idx").on(
-      columns._path,
-    ),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_side_bar_layout_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_tabbed_layout_block_tabs = pgTable(
-  "page_blocks_tabbed_layout_block_tabs",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: varchar("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    tabLabel: varchar("tab_label").notNull(),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_tabbed_layout_block_tabs_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "page_blocks_tabbed_layout_block_tabs_parent_id_idx",
-    ).on(columns._parentID),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_tabbed_layout_block.id],
-      name: "page_blocks_tabbed_layout_block_tabs_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_tabbed_layout_block = pgTable(
-  "page_blocks_tabbed_layout_block",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    _path: text("_path").notNull(),
-    id: varchar("id").primaryKey(),
-    blockName: varchar("block_name"),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_tabbed_layout_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_tabbed_layout_block_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _pathIdx: index("page_blocks_tabbed_layout_block_path_idx").on(
-      columns._path,
-    ),
-    _parentIdFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page.id],
-      name: "page_blocks_tabbed_layout_block_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const page_blocks_court_table_block_courts = pgTable(
-  "page_blocks_court_table_block_courts",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: varchar("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    court: integer("court_id")
-      .notNull()
-      .references(() => local_court.id, {
-        onDelete: "set null",
-      }),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_court_table_block_courts_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "page_blocks_court_table_block_courts_parent_id_idx",
-    ).on(columns._parentID),
-    page_blocks_court_table_block_courts_court_idx: index(
-      "page_blocks_court_table_block_courts_court_idx",
+    page_blocks_court_listing_courts_court_idx: uniqueIndex(
+      "page_blocks_court_listing_courts_court_idx",
     ).on(columns.court),
     _parentIDFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_court_table_block.id],
-      name: "page_blocks_court_table_block_courts_parent_id_fk",
+      foreignColumns: [page_blocks_court_listing.id],
+      name: "page_blocks_court_listing_courts_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const page_blocks_court_table_block = pgTable(
-  "page_blocks_court_table_block",
+export const page_blocks_court_listing = pgTable(
+  "page_blocks_court_listing",
   {
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
-    courtTableTitle: varchar("court_table_title"),
-    courtTableDescription: varchar("court_table_description"),
+    richText: jsonb("rich_text"),
+    rowsPerPage: numeric("rows_per_page").default("10"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_court_table_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_court_table_block_parent_id_idx").on(
+    _orderIdx: index("page_blocks_court_listing_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_court_listing_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("page_blocks_court_table_block_path_idx").on(columns._path),
+    _pathIdx: index("page_blocks_court_listing_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [page.id],
-      name: "page_blocks_court_table_block_parent_id_fk",
+      name: "page_blocks_court_listing_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const page_blocks_standard_layout_block = pgTable(
-  "page_blocks_standard_layout_block",
+export const page_blocks_calendar_months_month_items = pgTable(
+  "page_blocks_calendar_months_month_items",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: varchar("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    item: varchar("item"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_calendar_months_month_items_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "page_blocks_calendar_months_month_items_parent_id_idx",
+    ).on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page_blocks_calendar_months.id],
+      name: "page_blocks_calendar_months_month_items_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_calendar_months = pgTable(
+  "page_blocks_calendar_months",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: varchar("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    title: varchar("title"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_calendar_months_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("page_blocks_calendar_months_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page_blocks_calendar.id],
+      name: "page_blocks_calendar_months_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_calendar = pgTable(
+  "page_blocks_calendar",
   {
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
+    intro: jsonb("intro"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("page_blocks_standard_layout_block_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_standard_layout_block_parent_id_idx").on(
+    _orderIdx: index("page_blocks_calendar_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_calendar_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("page_blocks_standard_layout_block_path_idx").on(
-      columns._path,
-    ),
+    _pathIdx: index("page_blocks_calendar_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [page.id],
-      name: "page_blocks_standard_layout_block_parent_id_fk",
+      name: "page_blocks_calendar_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_media_with_text = pgTable(
+  "page_blocks_media_with_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: varchar("id").primaryKey(),
+    mediaSize:
+      enum_page_blocks_media_with_text_media_size("media_size").default("half"),
+    mediaAlignment:
+      enum_page_blocks_media_with_text_media_alignment(
+        "media_alignment",
+      ).default("left"),
+    richText: jsonb("rich_text"),
+    media: integer("media_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_media_with_text_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("page_blocks_media_with_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("page_blocks_media_with_text_path_idx").on(columns._path),
+    page_blocks_media_with_text_media_idx: index(
+      "page_blocks_media_with_text_media_idx",
+    ).on(columns.media),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page.id],
+      name: "page_blocks_media_with_text_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_slider_slides = pgTable(
+  "page_blocks_slider_slides",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: varchar("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    slideContent: jsonb("slide_content"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_slider_slides_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_slider_slides_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page_blocks_slider.id],
+      name: "page_blocks_slider_slides_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_slider = pgTable(
+  "page_blocks_slider",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: varchar("id").primaryKey(),
+    intro: jsonb("intro"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_slider_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_slider_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("page_blocks_slider_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page.id],
+      name: "page_blocks_slider_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_newsletters_newsletters = pgTable(
+  "page_blocks_newsletters_newsletters",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: varchar("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    newsletter: integer("newsletter_id").references(() => newsletter.id, {
+      onDelete: "set null",
+    }),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_newsletters_newsletters_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("page_blocks_newsletters_newsletters_parent_id_idx").on(
+      columns._parentID,
+    ),
+    page_blocks_newsletters_newsletters_newsletter_idx: index(
+      "page_blocks_newsletters_newsletters_newsletter_idx",
+    ).on(columns.newsletter),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page_blocks_newsletters.id],
+      name: "page_blocks_newsletters_newsletters_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const page_blocks_newsletters = pgTable(
+  "page_blocks_newsletters",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: varchar("id").primaryKey(),
+    richText: jsonb("rich_text"),
+    downloadImage: integer("download_image_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    dropdownIcon: integer("dropdown_icon_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_newsletters_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_newsletters_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("page_blocks_newsletters_path_idx").on(columns._path),
+    page_blocks_newsletters_download_image_idx: index(
+      "page_blocks_newsletters_download_image_idx",
+    ).on(columns.downloadImage),
+    page_blocks_newsletters_dropdown_icon_idx: index(
+      "page_blocks_newsletters_dropdown_icon_idx",
+    ).on(columns.dropdownIcon),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page.id],
+      name: "page_blocks_newsletters_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -855,21 +1066,14 @@ export const page = pgTable(
   "page",
   {
     id: serial("id").primaryKey(),
-    title: varchar("title").notNull(),
-    hero_type: enum_page_hero_type("hero_type").notNull().default("lowImpact"),
+    title: varchar("title"),
+    hero_type: enum_page_hero_type("hero_type").default("lowImpact"),
     hero_richText: jsonb("hero_rich_text"),
     hero_media: integer("hero_media_id").references(() => media.id, {
       onDelete: "set null",
     }),
     hero_includeButton: boolean("hero_include_button").default(true),
-    hero_button_buttonText: varchar("hero_button_button_text"),
-    hero_button_buttonLink: integer("hero_button_button_link_id").references(
-      (): AnyPgColumn => page.id,
-      {
-        onDelete: "set null",
-      },
-    ),
-    slug: varchar("slug").notNull(),
+    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -884,16 +1088,729 @@ export const page = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_page_status("_status").default("draft"),
   },
   (columns) => ({
     page_hero_hero_media_idx: index("page_hero_hero_media_idx").on(
       columns.hero_media,
     ),
-    page_hero_button_hero_button_button_link_idx: index(
-      "page_hero_button_hero_button_button_link_idx",
-    ).on(columns.hero_button_buttonLink),
+    page_slug_idx: uniqueIndex("page_slug_idx").on(columns.slug),
     page_updated_at_idx: index("page_updated_at_idx").on(columns.updatedAt),
     page_created_at_idx: index("page_created_at_idx").on(columns.createdAt),
+    page__status_idx: index("page__status_idx").on(columns._status),
+  }),
+);
+
+export const _page_v_version_hero_links = pgTable(
+  "_page_v_version_hero_links",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    link_type:
+      enum__page_v_version_hero_links_link_type("link_type").default(
+        "reference",
+      ),
+    link_newTab: boolean("link_new_tab"),
+    link_reference: integer("link_reference_id").references(() => page.id, {
+      onDelete: "set null",
+    }),
+    link_url: varchar("link_url"),
+    link_label: varchar("link_label"),
+    link_appearance:
+      enum__page_v_version_hero_links_link_appearance(
+        "link_appearance",
+      ).default("default"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_version_hero_links_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_version_hero_links_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _page_v_version_hero_links_link_link_reference_idx: index(
+      "_page_v_version_hero_links_link_link_reference_idx",
+    ).on(columns.link_reference),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_version_hero_links_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_content_columns = pgTable(
+  "_page_v_blocks_content_columns",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    size: enum__page_v_blocks_content_columns_size("size").default("oneThird"),
+    richText: jsonb("rich_text"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_content_columns_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_content_columns_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_content.id],
+      name: "_page_v_blocks_content_columns_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_content = pgTable(
+  "_page_v_blocks_content",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_content_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_content_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_content_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_content_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_stats_bar_stats = pgTable(
+  "_page_v_blocks_stats_bar_stats",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    statNumber: numeric("stat_number"),
+    statPostfix: varchar("stat_postfix"),
+    statDescription: varchar("stat_description"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_stats_bar_stats_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_stats_bar_stats_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_stats_bar.id],
+      name: "_page_v_blocks_stats_bar_stats_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_stats_bar = pgTable(
+  "_page_v_blocks_stats_bar",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    richText: jsonb("rich_text"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_stats_bar_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_stats_bar_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_stats_bar_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_stats_bar_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_side_bar_sections = pgTable(
+  "_page_v_blocks_side_bar_sections",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    sectionHeading: varchar("section_heading"),
+    sectionRichText: jsonb("section_rich_text"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_side_bar_sections_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_side_bar_sections_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_side_bar.id],
+      name: "_page_v_blocks_side_bar_sections_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_side_bar = pgTable(
+  "_page_v_blocks_side_bar",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    alignment:
+      enum__page_v_blocks_side_bar_alignment("alignment").default("right"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_side_bar_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_side_bar_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_side_bar_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_side_bar_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_contact_cards_contacts_to_list = pgTable(
+  "_page_v_blocks_contact_cards_contacts_to_list",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    contactToList: integer("contact_to_list_id").references(() => contact.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index(
+      "_page_v_blocks_contact_cards_contacts_to_list_order_idx",
+    ).on(columns._order),
+    _parentIDIdx: index(
+      "_page_v_blocks_contact_cards_contacts_to_list_parent_id_idx",
+    ).on(columns._parentID),
+    _page_v_blocks_contact_cards_contacts_to_list_contact_to_list_idx: index(
+      "_page_v_blocks_contact_cards_contacts_to_list_contact_to_list_idx",
+    ).on(columns.contactToList),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_contact_cards.id],
+      name: "_page_v_blocks_contact_cards_contacts_to_list_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_contact_cards = pgTable(
+  "_page_v_blocks_contact_cards",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    richText: jsonb("rich_text"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_contact_cards_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_contact_cards_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_contact_cards_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_contact_cards_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_tabs_tabs = pgTable(
+  "_page_v_blocks_tabs_tabs",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    tabLabel: varchar("tab_label"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_tabs_tabs_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_tabs_tabs_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_tabs.id],
+      name: "_page_v_blocks_tabs_tabs_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_tabs = pgTable(
+  "_page_v_blocks_tabs",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_tabs_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_tabs_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_tabs_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_tabs_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_news_posts_posts = pgTable(
+  "_page_v_blocks_news_posts_posts",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    post: integer("post_id").references(() => news_post.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_news_posts_posts_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_news_posts_posts_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _page_v_blocks_news_posts_posts_post_idx: index(
+      "_page_v_blocks_news_posts_posts_post_idx",
+    ).on(columns.post),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_news_posts.id],
+      name: "_page_v_blocks_news_posts_posts_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_news_posts = pgTable(
+  "_page_v_blocks_news_posts",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    richText: jsonb("rich_text"),
+    pagination: boolean("pagination").default(false),
+    rowsPerPage: numeric("rows_per_page").default("10"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_news_posts_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_news_posts_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_news_posts_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_news_posts_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_court_listing_courts = pgTable(
+  "_page_v_blocks_court_listing_courts",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    court: integer("court_id").references(() => local_court.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_court_listing_courts_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_court_listing_courts_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _page_v_blocks_court_listing_courts_court_idx: index(
+      "_page_v_blocks_court_listing_courts_court_idx",
+    ).on(columns.court),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_court_listing.id],
+      name: "_page_v_blocks_court_listing_courts_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_court_listing = pgTable(
+  "_page_v_blocks_court_listing",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    richText: jsonb("rich_text"),
+    rowsPerPage: numeric("rows_per_page").default("10"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_court_listing_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_court_listing_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_court_listing_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_court_listing_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_calendar_months_month_items = pgTable(
+  "_page_v_blocks_calendar_months_month_items",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    item: varchar("item"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_calendar_months_month_items_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "_page_v_blocks_calendar_months_month_items_parent_id_idx",
+    ).on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_calendar_months.id],
+      name: "_page_v_blocks_calendar_months_month_items_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_calendar_months = pgTable(
+  "_page_v_blocks_calendar_months",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    title: varchar("title"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_calendar_months_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_calendar_months_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_calendar.id],
+      name: "_page_v_blocks_calendar_months_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_calendar = pgTable(
+  "_page_v_blocks_calendar",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    intro: jsonb("intro"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_calendar_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_calendar_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_calendar_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_calendar_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_media_with_text = pgTable(
+  "_page_v_blocks_media_with_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    mediaSize:
+      enum__page_v_blocks_media_with_text_media_size("media_size").default(
+        "half",
+      ),
+    mediaAlignment:
+      enum__page_v_blocks_media_with_text_media_alignment(
+        "media_alignment",
+      ).default("left"),
+    richText: jsonb("rich_text"),
+    media: integer("media_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_media_with_text_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_media_with_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_media_with_text_path_idx").on(
+      columns._path,
+    ),
+    _page_v_blocks_media_with_text_media_idx: index(
+      "_page_v_blocks_media_with_text_media_idx",
+    ).on(columns.media),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_media_with_text_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_slider_slides = pgTable(
+  "_page_v_blocks_slider_slides",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    slideContent: jsonb("slide_content"),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_slider_slides_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_page_v_blocks_slider_slides_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_slider.id],
+      name: "_page_v_blocks_slider_slides_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_slider = pgTable(
+  "_page_v_blocks_slider",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    intro: jsonb("intro"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_slider_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_slider_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_slider_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_slider_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_newsletters_newsletters = pgTable(
+  "_page_v_blocks_newsletters_newsletters",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    newsletter: integer("newsletter_id").references(() => newsletter.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_newsletters_newsletters_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "_page_v_blocks_newsletters_newsletters_parent_id_idx",
+    ).on(columns._parentID),
+    _page_v_blocks_newsletters_newsletters_newsletter_idx: index(
+      "_page_v_blocks_newsletters_newsletters_newsletter_idx",
+    ).on(columns.newsletter),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v_blocks_newsletters.id],
+      name: "_page_v_blocks_newsletters_newsletters_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_newsletters = pgTable(
+  "_page_v_blocks_newsletters",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    richText: jsonb("rich_text"),
+    downloadImage: integer("download_image_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    dropdownIcon: integer("dropdown_icon_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_newsletters_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_newsletters_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_newsletters_path_idx").on(columns._path),
+    _page_v_blocks_newsletters_download_image_idx: index(
+      "_page_v_blocks_newsletters_download_image_idx",
+    ).on(columns.downloadImage),
+    _page_v_blocks_newsletters_dropdown_icon_idx: index(
+      "_page_v_blocks_newsletters_dropdown_icon_idx",
+    ).on(columns.dropdownIcon),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_newsletters_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v = pgTable(
+  "_page_v",
+  {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => page.id, {
+      onDelete: "set null",
+    }),
+    version_title: varchar("version_title"),
+    version_hero_type:
+      enum__page_v_version_hero_type("version_hero_type").default("lowImpact"),
+    version_hero_richText: jsonb("version_hero_rich_text"),
+    version_hero_media: integer("version_hero_media_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_hero_includeButton: boolean("version_hero_include_button").default(
+      true,
+    ),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__page_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _page_v_parent_idx: index("_page_v_parent_idx").on(columns.parent),
+    _page_v_version_hero_version_hero_media_idx: index(
+      "_page_v_version_hero_version_hero_media_idx",
+    ).on(columns.version_hero_media),
+    _page_v_version_version_slug_idx: index(
+      "_page_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _page_v_version_version_updated_at_idx: index(
+      "_page_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _page_v_version_version_created_at_idx: index(
+      "_page_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _page_v_version_version__status_idx: index(
+      "_page_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _page_v_created_at_idx: index("_page_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _page_v_updated_at_idx: index("_page_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _page_v_latest_idx: index("_page_v_latest_idx").on(columns.latest),
+    _page_v_autosave_idx: index("_page_v_autosave_idx").on(columns.autosave),
   }),
 );
 
@@ -935,9 +1852,6 @@ export const contact = pgTable(
     contactType: enum_contact_contact_type("contact_type")
       .notNull()
       .default("national"),
-    contactLink: integer("contact_link_id").references(() => page.id, {
-      onDelete: "set null",
-    }),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -956,9 +1870,6 @@ export const contact = pgTable(
   (columns) => ({
     contact_contact_image_idx: index("contact_contact_image_idx").on(
       columns.contactImage,
-    ),
-    contact_contact_link_idx: index("contact_contact_link_idx").on(
-      columns.contactLink,
     ),
     contact_updated_at_idx: index("contact_updated_at_idx").on(
       columns.updatedAt,
@@ -993,37 +1904,6 @@ export const diocese_district_deputies = pgTable(
       columns: [columns["_parentID"]],
       foreignColumns: [diocese.id],
       name: "diocese_district_deputies_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const diocese_diocese_meeting_schedule = pgTable(
-  "diocese_diocese_meeting_schedule",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    meetingDate: timestamp("meeting_date", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }).notNull(),
-    meetingLocation_meetingAddress: varchar("meeting_location_meeting_address"),
-    meetingLocation_meetingCity: varchar("meeting_location_meeting_city"),
-    meetingLocation_meetingState: varchar("meeting_location_meeting_state"),
-    meetingLocation_meetingZipcode: varchar("meeting_location_meeting_zipcode"),
-  },
-  (columns) => ({
-    _orderIdx: index("diocese_diocese_meeting_schedule_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("diocese_diocese_meeting_schedule_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [diocese.id],
-      name: "diocese_diocese_meeting_schedule_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -1067,6 +1947,7 @@ export const diocese = pgTable(
     dioceseLocation_dioceseState: varchar("diocese_location_diocese_state"),
     dioceseLocation_dioceseZipcode: varchar("diocese_location_diocese_zipcode"),
     diocesePhoneNumber: varchar("diocese_phone_number"),
+    info: jsonb("info"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -1096,18 +1977,19 @@ export const event = pgTable(
   "event",
   {
     id: serial("id").primaryKey(),
-    eventName: varchar("event_name").notNull(),
+    eventName: varchar("event_name"),
     eventDate: timestamp("event_date", {
       mode: "string",
       withTimezone: true,
       precision: 3,
-    }).notNull(),
-    eventDescription: varchar("event_description").notNull(),
-    eventType: enum_event_event_type("event_type").notNull(),
-    link: integer("link_id").references(() => page.id, {
+    }),
+    eventDescription: varchar("event_description"),
+    eventType: enum_event_event_type("event_type"),
+    heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
-    linkText: varchar("link_text"),
+    content: jsonb("content"),
+    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -1122,11 +2004,152 @@ export const event = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_event_status("_status").default("draft"),
   },
   (columns) => ({
-    event_link_idx: index("event_link_idx").on(columns.link),
+    event_hero_image_idx: index("event_hero_image_idx").on(columns.heroImage),
+    event_slug_idx: uniqueIndex("event_slug_idx").on(columns.slug),
     event_updated_at_idx: index("event_updated_at_idx").on(columns.updatedAt),
     event_created_at_idx: index("event_created_at_idx").on(columns.createdAt),
+    event__status_idx: index("event__status_idx").on(columns._status),
+  }),
+);
+
+export const event_rels = pgTable(
+  "event_rels",
+  {
+    id: serial("id").primaryKey(),
+    order: integer("order"),
+    parent: integer("parent_id").notNull(),
+    path: varchar("path").notNull(),
+    eventID: integer("event_id"),
+  },
+  (columns) => ({
+    order: index("event_rels_order_idx").on(columns.order),
+    parentIdx: index("event_rels_parent_idx").on(columns.parent),
+    pathIdx: index("event_rels_path_idx").on(columns.path),
+    event_rels_event_id_idx: index("event_rels_event_id_idx").on(
+      columns.eventID,
+    ),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [event.id],
+      name: "event_rels_parent_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "event_rels_event_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _event_v = pgTable(
+  "_event_v",
+  {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => event.id, {
+      onDelete: "set null",
+    }),
+    version_eventName: varchar("version_event_name"),
+    version_eventDate: timestamp("version_event_date", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_eventDescription: varchar("version_event_description"),
+    version_eventType: enum__event_v_version_event_type("version_event_type"),
+    version_heroImage: integer("version_hero_image_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_content: jsonb("version_content"),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__event_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _event_v_parent_idx: index("_event_v_parent_idx").on(columns.parent),
+    _event_v_version_version_hero_image_idx: index(
+      "_event_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
+    _event_v_version_version_slug_idx: index(
+      "_event_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _event_v_version_version_updated_at_idx: index(
+      "_event_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _event_v_version_version_created_at_idx: index(
+      "_event_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _event_v_version_version__status_idx: index(
+      "_event_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _event_v_created_at_idx: index("_event_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _event_v_updated_at_idx: index("_event_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _event_v_latest_idx: index("_event_v_latest_idx").on(columns.latest),
+    _event_v_autosave_idx: index("_event_v_autosave_idx").on(columns.autosave),
+  }),
+);
+
+export const _event_v_rels = pgTable(
+  "_event_v_rels",
+  {
+    id: serial("id").primaryKey(),
+    order: integer("order"),
+    parent: integer("parent_id").notNull(),
+    path: varchar("path").notNull(),
+    eventID: integer("event_id"),
+  },
+  (columns) => ({
+    order: index("_event_v_rels_order_idx").on(columns.order),
+    parentIdx: index("_event_v_rels_parent_idx").on(columns.parent),
+    pathIdx: index("_event_v_rels_path_idx").on(columns.path),
+    _event_v_rels_event_id_idx: index("_event_v_rels_event_id_idx").on(
+      columns.eventID,
+    ),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [_event_v.id],
+      name: "_event_v_rels_parent_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "_event_v_rels_event_fk",
+    }).onDelete("cascade"),
   }),
 );
 
@@ -1134,12 +2157,14 @@ export const project = pgTable(
   "project",
   {
     id: serial("id").primaryKey(),
-    projectName: varchar("project_name").notNull(),
-    projectDescription: varchar("project_description").notNull(),
-    projectType: enum_project_project_type("project_type").notNull(),
-    projectLink: integer("project_link_id").references(() => page.id, {
+    projectName: varchar("project_name"),
+    projectDescription: varchar("project_description"),
+    projectType: enum_project_project_type("project_type"),
+    heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
+    content: jsonb("content"),
+    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -1154,16 +2179,98 @@ export const project = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_project_status("_status").default("draft"),
   },
   (columns) => ({
-    project_project_link_idx: index("project_project_link_idx").on(
-      columns.projectLink,
+    project_hero_image_idx: index("project_hero_image_idx").on(
+      columns.heroImage,
     ),
+    project_slug_idx: uniqueIndex("project_slug_idx").on(columns.slug),
     project_updated_at_idx: index("project_updated_at_idx").on(
       columns.updatedAt,
     ),
     project_created_at_idx: index("project_created_at_idx").on(
       columns.createdAt,
+    ),
+    project__status_idx: index("project__status_idx").on(columns._status),
+  }),
+);
+
+export const _project_v = pgTable(
+  "_project_v",
+  {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => project.id, {
+      onDelete: "set null",
+    }),
+    version_projectName: varchar("version_project_name"),
+    version_projectDescription: varchar("version_project_description"),
+    version_projectType: enum__project_v_version_project_type(
+      "version_project_type",
+    ),
+    version_heroImage: integer("version_hero_image_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_content: jsonb("version_content"),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__project_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _project_v_parent_idx: index("_project_v_parent_idx").on(columns.parent),
+    _project_v_version_version_hero_image_idx: index(
+      "_project_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
+    _project_v_version_version_slug_idx: index(
+      "_project_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _project_v_version_version_updated_at_idx: index(
+      "_project_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _project_v_version_version_created_at_idx: index(
+      "_project_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _project_v_version_version__status_idx: index(
+      "_project_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _project_v_created_at_idx: index("_project_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _project_v_updated_at_idx: index("_project_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _project_v_latest_idx: index("_project_v_latest_idx").on(columns.latest),
+    _project_v_autosave_idx: index("_project_v_autosave_idx").on(
+      columns.autosave,
     ),
   }),
 );
@@ -1172,12 +2279,14 @@ export const charity = pgTable(
   "charity",
   {
     id: serial("id").primaryKey(),
-    charityName: varchar("charity_name").notNull(),
-    charityDescription: varchar("charity_description").notNull(),
-    charityType: enum_charity_charity_type("charity_type").notNull(),
-    charityLink: integer("charity_link_id").references(() => page.id, {
+    charityName: varchar("charity_name"),
+    charityDescription: varchar("charity_description"),
+    charityType: enum_charity_charity_type("charity_type"),
+    heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
+    content: jsonb("content"),
+    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -1192,16 +2301,98 @@ export const charity = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_charity_status("_status").default("draft"),
   },
   (columns) => ({
-    charity_charity_link_idx: index("charity_charity_link_idx").on(
-      columns.charityLink,
+    charity_hero_image_idx: index("charity_hero_image_idx").on(
+      columns.heroImage,
     ),
+    charity_slug_idx: uniqueIndex("charity_slug_idx").on(columns.slug),
     charity_updated_at_idx: index("charity_updated_at_idx").on(
       columns.updatedAt,
     ),
     charity_created_at_idx: index("charity_created_at_idx").on(
       columns.createdAt,
+    ),
+    charity__status_idx: index("charity__status_idx").on(columns._status),
+  }),
+);
+
+export const _charity_v = pgTable(
+  "_charity_v",
+  {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => charity.id, {
+      onDelete: "set null",
+    }),
+    version_charityName: varchar("version_charity_name"),
+    version_charityDescription: varchar("version_charity_description"),
+    version_charityType: enum__charity_v_version_charity_type(
+      "version_charity_type",
+    ),
+    version_heroImage: integer("version_hero_image_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_content: jsonb("version_content"),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__charity_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _charity_v_parent_idx: index("_charity_v_parent_idx").on(columns.parent),
+    _charity_v_version_version_hero_image_idx: index(
+      "_charity_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
+    _charity_v_version_version_slug_idx: index(
+      "_charity_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _charity_v_version_version_updated_at_idx: index(
+      "_charity_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _charity_v_version_version_created_at_idx: index(
+      "_charity_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _charity_v_version_version__status_idx: index(
+      "_charity_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _charity_v_created_at_idx: index("_charity_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _charity_v_updated_at_idx: index("_charity_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _charity_v_latest_idx: index("_charity_v_latest_idx").on(columns.latest),
+    _charity_v_autosave_idx: index("_charity_v_autosave_idx").on(
+      columns.autosave,
     ),
   }),
 );
@@ -1210,13 +2401,14 @@ export const fundraiser = pgTable(
   "fundraiser",
   {
     id: serial("id").primaryKey(),
-    fundraiserName: varchar("fundraiser_name").notNull(),
-    fundraiserDescription: varchar("fundraiser_description").notNull(),
-    fundraiserType:
-      enum_fundraiser_fundraiser_type("fundraiser_type").notNull(),
-    fundraiserLink: integer("fundraiser_link_id").references(() => page.id, {
+    fundraiserName: varchar("fundraiser_name"),
+    fundraiserDescription: varchar("fundraiser_description"),
+    fundraiserType: enum_fundraiser_fundraiser_type("fundraiser_type"),
+    heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
+    content: jsonb("content"),
+    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -1231,56 +2423,103 @@ export const fundraiser = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_fundraiser_status("_status").default("draft"),
   },
   (columns) => ({
-    fundraiser_fundraiser_link_idx: index("fundraiser_fundraiser_link_idx").on(
-      columns.fundraiserLink,
+    fundraiser_hero_image_idx: index("fundraiser_hero_image_idx").on(
+      columns.heroImage,
     ),
+    fundraiser_slug_idx: uniqueIndex("fundraiser_slug_idx").on(columns.slug),
     fundraiser_updated_at_idx: index("fundraiser_updated_at_idx").on(
       columns.updatedAt,
     ),
     fundraiser_created_at_idx: index("fundraiser_created_at_idx").on(
       columns.createdAt,
     ),
+    fundraiser__status_idx: index("fundraiser__status_idx").on(columns._status),
   }),
 );
 
-export const local_court_court_meeting_schedule = pgTable(
-  "local_court_court_meeting_schedule",
+export const _fundraiser_v = pgTable(
+  "_fundraiser_v",
   {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    courtMeetingDate: timestamp("court_meeting_date", {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => fundraiser.id, {
+      onDelete: "set null",
+    }),
+    version_fundraiserName: varchar("version_fundraiser_name"),
+    version_fundraiserDescription: varchar("version_fundraiser_description"),
+    version_fundraiserType: enum__fundraiser_v_version_fundraiser_type(
+      "version_fundraiser_type",
+    ),
+    version_heroImage: integer("version_hero_image_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_content: jsonb("version_content"),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
       mode: "string",
       withTimezone: true,
       precision: 3,
-    }).notNull(),
-    courtMeetingLocation_courtMeetingAddress: varchar(
-      "court_meeting_location_court_meeting_address",
-    ),
-    courtMeetingLocation_courtMeetingCity: varchar(
-      "court_meeting_location_court_meeting_city",
-    ),
-    courtMeetingLocation_courtMeetingState: varchar(
-      "court_meeting_location_court_meeting_state",
-    ),
-    courtMeetingLocation_courtMeetingZipcode: varchar(
-      "court_meeting_location_court_meeting_zipcode",
-    ),
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__fundraiser_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
   },
   (columns) => ({
-    _orderIdx: index("local_court_court_meeting_schedule_order_idx").on(
-      columns._order,
+    _fundraiser_v_parent_idx: index("_fundraiser_v_parent_idx").on(
+      columns.parent,
     ),
-    _parentIDIdx: index("local_court_court_meeting_schedule_parent_id_idx").on(
-      columns._parentID,
+    _fundraiser_v_version_version_hero_image_idx: index(
+      "_fundraiser_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
+    _fundraiser_v_version_version_slug_idx: index(
+      "_fundraiser_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _fundraiser_v_version_version_updated_at_idx: index(
+      "_fundraiser_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _fundraiser_v_version_version_created_at_idx: index(
+      "_fundraiser_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _fundraiser_v_version_version__status_idx: index(
+      "_fundraiser_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _fundraiser_v_created_at_idx: index("_fundraiser_v_created_at_idx").on(
+      columns.createdAt,
     ),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [local_court.id],
-      name: "local_court_court_meeting_schedule_parent_id_fk",
-    }).onDelete("cascade"),
+    _fundraiser_v_updated_at_idx: index("_fundraiser_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _fundraiser_v_latest_idx: index("_fundraiser_v_latest_idx").on(
+      columns.latest,
+    ),
+    _fundraiser_v_autosave_idx: index("_fundraiser_v_autosave_idx").on(
+      columns.autosave,
+    ),
   }),
 );
 
@@ -1290,11 +2529,9 @@ export const local_court_court_events = pgTable(
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    event: integer("event_id")
-      .notNull()
-      .references(() => event.id, {
-        onDelete: "set null",
-      }),
+    event: integer("event_id").references(() => event.id, {
+      onDelete: "set null",
+    }),
   },
   (columns) => ({
     _orderIdx: index("local_court_court_events_order_idx").on(columns._order),
@@ -1318,11 +2555,9 @@ export const local_court_court_projects = pgTable(
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    project: integer("project_id")
-      .notNull()
-      .references(() => project.id, {
-        onDelete: "set null",
-      }),
+    project: integer("project_id").references(() => project.id, {
+      onDelete: "set null",
+    }),
   },
   (columns) => ({
     _orderIdx: index("local_court_court_projects_order_idx").on(columns._order),
@@ -1346,11 +2581,9 @@ export const local_court_court_charities = pgTable(
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    charity: integer("charity_id")
-      .notNull()
-      .references(() => charity.id, {
-        onDelete: "set null",
-      }),
+    charity: integer("charity_id").references(() => charity.id, {
+      onDelete: "set null",
+    }),
   },
   (columns) => ({
     _orderIdx: index("local_court_court_charities_order_idx").on(
@@ -1376,11 +2609,9 @@ export const local_court_court_fundraisers = pgTable(
     _order: integer("_order").notNull(),
     _parentID: integer("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    fundraiser: integer("fundraiser_id")
-      .notNull()
-      .references(() => fundraiser.id, {
-        onDelete: "set null",
-      }),
+    fundraiser: integer("fundraiser_id").references(() => fundraiser.id, {
+      onDelete: "set null",
+    }),
   },
   (columns) => ({
     _orderIdx: index("local_court_court_fundraisers_order_idx").on(
@@ -1400,52 +2631,20 @@ export const local_court_court_fundraisers = pgTable(
   }),
 );
 
-export const local_court_court_newsletters = pgTable(
-  "local_court_court_newsletters",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    newsletter: integer("newsletter_id")
-      .notNull()
-      .references(() => media.id, {
-        onDelete: "set null",
-      }),
-  },
-  (columns) => ({
-    _orderIdx: index("local_court_court_newsletters_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("local_court_court_newsletters_parent_id_idx").on(
-      columns._parentID,
-    ),
-    local_court_court_newsletters_newsletter_idx: index(
-      "local_court_court_newsletters_newsletter_idx",
-    ).on(columns.newsletter),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [local_court.id],
-      name: "local_court_court_newsletters_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
 export const local_court = pgTable(
   "local_court",
   {
     id: serial("id").primaryKey(),
-    courtName: varchar("court_name").notNull(),
-    courtDiocese: integer("court_diocese_id")
-      .notNull()
-      .references(() => diocese.id, {
-        onDelete: "set null",
-      }),
-    courtNumber: numeric("court_number").notNull(),
+    courtName: varchar("court_name"),
+    courtDiocese: integer("court_diocese_id").references(() => diocese.id, {
+      onDelete: "set null",
+    }),
+    courtNumber: numeric("court_number"),
     instituted: timestamp("instituted", {
       mode: "string",
       withTimezone: true,
       precision: 3,
-    }).notNull(),
+    }),
     courtWebsite: varchar("court_website"),
     courtLocation_courtAddress: varchar("court_location_court_address"),
     courtLocation_courtCity: varchar("court_location_court_city"),
@@ -1477,6 +2676,10 @@ export const local_court = pgTable(
     ).references(() => contact.id, {
       onDelete: "set null",
     }),
+    heroImage: integer("hero_image_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    content: jsonb("content"),
     slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
@@ -1492,6 +2695,7 @@ export const local_court = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_local_court_status("_status").default("draft"),
   },
   (columns) => ({
     local_court_court_diocese_idx: index("local_court_court_diocese_idx").on(
@@ -1514,10 +2718,499 @@ export const local_court = pgTable(
     local_court_court_officers_court_officers_court_treasurer_idx: index(
       "local_court_court_officers_court_officers_court_treasurer_idx",
     ).on(columns.courtOfficers_courtTreasurer),
+    local_court_hero_image_idx: index("local_court_hero_image_idx").on(
+      columns.heroImage,
+    ),
     local_court_updated_at_idx: index("local_court_updated_at_idx").on(
       columns.updatedAt,
     ),
     local_court_created_at_idx: index("local_court_created_at_idx").on(
+      columns.createdAt,
+    ),
+    local_court__status_idx: index("local_court__status_idx").on(
+      columns._status,
+    ),
+  }),
+);
+
+export const local_court_rels = pgTable(
+  "local_court_rels",
+  {
+    id: serial("id").primaryKey(),
+    order: integer("order"),
+    parent: integer("parent_id").notNull(),
+    path: varchar("path").notNull(),
+    newsletterID: integer("newsletter_id"),
+  },
+  (columns) => ({
+    order: index("local_court_rels_order_idx").on(columns.order),
+    parentIdx: index("local_court_rels_parent_idx").on(columns.parent),
+    pathIdx: index("local_court_rels_path_idx").on(columns.path),
+    local_court_rels_newsletter_id_idx: index(
+      "local_court_rels_newsletter_id_idx",
+    ).on(columns.newsletterID),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [local_court.id],
+      name: "local_court_rels_parent_fk",
+    }).onDelete("cascade"),
+    newsletterIdFk: foreignKey({
+      columns: [columns["newsletterID"]],
+      foreignColumns: [newsletter.id],
+      name: "local_court_rels_newsletter_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _local_court_v_version_court_events = pgTable(
+  "_local_court_v_version_court_events",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    event: integer("event_id").references(() => event.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_local_court_v_version_court_events_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index("_local_court_v_version_court_events_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _local_court_v_version_court_events_event_idx: index(
+      "_local_court_v_version_court_events_event_idx",
+    ).on(columns.event),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_local_court_v.id],
+      name: "_local_court_v_version_court_events_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _local_court_v_version_court_projects = pgTable(
+  "_local_court_v_version_court_projects",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    project: integer("project_id").references(() => project.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_local_court_v_version_court_projects_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "_local_court_v_version_court_projects_parent_id_idx",
+    ).on(columns._parentID),
+    _local_court_v_version_court_projects_project_idx: index(
+      "_local_court_v_version_court_projects_project_idx",
+    ).on(columns.project),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_local_court_v.id],
+      name: "_local_court_v_version_court_projects_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _local_court_v_version_court_charities = pgTable(
+  "_local_court_v_version_court_charities",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    charity: integer("charity_id").references(() => charity.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_local_court_v_version_court_charities_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "_local_court_v_version_court_charities_parent_id_idx",
+    ).on(columns._parentID),
+    _local_court_v_version_court_charities_charity_idx: index(
+      "_local_court_v_version_court_charities_charity_idx",
+    ).on(columns.charity),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_local_court_v.id],
+      name: "_local_court_v_version_court_charities_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _local_court_v_version_court_fundraisers = pgTable(
+  "_local_court_v_version_court_fundraisers",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: serial("id").primaryKey(),
+    fundraiser: integer("fundraiser_id").references(() => fundraiser.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+  },
+  (columns) => ({
+    _orderIdx: index("_local_court_v_version_court_fundraisers_order_idx").on(
+      columns._order,
+    ),
+    _parentIDIdx: index(
+      "_local_court_v_version_court_fundraisers_parent_id_idx",
+    ).on(columns._parentID),
+    _local_court_v_version_court_fundraisers_fundraiser_idx: index(
+      "_local_court_v_version_court_fundraisers_fundraiser_idx",
+    ).on(columns.fundraiser),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_local_court_v.id],
+      name: "_local_court_v_version_court_fundraisers_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _local_court_v = pgTable(
+  "_local_court_v",
+  {
+    id: serial("id").primaryKey(),
+    parent: integer("parent_id").references(() => local_court.id, {
+      onDelete: "set null",
+    }),
+    version_courtName: varchar("version_court_name"),
+    version_courtDiocese: integer("version_court_diocese_id").references(
+      () => diocese.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_courtNumber: numeric("version_court_number"),
+    version_instituted: timestamp("version_instituted", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_courtWebsite: varchar("version_court_website"),
+    version_courtLocation_courtAddress: varchar(
+      "version_court_location_court_address",
+    ),
+    version_courtLocation_courtCity: varchar(
+      "version_court_location_court_city",
+    ),
+    version_courtLocation_courtState: varchar(
+      "version_court_location_court_state",
+    ),
+    version_courtLocation_courtZipcode: varchar(
+      "version_court_location_court_zipcode",
+    ),
+    version_courtPhoneNumber: varchar("version_court_phone_number"),
+    version_courtOfficers_courtRegent: integer(
+      "version_court_officers_court_regent_id",
+    ).references(() => contact.id, {
+      onDelete: "set null",
+    }),
+    version_courtOfficers_courtViceRegent: integer(
+      "version_court_officers_court_vice_regent_id",
+    ).references(() => contact.id, {
+      onDelete: "set null",
+    }),
+    version_courtOfficers_courtRecordingSecretary: integer(
+      "version_court_officers_court_recording_secretary_id",
+    ).references(() => contact.id, {
+      onDelete: "set null",
+    }),
+    version_courtOfficers_courtFinancialSecretary: integer(
+      "version_court_officers_court_financial_secretary_id",
+    ).references(() => contact.id, {
+      onDelete: "set null",
+    }),
+    version_courtOfficers_courtTreasurer: integer(
+      "version_court_officers_court_treasurer_id",
+    ).references(() => contact.id, {
+      onDelete: "set null",
+    }),
+    version_heroImage: integer("version_hero_image_id").references(
+      () => media.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_content: jsonb("version_content"),
+    version_slug: varchar("version_slug"),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__local_court_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _local_court_v_parent_idx: index("_local_court_v_parent_idx").on(
+      columns.parent,
+    ),
+    _local_court_v_version_version_court_diocese_idx: index(
+      "_local_court_v_version_version_court_diocese_idx",
+    ).on(columns.version_courtDiocese),
+    _local_court_v_version_court_officers_version_court_officers_court_regent_idx:
+      index(
+        "_local_court_v_version_court_officers_version_court_officers_court_regent_idx",
+      ).on(columns.version_courtOfficers_courtRegent),
+    _local_court_v_version_court_officers_version_court_officers_court_vice_regent_idx:
+      index(
+        "_local_court_v_version_court_officers_version_court_officers_court_vice_regent_idx",
+      ).on(columns.version_courtOfficers_courtViceRegent),
+    _local_court_v_version_court_officers_version_court_officers_court_recording_secretary_idx:
+      index(
+        "_local_court_v_version_court_officers_version_court_officers_court_recording_secretary_idx",
+      ).on(columns.version_courtOfficers_courtRecordingSecretary),
+    _local_court_v_version_court_officers_version_court_officers_court_financial_secretary_idx:
+      index(
+        "_local_court_v_version_court_officers_version_court_officers_court_financial_secretary_idx",
+      ).on(columns.version_courtOfficers_courtFinancialSecretary),
+    _local_court_v_version_court_officers_version_court_officers_court_treasurer_idx:
+      index(
+        "_local_court_v_version_court_officers_version_court_officers_court_treasurer_idx",
+      ).on(columns.version_courtOfficers_courtTreasurer),
+    _local_court_v_version_version_hero_image_idx: index(
+      "_local_court_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
+    _local_court_v_version_version_updated_at_idx: index(
+      "_local_court_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _local_court_v_version_version_created_at_idx: index(
+      "_local_court_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _local_court_v_version_version__status_idx: index(
+      "_local_court_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _local_court_v_created_at_idx: index("_local_court_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _local_court_v_updated_at_idx: index("_local_court_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _local_court_v_latest_idx: index("_local_court_v_latest_idx").on(
+      columns.latest,
+    ),
+    _local_court_v_autosave_idx: index("_local_court_v_autosave_idx").on(
+      columns.autosave,
+    ),
+  }),
+);
+
+export const _local_court_v_rels = pgTable(
+  "_local_court_v_rels",
+  {
+    id: serial("id").primaryKey(),
+    order: integer("order"),
+    parent: integer("parent_id").notNull(),
+    path: varchar("path").notNull(),
+    newsletterID: integer("newsletter_id"),
+  },
+  (columns) => ({
+    order: index("_local_court_v_rels_order_idx").on(columns.order),
+    parentIdx: index("_local_court_v_rels_parent_idx").on(columns.parent),
+    pathIdx: index("_local_court_v_rels_path_idx").on(columns.path),
+    _local_court_v_rels_newsletter_id_idx: index(
+      "_local_court_v_rels_newsletter_id_idx",
+    ).on(columns.newsletterID),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [_local_court_v.id],
+      name: "_local_court_v_rels_parent_fk",
+    }).onDelete("cascade"),
+    newsletterIdFk: foreignKey({
+      columns: [columns["newsletterID"]],
+      foreignColumns: [newsletter.id],
+      name: "_local_court_v_rels_newsletter_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const newsletter = pgTable(
+  "newsletter",
+  {
+    id: serial("id").primaryKey(),
+    title: varchar("title").notNull(),
+    yearOfRelease: numeric("year_of_release").notNull(),
+    quarter: varchar("quarter"),
+    type: enum_newsletter_type("type").notNull().default("state"),
+    reissueDate: timestamp("reissue_date", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    associatedCourt: integer("associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    displayTitle: varchar("display_title"),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    url: varchar("url"),
+    thumbnailURL: varchar("thumbnail_u_r_l"),
+    filename: varchar("filename"),
+    mimeType: varchar("mime_type"),
+    filesize: numeric("filesize"),
+    width: numeric("width"),
+    height: numeric("height"),
+    focalX: numeric("focal_x"),
+    focalY: numeric("focal_y"),
+  },
+  (columns) => ({
+    newsletter_associated_court_idx: index(
+      "newsletter_associated_court_idx",
+    ).on(columns.associatedCourt),
+    newsletter_updated_at_idx: index("newsletter_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    newsletter_created_at_idx: index("newsletter_created_at_idx").on(
+      columns.createdAt,
+    ),
+    newsletter_filename_idx: uniqueIndex("newsletter_filename_idx").on(
+      columns.filename,
+    ),
+  }),
+);
+
+export const payload_jobs_log = pgTable(
+  "payload_jobs_log",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    executedAt: timestamp("executed_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+    completedAt: timestamp("completed_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+    taskSlug: enum_payload_jobs_log_task_slug("task_slug").notNull(),
+    taskID: varchar("task_i_d").notNull(),
+    input: jsonb("input"),
+    output: jsonb("output"),
+    state: enum_payload_jobs_log_state("state").notNull(),
+    error: jsonb("error"),
+  },
+  (columns) => ({
+    _orderIdx: index("payload_jobs_log_order_idx").on(columns._order),
+    _parentIDIdx: index("payload_jobs_log_parent_id_idx").on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [payload_jobs.id],
+      name: "payload_jobs_log_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const payload_jobs = pgTable(
+  "payload_jobs",
+  {
+    id: serial("id").primaryKey(),
+    input: jsonb("input"),
+    completedAt: timestamp("completed_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    totalTried: numeric("total_tried").default("0"),
+    hasError: boolean("has_error").default(false),
+    error: jsonb("error"),
+    taskSlug: enum_payload_jobs_task_slug("task_slug"),
+    queue: varchar("queue").default("default"),
+    waitUntil: timestamp("wait_until", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    processing: boolean("processing").default(false),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => ({
+    payload_jobs_completed_at_idx: index("payload_jobs_completed_at_idx").on(
+      columns.completedAt,
+    ),
+    payload_jobs_total_tried_idx: index("payload_jobs_total_tried_idx").on(
+      columns.totalTried,
+    ),
+    payload_jobs_has_error_idx: index("payload_jobs_has_error_idx").on(
+      columns.hasError,
+    ),
+    payload_jobs_task_slug_idx: index("payload_jobs_task_slug_idx").on(
+      columns.taskSlug,
+    ),
+    payload_jobs_queue_idx: index("payload_jobs_queue_idx").on(columns.queue),
+    payload_jobs_wait_until_idx: index("payload_jobs_wait_until_idx").on(
+      columns.waitUntil,
+    ),
+    payload_jobs_processing_idx: index("payload_jobs_processing_idx").on(
+      columns.processing,
+    ),
+    payload_jobs_updated_at_idx: index("payload_jobs_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    payload_jobs_created_at_idx: index("payload_jobs_created_at_idx").on(
       columns.createdAt,
     ),
   }),
@@ -1574,6 +3267,8 @@ export const payload_locked_documents_rels = pgTable(
     charityID: integer("charity_id"),
     fundraiserID: integer("fundraiser_id"),
     localCourtID: integer("local_court_id"),
+    newsletterID: integer("newsletter_id"),
+    "payload-jobsID": integer("payload_jobs_id"),
   },
   (columns) => ({
     order: index("payload_locked_documents_rels_order_idx").on(columns.order),
@@ -1614,6 +3309,12 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_local_court_id_idx: index(
       "payload_locked_documents_rels_local_court_id_idx",
     ).on(columns.localCourtID),
+    payload_locked_documents_rels_newsletter_id_idx: index(
+      "payload_locked_documents_rels_newsletter_id_idx",
+    ).on(columns.newsletterID),
+    payload_locked_documents_rels_payload_jobs_id_idx: index(
+      "payload_locked_documents_rels_payload_jobs_id_idx",
+    ).on(columns["payload-jobsID"]),
     parentFk: foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [payload_locked_documents.id],
@@ -1673,6 +3374,16 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns["localCourtID"]],
       foreignColumns: [local_court.id],
       name: "payload_locked_documents_rels_local_court_fk",
+    }).onDelete("cascade"),
+    newsletterIdFk: foreignKey({
+      columns: [columns["newsletterID"]],
+      foreignColumns: [newsletter.id],
+      name: "payload_locked_documents_rels_newsletter_fk",
+    }).onDelete("cascade"),
+    "payload-jobsIdFk": foreignKey({
+      columns: [columns["payload-jobsID"]],
+      foreignColumns: [payload_jobs.id],
+      name: "payload_locked_documents_rels_payload_jobs_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -1879,33 +3590,41 @@ export const footer = pgTable(
   }),
 );
 
-export const header_nav_items_sub_nav_sub_nav_items = pgTable(
-  "header_nav_items_sub_nav_sub_nav_items",
+export const header_nav_items_sub_nav_links = pgTable(
+  "header_nav_items_sub_nav_links",
   {
     _order: integer("_order").notNull(),
     _parentID: varchar("_parent_id").notNull(),
     id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    page: integer("page_id")
-      .notNull()
-      .references(() => page.id, {
-        onDelete: "set null",
-      }),
+    link_type:
+      enum_header_nav_items_sub_nav_links_link_type("link_type").default(
+        "reference",
+      ),
+    link_newTab: boolean("link_new_tab"),
+    link_reference: integer("link_reference_id").references(() => page.id, {
+      onDelete: "set null",
+    }),
+    link_url: varchar("link_url"),
+    link_label: varchar("link_label").notNull(),
+    link_appearance:
+      enum_header_nav_items_sub_nav_links_link_appearance(
+        "link_appearance",
+      ).default("default"),
   },
   (columns) => ({
-    _orderIdx: index("header_nav_items_sub_nav_sub_nav_items_order_idx").on(
+    _orderIdx: index("header_nav_items_sub_nav_links_order_idx").on(
       columns._order,
     ),
-    _parentIDIdx: index(
-      "header_nav_items_sub_nav_sub_nav_items_parent_id_idx",
-    ).on(columns._parentID),
-    header_nav_items_sub_nav_sub_nav_items_page_idx: index(
-      "header_nav_items_sub_nav_sub_nav_items_page_idx",
-    ).on(columns.page),
+    _parentIDIdx: index("header_nav_items_sub_nav_links_parent_id_idx").on(
+      columns._parentID,
+    ),
+    header_nav_items_sub_nav_links_link_link_reference_idx: index(
+      "header_nav_items_sub_nav_links_link_link_reference_idx",
+    ).on(columns.link_reference),
     _parentIDFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [header_nav_items_sub_nav.id],
-      name: "header_nav_items_sub_nav_sub_nav_items_parent_id_fk",
+      name: "header_nav_items_sub_nav_links_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -1939,18 +3658,25 @@ export const header_nav_items = pgTable(
     id: varchar("id").primaryKey(),
     title: varchar("title"),
     description: varchar("description"),
-    page: integer("page_id")
-      .notNull()
-      .references(() => page.id, {
-        onDelete: "set null",
-      }),
+    link_type:
+      enum_header_nav_items_link_type("link_type").default("reference"),
+    link_newTab: boolean("link_new_tab"),
+    link_reference: integer("link_reference_id").references(() => page.id, {
+      onDelete: "set null",
+    }),
+    link_url: varchar("link_url"),
+    link_label: varchar("link_label").notNull(),
+    link_appearance:
+      enum_header_nav_items_link_appearance("link_appearance").default(
+        "default",
+      ),
   },
   (columns) => ({
     _orderIdx: index("header_nav_items_order_idx").on(columns._order),
     _parentIDIdx: index("header_nav_items_parent_id_idx").on(columns._parentID),
-    header_nav_items_page_idx: index("header_nav_items_page_idx").on(
-      columns.page,
-    ),
+    header_nav_items_link_link_reference_idx: index(
+      "header_nav_items_link_link_reference_idx",
+    ).on(columns.link_reference),
     _parentIDFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [header.id],
@@ -2010,15 +3736,108 @@ export const header = pgTable(
   }),
 );
 
+export const background = pgTable(
+  "background",
+  {
+    id: serial("id").primaryKey(),
+    backgroundMedia: integer("background_media_id")
+      .notNull()
+      .references(() => media.id, {
+        onDelete: "set null",
+      }),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+  },
+  (columns) => ({
+    background_background_media_idx: index(
+      "background_background_media_idx",
+    ).on(columns.backgroundMedia),
+  }),
+);
+
 export const relations_media = relations(media, () => ({}));
-export const relations_news_post = relations(news_post, ({ one }) => ({
-  link: one(page, {
-    fields: [news_post.link],
-    references: [page.id],
-    relationName: "link",
+export const relations_news_post_rels = relations(
+  news_post_rels,
+  ({ one }) => ({
+    parent: one(news_post, {
+      fields: [news_post_rels.parent],
+      references: [news_post.id],
+      relationName: "_rels",
+    }),
+    newsPostID: one(news_post, {
+      fields: [news_post_rels.newsPostID],
+      references: [news_post.id],
+      relationName: "newsPost",
+    }),
+  }),
+);
+export const relations_news_post = relations(news_post, ({ one, many }) => ({
+  heroImage: one(media, {
+    fields: [news_post.heroImage],
+    references: [media.id],
+    relationName: "heroImage",
+  }),
+  _rels: many(news_post_rels, {
+    relationName: "_rels",
   }),
 }));
+export const relations__news_post_v_rels = relations(
+  _news_post_v_rels,
+  ({ one }) => ({
+    parent: one(_news_post_v, {
+      fields: [_news_post_v_rels.parent],
+      references: [_news_post_v.id],
+      relationName: "_rels",
+    }),
+    newsPostID: one(news_post, {
+      fields: [_news_post_v_rels.newsPostID],
+      references: [news_post.id],
+      relationName: "newsPost",
+    }),
+  }),
+);
+export const relations__news_post_v = relations(
+  _news_post_v,
+  ({ one, many }) => ({
+    parent: one(news_post, {
+      fields: [_news_post_v.parent],
+      references: [news_post.id],
+      relationName: "parent",
+    }),
+    version_heroImage: one(media, {
+      fields: [_news_post_v.version_heroImage],
+      references: [media.id],
+      relationName: "version_heroImage",
+    }),
+    _rels: many(_news_post_v_rels, {
+      relationName: "_rels",
+    }),
+  }),
+);
 export const relations_users = relations(users, () => ({}));
+export const relations_page_hero_links = relations(
+  page_hero_links,
+  ({ one }) => ({
+    _parentID: one(page, {
+      fields: [page_hero_links._parentID],
+      references: [page.id],
+      relationName: "hero_links",
+    }),
+    link_reference: one(page, {
+      fields: [page_hero_links.link_reference],
+      references: [page.id],
+      relationName: "link_reference",
+    }),
+  }),
+);
 export const relations_page_blocks_content_columns = relations(
   page_blocks_content_columns,
   ({ one }) => ({
@@ -2088,249 +3907,222 @@ export const relations_page_blocks_side_bar = relations(
     }),
   }),
 );
-export const relations_page_blocks_page_heading_block = relations(
-  page_blocks_page_heading_block,
+export const relations_page_blocks_contact_cards_contacts_to_list = relations(
+  page_blocks_contact_cards_contacts_to_list,
   ({ one }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_page_heading_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_pageHeadingBlock",
+    _parentID: one(page_blocks_contact_cards, {
+      fields: [page_blocks_contact_cards_contacts_to_list._parentID],
+      references: [page_blocks_contact_cards.id],
+      relationName: "contactsToList",
+    }),
+    contactToList: one(contact, {
+      fields: [page_blocks_contact_cards_contacts_to_list.contactToList],
+      references: [contact.id],
+      relationName: "contactToList",
     }),
   }),
 );
-export const relations_page_blocks_hero_banner_block = relations(
-  page_blocks_hero_banner_block,
-  ({ one }) => ({
+export const relations_page_blocks_contact_cards = relations(
+  page_blocks_contact_cards,
+  ({ one, many }) => ({
     _parentID: one(page, {
-      fields: [page_blocks_hero_banner_block._parentID],
+      fields: [page_blocks_contact_cards._parentID],
       references: [page.id],
-      relationName: "_blocks_heroBannerBlock",
+      relationName: "_blocks_contactCards",
     }),
-    heroImage: one(media, {
-      fields: [page_blocks_hero_banner_block.heroImage],
-      references: [media.id],
-      relationName: "heroImage",
-    }),
-    link: one(page, {
-      fields: [page_blocks_hero_banner_block.link],
-      references: [page.id],
-      relationName: "link",
+    contactsToList: many(page_blocks_contact_cards_contacts_to_list, {
+      relationName: "contactsToList",
     }),
   }),
 );
-export const relations_page_blocks_news_postings_block_posts = relations(
-  page_blocks_news_postings_block_posts,
+export const relations_page_blocks_tabs_tabs = relations(
+  page_blocks_tabs_tabs,
   ({ one }) => ({
-    _parentID: one(page_blocks_news_postings_block, {
-      fields: [page_blocks_news_postings_block_posts._parentID],
-      references: [page_blocks_news_postings_block.id],
+    _parentID: one(page_blocks_tabs, {
+      fields: [page_blocks_tabs_tabs._parentID],
+      references: [page_blocks_tabs.id],
+      relationName: "tabs",
+    }),
+  }),
+);
+export const relations_page_blocks_tabs = relations(
+  page_blocks_tabs,
+  ({ one, many }) => ({
+    _parentID: one(page, {
+      fields: [page_blocks_tabs._parentID],
+      references: [page.id],
+      relationName: "_blocks_tabs",
+    }),
+    tabs: many(page_blocks_tabs_tabs, {
+      relationName: "tabs",
+    }),
+  }),
+);
+export const relations_page_blocks_news_posts_posts = relations(
+  page_blocks_news_posts_posts,
+  ({ one }) => ({
+    _parentID: one(page_blocks_news_posts, {
+      fields: [page_blocks_news_posts_posts._parentID],
+      references: [page_blocks_news_posts.id],
       relationName: "posts",
     }),
     post: one(news_post, {
-      fields: [page_blocks_news_postings_block_posts.post],
+      fields: [page_blocks_news_posts_posts.post],
       references: [news_post.id],
       relationName: "post",
     }),
   }),
 );
-export const relations_page_blocks_news_postings_block = relations(
-  page_blocks_news_postings_block,
+export const relations_page_blocks_news_posts = relations(
+  page_blocks_news_posts,
   ({ one, many }) => ({
     _parentID: one(page, {
-      fields: [page_blocks_news_postings_block._parentID],
+      fields: [page_blocks_news_posts._parentID],
       references: [page.id],
-      relationName: "_blocks_newsPostingsBlock",
+      relationName: "_blocks_newsPosts",
     }),
-    posts: many(page_blocks_news_postings_block_posts, {
+    posts: many(page_blocks_news_posts_posts, {
       relationName: "posts",
     }),
   }),
 );
-export const relations_page_blocks_rich_text_block = relations(
-  page_blocks_rich_text_block,
+export const relations_page_blocks_court_listing_courts = relations(
+  page_blocks_court_listing_courts,
   ({ one }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_rich_text_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_richTextBlock",
-    }),
-  }),
-);
-export const relations_page_blocks_stats_block_stats = relations(
-  page_blocks_stats_block_stats,
-  ({ one }) => ({
-    _parentID: one(page_blocks_stats_block, {
-      fields: [page_blocks_stats_block_stats._parentID],
-      references: [page_blocks_stats_block.id],
-      relationName: "stats",
-    }),
-  }),
-);
-export const relations_page_blocks_stats_block = relations(
-  page_blocks_stats_block,
-  ({ one, many }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_stats_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_statsBlock",
-    }),
-    stats: many(page_blocks_stats_block_stats, {
-      relationName: "stats",
-    }),
-  }),
-);
-export const relations_page_blocks_district_deputies_block = relations(
-  page_blocks_district_deputies_block,
-  ({ one }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_district_deputies_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_districtDeputiesBlock",
-    }),
-    diocese: one(diocese, {
-      fields: [page_blocks_district_deputies_block.diocese],
-      references: [diocese.id],
-      relationName: "diocese",
-    }),
-  }),
-);
-export const relations_page_blocks_state_officers_block_contacts = relations(
-  page_blocks_state_officers_block_contacts,
-  ({ one }) => ({
-    _parentID: one(page_blocks_state_officers_block, {
-      fields: [page_blocks_state_officers_block_contacts._parentID],
-      references: [page_blocks_state_officers_block.id],
-      relationName: "contacts",
-    }),
-    contact: one(contact, {
-      fields: [page_blocks_state_officers_block_contacts.contact],
-      references: [contact.id],
-      relationName: "contact",
-    }),
-  }),
-);
-export const relations_page_blocks_state_officers_block = relations(
-  page_blocks_state_officers_block,
-  ({ one, many }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_state_officers_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_stateOfficersBlock",
-    }),
-    contacts: many(page_blocks_state_officers_block_contacts, {
-      relationName: "contacts",
-    }),
-  }),
-);
-export const relations_page_blocks_state_chairmen_block_chairmen = relations(
-  page_blocks_state_chairmen_block_chairmen,
-  ({ one }) => ({
-    _parentID: one(page_blocks_state_chairmen_block, {
-      fields: [page_blocks_state_chairmen_block_chairmen._parentID],
-      references: [page_blocks_state_chairmen_block.id],
-      relationName: "chairmen",
-    }),
-    chairman: one(contact, {
-      fields: [page_blocks_state_chairmen_block_chairmen.chairman],
-      references: [contact.id],
-      relationName: "chairman",
-    }),
-  }),
-);
-export const relations_page_blocks_state_chairmen_block = relations(
-  page_blocks_state_chairmen_block,
-  ({ one, many }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_state_chairmen_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_stateChairmenBlock",
-    }),
-    chairmen: many(page_blocks_state_chairmen_block_chairmen, {
-      relationName: "chairmen",
-    }),
-  }),
-);
-export const relations_page_blocks_side_bar_layout_block_sections = relations(
-  page_blocks_side_bar_layout_block_sections,
-  ({ one }) => ({
-    _parentID: one(page_blocks_side_bar_layout_block, {
-      fields: [page_blocks_side_bar_layout_block_sections._parentID],
-      references: [page_blocks_side_bar_layout_block.id],
-      relationName: "sections",
-    }),
-  }),
-);
-export const relations_page_blocks_side_bar_layout_block = relations(
-  page_blocks_side_bar_layout_block,
-  ({ one, many }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_side_bar_layout_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_sideBarLayoutBlock",
-    }),
-    sections: many(page_blocks_side_bar_layout_block_sections, {
-      relationName: "sections",
-    }),
-  }),
-);
-export const relations_page_blocks_tabbed_layout_block_tabs = relations(
-  page_blocks_tabbed_layout_block_tabs,
-  ({ one }) => ({
-    _parentID: one(page_blocks_tabbed_layout_block, {
-      fields: [page_blocks_tabbed_layout_block_tabs._parentID],
-      references: [page_blocks_tabbed_layout_block.id],
-      relationName: "tabs",
-    }),
-  }),
-);
-export const relations_page_blocks_tabbed_layout_block = relations(
-  page_blocks_tabbed_layout_block,
-  ({ one, many }) => ({
-    _parentID: one(page, {
-      fields: [page_blocks_tabbed_layout_block._parentID],
-      references: [page.id],
-      relationName: "_blocks_tabbedLayoutBlock",
-    }),
-    tabs: many(page_blocks_tabbed_layout_block_tabs, {
-      relationName: "tabs",
-    }),
-  }),
-);
-export const relations_page_blocks_court_table_block_courts = relations(
-  page_blocks_court_table_block_courts,
-  ({ one }) => ({
-    _parentID: one(page_blocks_court_table_block, {
-      fields: [page_blocks_court_table_block_courts._parentID],
-      references: [page_blocks_court_table_block.id],
+    _parentID: one(page_blocks_court_listing, {
+      fields: [page_blocks_court_listing_courts._parentID],
+      references: [page_blocks_court_listing.id],
       relationName: "courts",
     }),
     court: one(local_court, {
-      fields: [page_blocks_court_table_block_courts.court],
+      fields: [page_blocks_court_listing_courts.court],
       references: [local_court.id],
       relationName: "court",
     }),
   }),
 );
-export const relations_page_blocks_court_table_block = relations(
-  page_blocks_court_table_block,
+export const relations_page_blocks_court_listing = relations(
+  page_blocks_court_listing,
   ({ one, many }) => ({
     _parentID: one(page, {
-      fields: [page_blocks_court_table_block._parentID],
+      fields: [page_blocks_court_listing._parentID],
       references: [page.id],
-      relationName: "_blocks_courtTableBlock",
+      relationName: "_blocks_courtListing",
     }),
-    courts: many(page_blocks_court_table_block_courts, {
+    courts: many(page_blocks_court_listing_courts, {
       relationName: "courts",
     }),
   }),
 );
-export const relations_page_blocks_standard_layout_block = relations(
-  page_blocks_standard_layout_block,
+export const relations_page_blocks_calendar_months_month_items = relations(
+  page_blocks_calendar_months_month_items,
+  ({ one }) => ({
+    _parentID: one(page_blocks_calendar_months, {
+      fields: [page_blocks_calendar_months_month_items._parentID],
+      references: [page_blocks_calendar_months.id],
+      relationName: "monthItems",
+    }),
+  }),
+);
+export const relations_page_blocks_calendar_months = relations(
+  page_blocks_calendar_months,
+  ({ one, many }) => ({
+    _parentID: one(page_blocks_calendar, {
+      fields: [page_blocks_calendar_months._parentID],
+      references: [page_blocks_calendar.id],
+      relationName: "months",
+    }),
+    monthItems: many(page_blocks_calendar_months_month_items, {
+      relationName: "monthItems",
+    }),
+  }),
+);
+export const relations_page_blocks_calendar = relations(
+  page_blocks_calendar,
+  ({ one, many }) => ({
+    _parentID: one(page, {
+      fields: [page_blocks_calendar._parentID],
+      references: [page.id],
+      relationName: "_blocks_calendar",
+    }),
+    months: many(page_blocks_calendar_months, {
+      relationName: "months",
+    }),
+  }),
+);
+export const relations_page_blocks_media_with_text = relations(
+  page_blocks_media_with_text,
   ({ one }) => ({
     _parentID: one(page, {
-      fields: [page_blocks_standard_layout_block._parentID],
+      fields: [page_blocks_media_with_text._parentID],
       references: [page.id],
-      relationName: "_blocks_standardLayoutBlock",
+      relationName: "_blocks_mediaWithText",
+    }),
+    media: one(media, {
+      fields: [page_blocks_media_with_text.media],
+      references: [media.id],
+      relationName: "media",
+    }),
+  }),
+);
+export const relations_page_blocks_slider_slides = relations(
+  page_blocks_slider_slides,
+  ({ one }) => ({
+    _parentID: one(page_blocks_slider, {
+      fields: [page_blocks_slider_slides._parentID],
+      references: [page_blocks_slider.id],
+      relationName: "slides",
+    }),
+  }),
+);
+export const relations_page_blocks_slider = relations(
+  page_blocks_slider,
+  ({ one, many }) => ({
+    _parentID: one(page, {
+      fields: [page_blocks_slider._parentID],
+      references: [page.id],
+      relationName: "_blocks_slider",
+    }),
+    slides: many(page_blocks_slider_slides, {
+      relationName: "slides",
+    }),
+  }),
+);
+export const relations_page_blocks_newsletters_newsletters = relations(
+  page_blocks_newsletters_newsletters,
+  ({ one }) => ({
+    _parentID: one(page_blocks_newsletters, {
+      fields: [page_blocks_newsletters_newsletters._parentID],
+      references: [page_blocks_newsletters.id],
+      relationName: "newsletters",
+    }),
+    newsletter: one(newsletter, {
+      fields: [page_blocks_newsletters_newsletters.newsletter],
+      references: [newsletter.id],
+      relationName: "newsletter",
+    }),
+  }),
+);
+export const relations_page_blocks_newsletters = relations(
+  page_blocks_newsletters,
+  ({ one, many }) => ({
+    _parentID: one(page, {
+      fields: [page_blocks_newsletters._parentID],
+      references: [page.id],
+      relationName: "_blocks_newsletters",
+    }),
+    newsletters: many(page_blocks_newsletters_newsletters, {
+      relationName: "newsletters",
+    }),
+    downloadImage: one(media, {
+      fields: [page_blocks_newsletters.downloadImage],
+      references: [media.id],
+      relationName: "downloadImage",
+    }),
+    dropdownIcon: one(media, {
+      fields: [page_blocks_newsletters.dropdownIcon],
+      references: [media.id],
+      relationName: "dropdownIcon",
     }),
   }),
 );
@@ -2340,10 +4132,8 @@ export const relations_page = relations(page, ({ one, many }) => ({
     references: [media.id],
     relationName: "hero_media",
   }),
-  hero_button_buttonLink: one(page, {
-    fields: [page.hero_button_buttonLink],
-    references: [page.id],
-    relationName: "hero_button_buttonLink",
+  hero_links: many(page_hero_links, {
+    relationName: "hero_links",
   }),
   _blocks_content: many(page_blocks_content, {
     relationName: "_blocks_content",
@@ -2354,41 +4144,378 @@ export const relations_page = relations(page, ({ one, many }) => ({
   _blocks_sideBar: many(page_blocks_side_bar, {
     relationName: "_blocks_sideBar",
   }),
-  _blocks_pageHeadingBlock: many(page_blocks_page_heading_block, {
-    relationName: "_blocks_pageHeadingBlock",
+  _blocks_contactCards: many(page_blocks_contact_cards, {
+    relationName: "_blocks_contactCards",
   }),
-  _blocks_heroBannerBlock: many(page_blocks_hero_banner_block, {
-    relationName: "_blocks_heroBannerBlock",
+  _blocks_tabs: many(page_blocks_tabs, {
+    relationName: "_blocks_tabs",
   }),
-  _blocks_newsPostingsBlock: many(page_blocks_news_postings_block, {
-    relationName: "_blocks_newsPostingsBlock",
+  _blocks_newsPosts: many(page_blocks_news_posts, {
+    relationName: "_blocks_newsPosts",
   }),
-  _blocks_richTextBlock: many(page_blocks_rich_text_block, {
-    relationName: "_blocks_richTextBlock",
+  _blocks_courtListing: many(page_blocks_court_listing, {
+    relationName: "_blocks_courtListing",
   }),
-  _blocks_statsBlock: many(page_blocks_stats_block, {
-    relationName: "_blocks_statsBlock",
+  _blocks_calendar: many(page_blocks_calendar, {
+    relationName: "_blocks_calendar",
   }),
-  _blocks_districtDeputiesBlock: many(page_blocks_district_deputies_block, {
-    relationName: "_blocks_districtDeputiesBlock",
+  _blocks_mediaWithText: many(page_blocks_media_with_text, {
+    relationName: "_blocks_mediaWithText",
   }),
-  _blocks_stateOfficersBlock: many(page_blocks_state_officers_block, {
-    relationName: "_blocks_stateOfficersBlock",
+  _blocks_slider: many(page_blocks_slider, {
+    relationName: "_blocks_slider",
   }),
-  _blocks_stateChairmenBlock: many(page_blocks_state_chairmen_block, {
-    relationName: "_blocks_stateChairmenBlock",
+  _blocks_newsletters: many(page_blocks_newsletters, {
+    relationName: "_blocks_newsletters",
   }),
-  _blocks_sideBarLayoutBlock: many(page_blocks_side_bar_layout_block, {
-    relationName: "_blocks_sideBarLayoutBlock",
+}));
+export const relations__page_v_version_hero_links = relations(
+  _page_v_version_hero_links,
+  ({ one }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_version_hero_links._parentID],
+      references: [_page_v.id],
+      relationName: "version_hero_links",
+    }),
+    link_reference: one(page, {
+      fields: [_page_v_version_hero_links.link_reference],
+      references: [page.id],
+      relationName: "link_reference",
+    }),
   }),
-  _blocks_tabbedLayoutBlock: many(page_blocks_tabbed_layout_block, {
-    relationName: "_blocks_tabbedLayoutBlock",
+);
+export const relations__page_v_blocks_content_columns = relations(
+  _page_v_blocks_content_columns,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_content, {
+      fields: [_page_v_blocks_content_columns._parentID],
+      references: [_page_v_blocks_content.id],
+      relationName: "columns",
+    }),
   }),
-  _blocks_courtTableBlock: many(page_blocks_court_table_block, {
-    relationName: "_blocks_courtTableBlock",
+);
+export const relations__page_v_blocks_content = relations(
+  _page_v_blocks_content,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_content._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_content",
+    }),
+    columns: many(_page_v_blocks_content_columns, {
+      relationName: "columns",
+    }),
   }),
-  _blocks_standardLayoutBlock: many(page_blocks_standard_layout_block, {
-    relationName: "_blocks_standardLayoutBlock",
+);
+export const relations__page_v_blocks_stats_bar_stats = relations(
+  _page_v_blocks_stats_bar_stats,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_stats_bar, {
+      fields: [_page_v_blocks_stats_bar_stats._parentID],
+      references: [_page_v_blocks_stats_bar.id],
+      relationName: "stats",
+    }),
+  }),
+);
+export const relations__page_v_blocks_stats_bar = relations(
+  _page_v_blocks_stats_bar,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_stats_bar._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_statsBar",
+    }),
+    stats: many(_page_v_blocks_stats_bar_stats, {
+      relationName: "stats",
+    }),
+  }),
+);
+export const relations__page_v_blocks_side_bar_sections = relations(
+  _page_v_blocks_side_bar_sections,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_side_bar, {
+      fields: [_page_v_blocks_side_bar_sections._parentID],
+      references: [_page_v_blocks_side_bar.id],
+      relationName: "sections",
+    }),
+  }),
+);
+export const relations__page_v_blocks_side_bar = relations(
+  _page_v_blocks_side_bar,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_side_bar._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_sideBar",
+    }),
+    sections: many(_page_v_blocks_side_bar_sections, {
+      relationName: "sections",
+    }),
+  }),
+);
+export const relations__page_v_blocks_contact_cards_contacts_to_list =
+  relations(_page_v_blocks_contact_cards_contacts_to_list, ({ one }) => ({
+    _parentID: one(_page_v_blocks_contact_cards, {
+      fields: [_page_v_blocks_contact_cards_contacts_to_list._parentID],
+      references: [_page_v_blocks_contact_cards.id],
+      relationName: "contactsToList",
+    }),
+    contactToList: one(contact, {
+      fields: [_page_v_blocks_contact_cards_contacts_to_list.contactToList],
+      references: [contact.id],
+      relationName: "contactToList",
+    }),
+  }));
+export const relations__page_v_blocks_contact_cards = relations(
+  _page_v_blocks_contact_cards,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_contact_cards._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_contactCards",
+    }),
+    contactsToList: many(_page_v_blocks_contact_cards_contacts_to_list, {
+      relationName: "contactsToList",
+    }),
+  }),
+);
+export const relations__page_v_blocks_tabs_tabs = relations(
+  _page_v_blocks_tabs_tabs,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_tabs, {
+      fields: [_page_v_blocks_tabs_tabs._parentID],
+      references: [_page_v_blocks_tabs.id],
+      relationName: "tabs",
+    }),
+  }),
+);
+export const relations__page_v_blocks_tabs = relations(
+  _page_v_blocks_tabs,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_tabs._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_tabs",
+    }),
+    tabs: many(_page_v_blocks_tabs_tabs, {
+      relationName: "tabs",
+    }),
+  }),
+);
+export const relations__page_v_blocks_news_posts_posts = relations(
+  _page_v_blocks_news_posts_posts,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_news_posts, {
+      fields: [_page_v_blocks_news_posts_posts._parentID],
+      references: [_page_v_blocks_news_posts.id],
+      relationName: "posts",
+    }),
+    post: one(news_post, {
+      fields: [_page_v_blocks_news_posts_posts.post],
+      references: [news_post.id],
+      relationName: "post",
+    }),
+  }),
+);
+export const relations__page_v_blocks_news_posts = relations(
+  _page_v_blocks_news_posts,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_news_posts._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_newsPosts",
+    }),
+    posts: many(_page_v_blocks_news_posts_posts, {
+      relationName: "posts",
+    }),
+  }),
+);
+export const relations__page_v_blocks_court_listing_courts = relations(
+  _page_v_blocks_court_listing_courts,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_court_listing, {
+      fields: [_page_v_blocks_court_listing_courts._parentID],
+      references: [_page_v_blocks_court_listing.id],
+      relationName: "courts",
+    }),
+    court: one(local_court, {
+      fields: [_page_v_blocks_court_listing_courts.court],
+      references: [local_court.id],
+      relationName: "court",
+    }),
+  }),
+);
+export const relations__page_v_blocks_court_listing = relations(
+  _page_v_blocks_court_listing,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_court_listing._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_courtListing",
+    }),
+    courts: many(_page_v_blocks_court_listing_courts, {
+      relationName: "courts",
+    }),
+  }),
+);
+export const relations__page_v_blocks_calendar_months_month_items = relations(
+  _page_v_blocks_calendar_months_month_items,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_calendar_months, {
+      fields: [_page_v_blocks_calendar_months_month_items._parentID],
+      references: [_page_v_blocks_calendar_months.id],
+      relationName: "monthItems",
+    }),
+  }),
+);
+export const relations__page_v_blocks_calendar_months = relations(
+  _page_v_blocks_calendar_months,
+  ({ one, many }) => ({
+    _parentID: one(_page_v_blocks_calendar, {
+      fields: [_page_v_blocks_calendar_months._parentID],
+      references: [_page_v_blocks_calendar.id],
+      relationName: "months",
+    }),
+    monthItems: many(_page_v_blocks_calendar_months_month_items, {
+      relationName: "monthItems",
+    }),
+  }),
+);
+export const relations__page_v_blocks_calendar = relations(
+  _page_v_blocks_calendar,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_calendar._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_calendar",
+    }),
+    months: many(_page_v_blocks_calendar_months, {
+      relationName: "months",
+    }),
+  }),
+);
+export const relations__page_v_blocks_media_with_text = relations(
+  _page_v_blocks_media_with_text,
+  ({ one }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_media_with_text._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_mediaWithText",
+    }),
+    media: one(media, {
+      fields: [_page_v_blocks_media_with_text.media],
+      references: [media.id],
+      relationName: "media",
+    }),
+  }),
+);
+export const relations__page_v_blocks_slider_slides = relations(
+  _page_v_blocks_slider_slides,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_slider, {
+      fields: [_page_v_blocks_slider_slides._parentID],
+      references: [_page_v_blocks_slider.id],
+      relationName: "slides",
+    }),
+  }),
+);
+export const relations__page_v_blocks_slider = relations(
+  _page_v_blocks_slider,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_slider._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_slider",
+    }),
+    slides: many(_page_v_blocks_slider_slides, {
+      relationName: "slides",
+    }),
+  }),
+);
+export const relations__page_v_blocks_newsletters_newsletters = relations(
+  _page_v_blocks_newsletters_newsletters,
+  ({ one }) => ({
+    _parentID: one(_page_v_blocks_newsletters, {
+      fields: [_page_v_blocks_newsletters_newsletters._parentID],
+      references: [_page_v_blocks_newsletters.id],
+      relationName: "newsletters",
+    }),
+    newsletter: one(newsletter, {
+      fields: [_page_v_blocks_newsletters_newsletters.newsletter],
+      references: [newsletter.id],
+      relationName: "newsletter",
+    }),
+  }),
+);
+export const relations__page_v_blocks_newsletters = relations(
+  _page_v_blocks_newsletters,
+  ({ one, many }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_newsletters._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_newsletters",
+    }),
+    newsletters: many(_page_v_blocks_newsletters_newsletters, {
+      relationName: "newsletters",
+    }),
+    downloadImage: one(media, {
+      fields: [_page_v_blocks_newsletters.downloadImage],
+      references: [media.id],
+      relationName: "downloadImage",
+    }),
+    dropdownIcon: one(media, {
+      fields: [_page_v_blocks_newsletters.dropdownIcon],
+      references: [media.id],
+      relationName: "dropdownIcon",
+    }),
+  }),
+);
+export const relations__page_v = relations(_page_v, ({ one, many }) => ({
+  parent: one(page, {
+    fields: [_page_v.parent],
+    references: [page.id],
+    relationName: "parent",
+  }),
+  version_hero_media: one(media, {
+    fields: [_page_v.version_hero_media],
+    references: [media.id],
+    relationName: "version_hero_media",
+  }),
+  version_hero_links: many(_page_v_version_hero_links, {
+    relationName: "version_hero_links",
+  }),
+  _blocks_content: many(_page_v_blocks_content, {
+    relationName: "_blocks_content",
+  }),
+  _blocks_statsBar: many(_page_v_blocks_stats_bar, {
+    relationName: "_blocks_statsBar",
+  }),
+  _blocks_sideBar: many(_page_v_blocks_side_bar, {
+    relationName: "_blocks_sideBar",
+  }),
+  _blocks_contactCards: many(_page_v_blocks_contact_cards, {
+    relationName: "_blocks_contactCards",
+  }),
+  _blocks_tabs: many(_page_v_blocks_tabs, {
+    relationName: "_blocks_tabs",
+  }),
+  _blocks_newsPosts: many(_page_v_blocks_news_posts, {
+    relationName: "_blocks_newsPosts",
+  }),
+  _blocks_courtListing: many(_page_v_blocks_court_listing, {
+    relationName: "_blocks_courtListing",
+  }),
+  _blocks_calendar: many(_page_v_blocks_calendar, {
+    relationName: "_blocks_calendar",
+  }),
+  _blocks_mediaWithText: many(_page_v_blocks_media_with_text, {
+    relationName: "_blocks_mediaWithText",
+  }),
+  _blocks_slider: many(_page_v_blocks_slider, {
+    relationName: "_blocks_slider",
+  }),
+  _blocks_newsletters: many(_page_v_blocks_newsletters, {
+    relationName: "_blocks_newsletters",
   }),
 }));
 export const relations_contact_contact_roles = relations(
@@ -2410,11 +4537,6 @@ export const relations_contact = relations(contact, ({ one, many }) => ({
   contactRoles: many(contact_contact_roles, {
     relationName: "contactRoles",
   }),
-  contactLink: one(page, {
-    fields: [contact.contactLink],
-    references: [page.id],
-    relationName: "contactLink",
-  }),
 }));
 export const relations_diocese_district_deputies = relations(
   diocese_district_deputies,
@@ -2428,16 +4550,6 @@ export const relations_diocese_district_deputies = relations(
       fields: [diocese_district_deputies.deputy],
       references: [contact.id],
       relationName: "deputy",
-    }),
-  }),
-);
-export const relations_diocese_diocese_meeting_schedule = relations(
-  diocese_diocese_meeting_schedule,
-  ({ one }) => ({
-    _parentID: one(diocese, {
-      fields: [diocese_diocese_meeting_schedule._parentID],
-      references: [diocese.id],
-      relationName: "dioceseMeetingSchedule",
     }),
   }),
 );
@@ -2460,51 +4572,116 @@ export const relations_diocese = relations(diocese, ({ many }) => ({
   districtDeputies: many(diocese_district_deputies, {
     relationName: "districtDeputies",
   }),
-  dioceseMeetingSchedule: many(diocese_diocese_meeting_schedule, {
-    relationName: "dioceseMeetingSchedule",
-  }),
   dioceseEvents: many(diocese_diocese_events, {
     relationName: "dioceseEvents",
   }),
 }));
-export const relations_event = relations(event, ({ one }) => ({
-  link: one(page, {
-    fields: [event.link],
-    references: [page.id],
-    relationName: "link",
+export const relations_event_rels = relations(event_rels, ({ one }) => ({
+  parent: one(event, {
+    fields: [event_rels.parent],
+    references: [event.id],
+    relationName: "_rels",
+  }),
+  eventID: one(event, {
+    fields: [event_rels.eventID],
+    references: [event.id],
+    relationName: "event",
+  }),
+}));
+export const relations_event = relations(event, ({ one, many }) => ({
+  heroImage: one(media, {
+    fields: [event.heroImage],
+    references: [media.id],
+    relationName: "heroImage",
+  }),
+  _rels: many(event_rels, {
+    relationName: "_rels",
+  }),
+}));
+export const relations__event_v_rels = relations(_event_v_rels, ({ one }) => ({
+  parent: one(_event_v, {
+    fields: [_event_v_rels.parent],
+    references: [_event_v.id],
+    relationName: "_rels",
+  }),
+  eventID: one(event, {
+    fields: [_event_v_rels.eventID],
+    references: [event.id],
+    relationName: "event",
+  }),
+}));
+export const relations__event_v = relations(_event_v, ({ one, many }) => ({
+  parent: one(event, {
+    fields: [_event_v.parent],
+    references: [event.id],
+    relationName: "parent",
+  }),
+  version_heroImage: one(media, {
+    fields: [_event_v.version_heroImage],
+    references: [media.id],
+    relationName: "version_heroImage",
+  }),
+  _rels: many(_event_v_rels, {
+    relationName: "_rels",
   }),
 }));
 export const relations_project = relations(project, ({ one }) => ({
-  projectLink: one(page, {
-    fields: [project.projectLink],
-    references: [page.id],
-    relationName: "projectLink",
+  heroImage: one(media, {
+    fields: [project.heroImage],
+    references: [media.id],
+    relationName: "heroImage",
+  }),
+}));
+export const relations__project_v = relations(_project_v, ({ one }) => ({
+  parent: one(project, {
+    fields: [_project_v.parent],
+    references: [project.id],
+    relationName: "parent",
+  }),
+  version_heroImage: one(media, {
+    fields: [_project_v.version_heroImage],
+    references: [media.id],
+    relationName: "version_heroImage",
   }),
 }));
 export const relations_charity = relations(charity, ({ one }) => ({
-  charityLink: one(page, {
-    fields: [charity.charityLink],
-    references: [page.id],
-    relationName: "charityLink",
+  heroImage: one(media, {
+    fields: [charity.heroImage],
+    references: [media.id],
+    relationName: "heroImage",
+  }),
+}));
+export const relations__charity_v = relations(_charity_v, ({ one }) => ({
+  parent: one(charity, {
+    fields: [_charity_v.parent],
+    references: [charity.id],
+    relationName: "parent",
+  }),
+  version_heroImage: one(media, {
+    fields: [_charity_v.version_heroImage],
+    references: [media.id],
+    relationName: "version_heroImage",
   }),
 }));
 export const relations_fundraiser = relations(fundraiser, ({ one }) => ({
-  fundraiserLink: one(page, {
-    fields: [fundraiser.fundraiserLink],
-    references: [page.id],
-    relationName: "fundraiserLink",
+  heroImage: one(media, {
+    fields: [fundraiser.heroImage],
+    references: [media.id],
+    relationName: "heroImage",
   }),
 }));
-export const relations_local_court_court_meeting_schedule = relations(
-  local_court_court_meeting_schedule,
-  ({ one }) => ({
-    _parentID: one(local_court, {
-      fields: [local_court_court_meeting_schedule._parentID],
-      references: [local_court.id],
-      relationName: "courtMeetingSchedule",
-    }),
+export const relations__fundraiser_v = relations(_fundraiser_v, ({ one }) => ({
+  parent: one(fundraiser, {
+    fields: [_fundraiser_v.parent],
+    references: [fundraiser.id],
+    relationName: "parent",
   }),
-);
+  version_heroImage: one(media, {
+    fields: [_fundraiser_v.version_heroImage],
+    references: [media.id],
+    relationName: "version_heroImage",
+  }),
+}));
 export const relations_local_court_court_events = relations(
   local_court_court_events,
   ({ one }) => ({
@@ -2565,17 +4742,17 @@ export const relations_local_court_court_fundraisers = relations(
     }),
   }),
 );
-export const relations_local_court_court_newsletters = relations(
-  local_court_court_newsletters,
+export const relations_local_court_rels = relations(
+  local_court_rels,
   ({ one }) => ({
-    _parentID: one(local_court, {
-      fields: [local_court_court_newsletters._parentID],
+    parent: one(local_court, {
+      fields: [local_court_rels.parent],
       references: [local_court.id],
-      relationName: "courtNewsletters",
+      relationName: "_rels",
     }),
-    newsletter: one(media, {
-      fields: [local_court_court_newsletters.newsletter],
-      references: [media.id],
+    newsletterID: one(newsletter, {
+      fields: [local_court_rels.newsletterID],
+      references: [newsletter.id],
       relationName: "newsletter",
     }),
   }),
@@ -2613,9 +4790,6 @@ export const relations_local_court = relations(
       references: [contact.id],
       relationName: "courtOfficers_courtTreasurer",
     }),
-    courtMeetingSchedule: many(local_court_court_meeting_schedule, {
-      relationName: "courtMeetingSchedule",
-    }),
     courtEvents: many(local_court_court_events, {
       relationName: "courtEvents",
     }),
@@ -2628,11 +4802,173 @@ export const relations_local_court = relations(
     courtFundraisers: many(local_court_court_fundraisers, {
       relationName: "courtFundraisers",
     }),
-    courtNewsletters: many(local_court_court_newsletters, {
-      relationName: "courtNewsletters",
+    heroImage: one(media, {
+      fields: [local_court.heroImage],
+      references: [media.id],
+      relationName: "heroImage",
+    }),
+    _rels: many(local_court_rels, {
+      relationName: "_rels",
     }),
   }),
 );
+export const relations__local_court_v_version_court_events = relations(
+  _local_court_v_version_court_events,
+  ({ one }) => ({
+    _parentID: one(_local_court_v, {
+      fields: [_local_court_v_version_court_events._parentID],
+      references: [_local_court_v.id],
+      relationName: "version_courtEvents",
+    }),
+    event: one(event, {
+      fields: [_local_court_v_version_court_events.event],
+      references: [event.id],
+      relationName: "event",
+    }),
+  }),
+);
+export const relations__local_court_v_version_court_projects = relations(
+  _local_court_v_version_court_projects,
+  ({ one }) => ({
+    _parentID: one(_local_court_v, {
+      fields: [_local_court_v_version_court_projects._parentID],
+      references: [_local_court_v.id],
+      relationName: "version_courtProjects",
+    }),
+    project: one(project, {
+      fields: [_local_court_v_version_court_projects.project],
+      references: [project.id],
+      relationName: "project",
+    }),
+  }),
+);
+export const relations__local_court_v_version_court_charities = relations(
+  _local_court_v_version_court_charities,
+  ({ one }) => ({
+    _parentID: one(_local_court_v, {
+      fields: [_local_court_v_version_court_charities._parentID],
+      references: [_local_court_v.id],
+      relationName: "version_courtCharities",
+    }),
+    charity: one(charity, {
+      fields: [_local_court_v_version_court_charities.charity],
+      references: [charity.id],
+      relationName: "charity",
+    }),
+  }),
+);
+export const relations__local_court_v_version_court_fundraisers = relations(
+  _local_court_v_version_court_fundraisers,
+  ({ one }) => ({
+    _parentID: one(_local_court_v, {
+      fields: [_local_court_v_version_court_fundraisers._parentID],
+      references: [_local_court_v.id],
+      relationName: "version_courtFundraisers",
+    }),
+    fundraiser: one(fundraiser, {
+      fields: [_local_court_v_version_court_fundraisers.fundraiser],
+      references: [fundraiser.id],
+      relationName: "fundraiser",
+    }),
+  }),
+);
+export const relations__local_court_v_rels = relations(
+  _local_court_v_rels,
+  ({ one }) => ({
+    parent: one(_local_court_v, {
+      fields: [_local_court_v_rels.parent],
+      references: [_local_court_v.id],
+      relationName: "_rels",
+    }),
+    newsletterID: one(newsletter, {
+      fields: [_local_court_v_rels.newsletterID],
+      references: [newsletter.id],
+      relationName: "newsletter",
+    }),
+  }),
+);
+export const relations__local_court_v = relations(
+  _local_court_v,
+  ({ one, many }) => ({
+    parent: one(local_court, {
+      fields: [_local_court_v.parent],
+      references: [local_court.id],
+      relationName: "parent",
+    }),
+    version_courtDiocese: one(diocese, {
+      fields: [_local_court_v.version_courtDiocese],
+      references: [diocese.id],
+      relationName: "version_courtDiocese",
+    }),
+    version_courtOfficers_courtRegent: one(contact, {
+      fields: [_local_court_v.version_courtOfficers_courtRegent],
+      references: [contact.id],
+      relationName: "version_courtOfficers_courtRegent",
+    }),
+    version_courtOfficers_courtViceRegent: one(contact, {
+      fields: [_local_court_v.version_courtOfficers_courtViceRegent],
+      references: [contact.id],
+      relationName: "version_courtOfficers_courtViceRegent",
+    }),
+    version_courtOfficers_courtRecordingSecretary: one(contact, {
+      fields: [_local_court_v.version_courtOfficers_courtRecordingSecretary],
+      references: [contact.id],
+      relationName: "version_courtOfficers_courtRecordingSecretary",
+    }),
+    version_courtOfficers_courtFinancialSecretary: one(contact, {
+      fields: [_local_court_v.version_courtOfficers_courtFinancialSecretary],
+      references: [contact.id],
+      relationName: "version_courtOfficers_courtFinancialSecretary",
+    }),
+    version_courtOfficers_courtTreasurer: one(contact, {
+      fields: [_local_court_v.version_courtOfficers_courtTreasurer],
+      references: [contact.id],
+      relationName: "version_courtOfficers_courtTreasurer",
+    }),
+    version_courtEvents: many(_local_court_v_version_court_events, {
+      relationName: "version_courtEvents",
+    }),
+    version_courtProjects: many(_local_court_v_version_court_projects, {
+      relationName: "version_courtProjects",
+    }),
+    version_courtCharities: many(_local_court_v_version_court_charities, {
+      relationName: "version_courtCharities",
+    }),
+    version_courtFundraisers: many(_local_court_v_version_court_fundraisers, {
+      relationName: "version_courtFundraisers",
+    }),
+    version_heroImage: one(media, {
+      fields: [_local_court_v.version_heroImage],
+      references: [media.id],
+      relationName: "version_heroImage",
+    }),
+    _rels: many(_local_court_v_rels, {
+      relationName: "_rels",
+    }),
+  }),
+);
+export const relations_newsletter = relations(newsletter, ({ one }) => ({
+  associatedCourt: one(local_court, {
+    fields: [newsletter.associatedCourt],
+    references: [local_court.id],
+    relationName: "associatedCourt",
+  }),
+}));
+export const relations_payload_jobs_log = relations(
+  payload_jobs_log,
+  ({ one }) => ({
+    _parentID: one(payload_jobs, {
+      fields: [payload_jobs_log._parentID],
+      references: [payload_jobs.id],
+      relationName: "log",
+    }),
+  }),
+);
+export const relations_payload_jobs = relations(payload_jobs, ({ many }) => ({
+  log: many(payload_jobs_log, {
+    relationName: "log",
+  }),
+}));
 export const relations_payload_locked_documents_rels = relations(
   payload_locked_documents_rels,
   ({ one }) => ({
@@ -2695,6 +5031,16 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.localCourtID],
       references: [local_court.id],
       relationName: "localCourt",
+    }),
+    newsletterID: one(newsletter, {
+      fields: [payload_locked_documents_rels.newsletterID],
+      references: [newsletter.id],
+      relationName: "newsletter",
+    }),
+    "payload-jobsID": one(payload_jobs, {
+      fields: [payload_locked_documents_rels["payload-jobsID"]],
+      references: [payload_jobs.id],
+      relationName: "payload-jobs",
     }),
   }),
 );
@@ -2774,18 +5120,18 @@ export const relations_footer = relations(footer, ({ one, many }) => ({
     relationName: "links",
   }),
 }));
-export const relations_header_nav_items_sub_nav_sub_nav_items = relations(
-  header_nav_items_sub_nav_sub_nav_items,
+export const relations_header_nav_items_sub_nav_links = relations(
+  header_nav_items_sub_nav_links,
   ({ one }) => ({
     _parentID: one(header_nav_items_sub_nav, {
-      fields: [header_nav_items_sub_nav_sub_nav_items._parentID],
+      fields: [header_nav_items_sub_nav_links._parentID],
       references: [header_nav_items_sub_nav.id],
-      relationName: "subNavItems",
+      relationName: "links",
     }),
-    page: one(page, {
-      fields: [header_nav_items_sub_nav_sub_nav_items.page],
+    link_reference: one(page, {
+      fields: [header_nav_items_sub_nav_links.link_reference],
       references: [page.id],
-      relationName: "page",
+      relationName: "link_reference",
     }),
   }),
 );
@@ -2797,8 +5143,8 @@ export const relations_header_nav_items_sub_nav = relations(
       references: [header_nav_items.id],
       relationName: "subNav",
     }),
-    subNavItems: many(header_nav_items_sub_nav_sub_nav_items, {
-      relationName: "subNavItems",
+    links: many(header_nav_items_sub_nav_links, {
+      relationName: "links",
     }),
   }),
 );
@@ -2810,10 +5156,10 @@ export const relations_header_nav_items = relations(
       references: [header.id],
       relationName: "navItems",
     }),
-    page: one(page, {
-      fields: [header_nav_items.page],
+    link_reference: one(page, {
+      fields: [header_nav_items.link_reference],
       references: [page.id],
-      relationName: "page",
+      relationName: "link_reference",
     }),
     subNav: many(header_nav_items_sub_nav, {
       relationName: "subNav",
@@ -2850,61 +5196,144 @@ export const relations_header = relations(header, ({ one, many }) => ({
     relationName: "backIcon",
   }),
 }));
+export const relations_background = relations(background, ({ one }) => ({
+  backgroundMedia: one(media, {
+    fields: [background.backgroundMedia],
+    references: [media.id],
+    relationName: "backgroundMedia",
+  }),
+}));
 
 type DatabaseSchema = {
+  enum_news_post_status: typeof enum_news_post_status;
+  enum__news_post_v_version_status: typeof enum__news_post_v_version_status;
+  enum_page_hero_links_link_type: typeof enum_page_hero_links_link_type;
+  enum_page_hero_links_link_appearance: typeof enum_page_hero_links_link_appearance;
   enum_page_blocks_content_columns_size: typeof enum_page_blocks_content_columns_size;
+  enum_page_blocks_side_bar_alignment: typeof enum_page_blocks_side_bar_alignment;
+  enum_page_blocks_media_with_text_media_size: typeof enum_page_blocks_media_with_text_media_size;
+  enum_page_blocks_media_with_text_media_alignment: typeof enum_page_blocks_media_with_text_media_alignment;
   enum_page_hero_type: typeof enum_page_hero_type;
+  enum_page_status: typeof enum_page_status;
+  enum__page_v_version_hero_links_link_type: typeof enum__page_v_version_hero_links_link_type;
+  enum__page_v_version_hero_links_link_appearance: typeof enum__page_v_version_hero_links_link_appearance;
+  enum__page_v_blocks_content_columns_size: typeof enum__page_v_blocks_content_columns_size;
+  enum__page_v_blocks_side_bar_alignment: typeof enum__page_v_blocks_side_bar_alignment;
+  enum__page_v_blocks_media_with_text_media_size: typeof enum__page_v_blocks_media_with_text_media_size;
+  enum__page_v_blocks_media_with_text_media_alignment: typeof enum__page_v_blocks_media_with_text_media_alignment;
+  enum__page_v_version_hero_type: typeof enum__page_v_version_hero_type;
+  enum__page_v_version_status: typeof enum__page_v_version_status;
   enum_contact_contact_type: typeof enum_contact_contact_type;
   enum_event_event_type: typeof enum_event_event_type;
+  enum_event_status: typeof enum_event_status;
+  enum__event_v_version_event_type: typeof enum__event_v_version_event_type;
+  enum__event_v_version_status: typeof enum__event_v_version_status;
   enum_project_project_type: typeof enum_project_project_type;
+  enum_project_status: typeof enum_project_status;
+  enum__project_v_version_project_type: typeof enum__project_v_version_project_type;
+  enum__project_v_version_status: typeof enum__project_v_version_status;
   enum_charity_charity_type: typeof enum_charity_charity_type;
+  enum_charity_status: typeof enum_charity_status;
+  enum__charity_v_version_charity_type: typeof enum__charity_v_version_charity_type;
+  enum__charity_v_version_status: typeof enum__charity_v_version_status;
   enum_fundraiser_fundraiser_type: typeof enum_fundraiser_fundraiser_type;
+  enum_fundraiser_status: typeof enum_fundraiser_status;
+  enum__fundraiser_v_version_fundraiser_type: typeof enum__fundraiser_v_version_fundraiser_type;
+  enum__fundraiser_v_version_status: typeof enum__fundraiser_v_version_status;
+  enum_local_court_status: typeof enum_local_court_status;
+  enum__local_court_v_version_status: typeof enum__local_court_v_version_status;
+  enum_newsletter_type: typeof enum_newsletter_type;
+  enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug;
+  enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state;
+  enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug;
+  enum_header_nav_items_sub_nav_links_link_type: typeof enum_header_nav_items_sub_nav_links_link_type;
+  enum_header_nav_items_sub_nav_links_link_appearance: typeof enum_header_nav_items_sub_nav_links_link_appearance;
+  enum_header_nav_items_link_type: typeof enum_header_nav_items_link_type;
+  enum_header_nav_items_link_appearance: typeof enum_header_nav_items_link_appearance;
   media: typeof media;
   news_post: typeof news_post;
+  news_post_rels: typeof news_post_rels;
+  _news_post_v: typeof _news_post_v;
+  _news_post_v_rels: typeof _news_post_v_rels;
   users: typeof users;
+  page_hero_links: typeof page_hero_links;
   page_blocks_content_columns: typeof page_blocks_content_columns;
   page_blocks_content: typeof page_blocks_content;
   page_blocks_stats_bar_stats: typeof page_blocks_stats_bar_stats;
   page_blocks_stats_bar: typeof page_blocks_stats_bar;
   page_blocks_side_bar_sections: typeof page_blocks_side_bar_sections;
   page_blocks_side_bar: typeof page_blocks_side_bar;
-  page_blocks_page_heading_block: typeof page_blocks_page_heading_block;
-  page_blocks_hero_banner_block: typeof page_blocks_hero_banner_block;
-  page_blocks_news_postings_block_posts: typeof page_blocks_news_postings_block_posts;
-  page_blocks_news_postings_block: typeof page_blocks_news_postings_block;
-  page_blocks_rich_text_block: typeof page_blocks_rich_text_block;
-  page_blocks_stats_block_stats: typeof page_blocks_stats_block_stats;
-  page_blocks_stats_block: typeof page_blocks_stats_block;
-  page_blocks_district_deputies_block: typeof page_blocks_district_deputies_block;
-  page_blocks_state_officers_block_contacts: typeof page_blocks_state_officers_block_contacts;
-  page_blocks_state_officers_block: typeof page_blocks_state_officers_block;
-  page_blocks_state_chairmen_block_chairmen: typeof page_blocks_state_chairmen_block_chairmen;
-  page_blocks_state_chairmen_block: typeof page_blocks_state_chairmen_block;
-  page_blocks_side_bar_layout_block_sections: typeof page_blocks_side_bar_layout_block_sections;
-  page_blocks_side_bar_layout_block: typeof page_blocks_side_bar_layout_block;
-  page_blocks_tabbed_layout_block_tabs: typeof page_blocks_tabbed_layout_block_tabs;
-  page_blocks_tabbed_layout_block: typeof page_blocks_tabbed_layout_block;
-  page_blocks_court_table_block_courts: typeof page_blocks_court_table_block_courts;
-  page_blocks_court_table_block: typeof page_blocks_court_table_block;
-  page_blocks_standard_layout_block: typeof page_blocks_standard_layout_block;
+  page_blocks_contact_cards_contacts_to_list: typeof page_blocks_contact_cards_contacts_to_list;
+  page_blocks_contact_cards: typeof page_blocks_contact_cards;
+  page_blocks_tabs_tabs: typeof page_blocks_tabs_tabs;
+  page_blocks_tabs: typeof page_blocks_tabs;
+  page_blocks_news_posts_posts: typeof page_blocks_news_posts_posts;
+  page_blocks_news_posts: typeof page_blocks_news_posts;
+  page_blocks_court_listing_courts: typeof page_blocks_court_listing_courts;
+  page_blocks_court_listing: typeof page_blocks_court_listing;
+  page_blocks_calendar_months_month_items: typeof page_blocks_calendar_months_month_items;
+  page_blocks_calendar_months: typeof page_blocks_calendar_months;
+  page_blocks_calendar: typeof page_blocks_calendar;
+  page_blocks_media_with_text: typeof page_blocks_media_with_text;
+  page_blocks_slider_slides: typeof page_blocks_slider_slides;
+  page_blocks_slider: typeof page_blocks_slider;
+  page_blocks_newsletters_newsletters: typeof page_blocks_newsletters_newsletters;
+  page_blocks_newsletters: typeof page_blocks_newsletters;
   page: typeof page;
+  _page_v_version_hero_links: typeof _page_v_version_hero_links;
+  _page_v_blocks_content_columns: typeof _page_v_blocks_content_columns;
+  _page_v_blocks_content: typeof _page_v_blocks_content;
+  _page_v_blocks_stats_bar_stats: typeof _page_v_blocks_stats_bar_stats;
+  _page_v_blocks_stats_bar: typeof _page_v_blocks_stats_bar;
+  _page_v_blocks_side_bar_sections: typeof _page_v_blocks_side_bar_sections;
+  _page_v_blocks_side_bar: typeof _page_v_blocks_side_bar;
+  _page_v_blocks_contact_cards_contacts_to_list: typeof _page_v_blocks_contact_cards_contacts_to_list;
+  _page_v_blocks_contact_cards: typeof _page_v_blocks_contact_cards;
+  _page_v_blocks_tabs_tabs: typeof _page_v_blocks_tabs_tabs;
+  _page_v_blocks_tabs: typeof _page_v_blocks_tabs;
+  _page_v_blocks_news_posts_posts: typeof _page_v_blocks_news_posts_posts;
+  _page_v_blocks_news_posts: typeof _page_v_blocks_news_posts;
+  _page_v_blocks_court_listing_courts: typeof _page_v_blocks_court_listing_courts;
+  _page_v_blocks_court_listing: typeof _page_v_blocks_court_listing;
+  _page_v_blocks_calendar_months_month_items: typeof _page_v_blocks_calendar_months_month_items;
+  _page_v_blocks_calendar_months: typeof _page_v_blocks_calendar_months;
+  _page_v_blocks_calendar: typeof _page_v_blocks_calendar;
+  _page_v_blocks_media_with_text: typeof _page_v_blocks_media_with_text;
+  _page_v_blocks_slider_slides: typeof _page_v_blocks_slider_slides;
+  _page_v_blocks_slider: typeof _page_v_blocks_slider;
+  _page_v_blocks_newsletters_newsletters: typeof _page_v_blocks_newsletters_newsletters;
+  _page_v_blocks_newsletters: typeof _page_v_blocks_newsletters;
+  _page_v: typeof _page_v;
   contact_contact_roles: typeof contact_contact_roles;
   contact: typeof contact;
   diocese_district_deputies: typeof diocese_district_deputies;
-  diocese_diocese_meeting_schedule: typeof diocese_diocese_meeting_schedule;
   diocese_diocese_events: typeof diocese_diocese_events;
   diocese: typeof diocese;
   event: typeof event;
+  event_rels: typeof event_rels;
+  _event_v: typeof _event_v;
+  _event_v_rels: typeof _event_v_rels;
   project: typeof project;
+  _project_v: typeof _project_v;
   charity: typeof charity;
+  _charity_v: typeof _charity_v;
   fundraiser: typeof fundraiser;
-  local_court_court_meeting_schedule: typeof local_court_court_meeting_schedule;
+  _fundraiser_v: typeof _fundraiser_v;
   local_court_court_events: typeof local_court_court_events;
   local_court_court_projects: typeof local_court_court_projects;
   local_court_court_charities: typeof local_court_court_charities;
   local_court_court_fundraisers: typeof local_court_court_fundraisers;
-  local_court_court_newsletters: typeof local_court_court_newsletters;
   local_court: typeof local_court;
+  local_court_rels: typeof local_court_rels;
+  _local_court_v_version_court_events: typeof _local_court_v_version_court_events;
+  _local_court_v_version_court_projects: typeof _local_court_v_version_court_projects;
+  _local_court_v_version_court_charities: typeof _local_court_v_version_court_charities;
+  _local_court_v_version_court_fundraisers: typeof _local_court_v_version_court_fundraisers;
+  _local_court_v: typeof _local_court_v;
+  _local_court_v_rels: typeof _local_court_v_rels;
+  newsletter: typeof newsletter;
+  payload_jobs_log: typeof payload_jobs_log;
+  payload_jobs: typeof payload_jobs;
   payload_locked_documents: typeof payload_locked_documents;
   payload_locked_documents_rels: typeof payload_locked_documents_rels;
   payload_preferences: typeof payload_preferences;
@@ -2914,56 +5343,95 @@ type DatabaseSchema = {
   footer_social_media_icons: typeof footer_social_media_icons;
   footer_links: typeof footer_links;
   footer: typeof footer;
-  header_nav_items_sub_nav_sub_nav_items: typeof header_nav_items_sub_nav_sub_nav_items;
+  header_nav_items_sub_nav_links: typeof header_nav_items_sub_nav_links;
   header_nav_items_sub_nav: typeof header_nav_items_sub_nav;
   header_nav_items: typeof header_nav_items;
   header: typeof header;
+  background: typeof background;
   relations_media: typeof relations_media;
+  relations_news_post_rels: typeof relations_news_post_rels;
   relations_news_post: typeof relations_news_post;
+  relations__news_post_v_rels: typeof relations__news_post_v_rels;
+  relations__news_post_v: typeof relations__news_post_v;
   relations_users: typeof relations_users;
+  relations_page_hero_links: typeof relations_page_hero_links;
   relations_page_blocks_content_columns: typeof relations_page_blocks_content_columns;
   relations_page_blocks_content: typeof relations_page_blocks_content;
   relations_page_blocks_stats_bar_stats: typeof relations_page_blocks_stats_bar_stats;
   relations_page_blocks_stats_bar: typeof relations_page_blocks_stats_bar;
   relations_page_blocks_side_bar_sections: typeof relations_page_blocks_side_bar_sections;
   relations_page_blocks_side_bar: typeof relations_page_blocks_side_bar;
-  relations_page_blocks_page_heading_block: typeof relations_page_blocks_page_heading_block;
-  relations_page_blocks_hero_banner_block: typeof relations_page_blocks_hero_banner_block;
-  relations_page_blocks_news_postings_block_posts: typeof relations_page_blocks_news_postings_block_posts;
-  relations_page_blocks_news_postings_block: typeof relations_page_blocks_news_postings_block;
-  relations_page_blocks_rich_text_block: typeof relations_page_blocks_rich_text_block;
-  relations_page_blocks_stats_block_stats: typeof relations_page_blocks_stats_block_stats;
-  relations_page_blocks_stats_block: typeof relations_page_blocks_stats_block;
-  relations_page_blocks_district_deputies_block: typeof relations_page_blocks_district_deputies_block;
-  relations_page_blocks_state_officers_block_contacts: typeof relations_page_blocks_state_officers_block_contacts;
-  relations_page_blocks_state_officers_block: typeof relations_page_blocks_state_officers_block;
-  relations_page_blocks_state_chairmen_block_chairmen: typeof relations_page_blocks_state_chairmen_block_chairmen;
-  relations_page_blocks_state_chairmen_block: typeof relations_page_blocks_state_chairmen_block;
-  relations_page_blocks_side_bar_layout_block_sections: typeof relations_page_blocks_side_bar_layout_block_sections;
-  relations_page_blocks_side_bar_layout_block: typeof relations_page_blocks_side_bar_layout_block;
-  relations_page_blocks_tabbed_layout_block_tabs: typeof relations_page_blocks_tabbed_layout_block_tabs;
-  relations_page_blocks_tabbed_layout_block: typeof relations_page_blocks_tabbed_layout_block;
-  relations_page_blocks_court_table_block_courts: typeof relations_page_blocks_court_table_block_courts;
-  relations_page_blocks_court_table_block: typeof relations_page_blocks_court_table_block;
-  relations_page_blocks_standard_layout_block: typeof relations_page_blocks_standard_layout_block;
+  relations_page_blocks_contact_cards_contacts_to_list: typeof relations_page_blocks_contact_cards_contacts_to_list;
+  relations_page_blocks_contact_cards: typeof relations_page_blocks_contact_cards;
+  relations_page_blocks_tabs_tabs: typeof relations_page_blocks_tabs_tabs;
+  relations_page_blocks_tabs: typeof relations_page_blocks_tabs;
+  relations_page_blocks_news_posts_posts: typeof relations_page_blocks_news_posts_posts;
+  relations_page_blocks_news_posts: typeof relations_page_blocks_news_posts;
+  relations_page_blocks_court_listing_courts: typeof relations_page_blocks_court_listing_courts;
+  relations_page_blocks_court_listing: typeof relations_page_blocks_court_listing;
+  relations_page_blocks_calendar_months_month_items: typeof relations_page_blocks_calendar_months_month_items;
+  relations_page_blocks_calendar_months: typeof relations_page_blocks_calendar_months;
+  relations_page_blocks_calendar: typeof relations_page_blocks_calendar;
+  relations_page_blocks_media_with_text: typeof relations_page_blocks_media_with_text;
+  relations_page_blocks_slider_slides: typeof relations_page_blocks_slider_slides;
+  relations_page_blocks_slider: typeof relations_page_blocks_slider;
+  relations_page_blocks_newsletters_newsletters: typeof relations_page_blocks_newsletters_newsletters;
+  relations_page_blocks_newsletters: typeof relations_page_blocks_newsletters;
   relations_page: typeof relations_page;
+  relations__page_v_version_hero_links: typeof relations__page_v_version_hero_links;
+  relations__page_v_blocks_content_columns: typeof relations__page_v_blocks_content_columns;
+  relations__page_v_blocks_content: typeof relations__page_v_blocks_content;
+  relations__page_v_blocks_stats_bar_stats: typeof relations__page_v_blocks_stats_bar_stats;
+  relations__page_v_blocks_stats_bar: typeof relations__page_v_blocks_stats_bar;
+  relations__page_v_blocks_side_bar_sections: typeof relations__page_v_blocks_side_bar_sections;
+  relations__page_v_blocks_side_bar: typeof relations__page_v_blocks_side_bar;
+  relations__page_v_blocks_contact_cards_contacts_to_list: typeof relations__page_v_blocks_contact_cards_contacts_to_list;
+  relations__page_v_blocks_contact_cards: typeof relations__page_v_blocks_contact_cards;
+  relations__page_v_blocks_tabs_tabs: typeof relations__page_v_blocks_tabs_tabs;
+  relations__page_v_blocks_tabs: typeof relations__page_v_blocks_tabs;
+  relations__page_v_blocks_news_posts_posts: typeof relations__page_v_blocks_news_posts_posts;
+  relations__page_v_blocks_news_posts: typeof relations__page_v_blocks_news_posts;
+  relations__page_v_blocks_court_listing_courts: typeof relations__page_v_blocks_court_listing_courts;
+  relations__page_v_blocks_court_listing: typeof relations__page_v_blocks_court_listing;
+  relations__page_v_blocks_calendar_months_month_items: typeof relations__page_v_blocks_calendar_months_month_items;
+  relations__page_v_blocks_calendar_months: typeof relations__page_v_blocks_calendar_months;
+  relations__page_v_blocks_calendar: typeof relations__page_v_blocks_calendar;
+  relations__page_v_blocks_media_with_text: typeof relations__page_v_blocks_media_with_text;
+  relations__page_v_blocks_slider_slides: typeof relations__page_v_blocks_slider_slides;
+  relations__page_v_blocks_slider: typeof relations__page_v_blocks_slider;
+  relations__page_v_blocks_newsletters_newsletters: typeof relations__page_v_blocks_newsletters_newsletters;
+  relations__page_v_blocks_newsletters: typeof relations__page_v_blocks_newsletters;
+  relations__page_v: typeof relations__page_v;
   relations_contact_contact_roles: typeof relations_contact_contact_roles;
   relations_contact: typeof relations_contact;
   relations_diocese_district_deputies: typeof relations_diocese_district_deputies;
-  relations_diocese_diocese_meeting_schedule: typeof relations_diocese_diocese_meeting_schedule;
   relations_diocese_diocese_events: typeof relations_diocese_diocese_events;
   relations_diocese: typeof relations_diocese;
+  relations_event_rels: typeof relations_event_rels;
   relations_event: typeof relations_event;
+  relations__event_v_rels: typeof relations__event_v_rels;
+  relations__event_v: typeof relations__event_v;
   relations_project: typeof relations_project;
+  relations__project_v: typeof relations__project_v;
   relations_charity: typeof relations_charity;
+  relations__charity_v: typeof relations__charity_v;
   relations_fundraiser: typeof relations_fundraiser;
-  relations_local_court_court_meeting_schedule: typeof relations_local_court_court_meeting_schedule;
+  relations__fundraiser_v: typeof relations__fundraiser_v;
   relations_local_court_court_events: typeof relations_local_court_court_events;
   relations_local_court_court_projects: typeof relations_local_court_court_projects;
   relations_local_court_court_charities: typeof relations_local_court_court_charities;
   relations_local_court_court_fundraisers: typeof relations_local_court_court_fundraisers;
-  relations_local_court_court_newsletters: typeof relations_local_court_court_newsletters;
+  relations_local_court_rels: typeof relations_local_court_rels;
   relations_local_court: typeof relations_local_court;
+  relations__local_court_v_version_court_events: typeof relations__local_court_v_version_court_events;
+  relations__local_court_v_version_court_projects: typeof relations__local_court_v_version_court_projects;
+  relations__local_court_v_version_court_charities: typeof relations__local_court_v_version_court_charities;
+  relations__local_court_v_version_court_fundraisers: typeof relations__local_court_v_version_court_fundraisers;
+  relations__local_court_v_rels: typeof relations__local_court_v_rels;
+  relations__local_court_v: typeof relations__local_court_v;
+  relations_newsletter: typeof relations_newsletter;
+  relations_payload_jobs_log: typeof relations_payload_jobs_log;
+  relations_payload_jobs: typeof relations_payload_jobs;
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels;
   relations_payload_locked_documents: typeof relations_payload_locked_documents;
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels;
@@ -2973,13 +5441,14 @@ type DatabaseSchema = {
   relations_footer_social_media_icons: typeof relations_footer_social_media_icons;
   relations_footer_links: typeof relations_footer_links;
   relations_footer: typeof relations_footer;
-  relations_header_nav_items_sub_nav_sub_nav_items: typeof relations_header_nav_items_sub_nav_sub_nav_items;
+  relations_header_nav_items_sub_nav_links: typeof relations_header_nav_items_sub_nav_links;
   relations_header_nav_items_sub_nav: typeof relations_header_nav_items_sub_nav;
   relations_header_nav_items: typeof relations_header_nav_items;
   relations_header: typeof relations_header;
+  relations_background: typeof relations_background;
 };
 
-declare module "@payloadcms/db-vercel-postgres/types" {
+declare module "@payloadcms/db-vercel-postgres" {
   export interface GeneratedDatabaseSchema {
     schema: DatabaseSchema;
   }
