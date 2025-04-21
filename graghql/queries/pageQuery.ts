@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { LAYOUT_FRAGMENT } from '../fragments/layoutFrag';
+import { LAYOUT_FRAGMENTS } from '../fragments/layoutFrag';
 
 
 export const GET_PAGE_BY_SLUG = gql`
@@ -32,10 +32,21 @@ export const GET_PAGE_BY_SLUG = gql`
           }
         }
         layout {
-          ...LayoutFragments
+          __typename
+          ...ContentBlockFields
+          ...StatsBarBlockFields
+          ...SideBarBlockFields
+          ...ContactCardsBlockFields
+          ...TabsBlockFields
+          ...NewsPostsBlockFields
+          ...CourtListingBlockFields
+          ...CalendarBlockFields
+          ...MediaWithTextBlockFields
+          ...SliderBlockFields
+          ...NewslettersBlockFields
         }
       }
     }
   }
-  ${LAYOUT_FRAGMENT}
+  ${LAYOUT_FRAGMENTS}
 `;
