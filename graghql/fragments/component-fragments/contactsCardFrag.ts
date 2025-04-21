@@ -17,6 +17,7 @@ export const CONTACT_CARDS_FRAGMENT = gql`
                 width
             }
             contactRoles {
+                id
                 role
             }
         }

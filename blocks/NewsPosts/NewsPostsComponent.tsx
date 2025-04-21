@@ -50,7 +50,7 @@ export const NewsPostsBlock: React.FC<NewsPostBlocksProps> = (props) => {
                             if (post.post && typeof post.post === 'object') {
                                 return (
                                     <NewsItem
-                                        key={post.post.id ? post.post.id : index}
+                                        key={post.post.id || index}
                                         newsPost={post.post}
                                     />
                                 )
@@ -64,7 +64,7 @@ export const NewsPostsBlock: React.FC<NewsPostBlocksProps> = (props) => {
                             if (post.post && typeof post.post === 'object') {
                                 return (
                                     <NewsItem
-                                        key={post.post.id ? post.post.id : index}
+                                        key={post.post.id || index}
                                         newsPost={post.post}
                                     />
                                 )

@@ -45,7 +45,7 @@ export const NewslettersBlock: React.FC<NewslettersBlockProps> = (props) => {
                         };
 
                         return (
-                            <div key={index} className="grid grid-cols-3 py-4 gap-y-4 lg:gap-0 md:grid-cols-5">
+                            <div key={newsletter.newsletter.id || index} className="grid grid-cols-3 py-4 gap-y-4 lg:gap-0 md:grid-cols-5">
 
                                 <div className="px-4 text-right lg:py-4 sm:px-6 md:order-last">
                                     <button type="button" className="inline-flex items-center justify-center w-8 h-8">

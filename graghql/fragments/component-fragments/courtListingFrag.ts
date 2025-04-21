@@ -6,6 +6,7 @@ export const COURT_LISTING_FRAGMENT = gql`
     blockName
     id
     richText
+    rowsPerPage
     courts {
         court {
             id

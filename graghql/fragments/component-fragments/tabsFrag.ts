@@ -8,6 +8,7 @@ export const TABS_FRAGMENT = gql`
     blockName
     id
     tabs {
+        id
         tabLabel
         tabContent {
             __typename

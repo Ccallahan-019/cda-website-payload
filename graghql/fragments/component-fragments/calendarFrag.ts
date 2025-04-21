@@ -7,8 +7,10 @@ export const CALENDAR_FRAGMENT = gql`
     id
     intro
     months {
+        id
         title
         monthItems {
+            id
             item
         }
     }

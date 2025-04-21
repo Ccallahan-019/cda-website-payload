@@ -10,6 +10,7 @@ export const NEWS_POSTS_FRAGMENT = gql`
     rowsPerPage
     posts {
         post {
+            id
             updatedAt
             title
             description

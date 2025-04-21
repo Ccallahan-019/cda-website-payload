@@ -13,7 +13,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
           {columns &&
             columns.length > 0 &&
             columns.map((column, index) => {
-              const { richText, size } = column
+              const { richText, size, id } = column
 
               const spanClass = {
                   full: 'lg:col-span-12',
@@ -25,7 +25,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
               return (
                 <div
                   className={`col-span-4 ${size !== 'full' ? 'md:col-span-2' : ''} ${spanClass}`}
-                  key={index}
+                  key={id || index}
                 >
                   {richText && <RichText data={richText} enableProse={false} />}
                 </div>
