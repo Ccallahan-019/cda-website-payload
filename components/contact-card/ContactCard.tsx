@@ -56,7 +56,7 @@ export default function ContactCard({ contact }: Props) {
             </div>
 
             <div className="border-t border-gray-400">
-                <p className="flex items-center justify-start sm:justify-center px-2 sm:px-6 py-4 text-xs font-normal tracking-widest gray-900 uppercase rounded-b bg-transparent hover:bg-gradient-to-r from-muted from-40% to-primary">
+                <p className="flex items-center justify-start sm:justify-center px-2 sm:px-6 py-4 text-xs font-normal tracking-widest text-gray-900 uppercase rounded-b bg-transparent hover:bg-gradient-to-r from-muted from-40% to-primary">
                     {contactEmail}
                 </p>
             </div>

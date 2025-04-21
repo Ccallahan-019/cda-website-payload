@@ -35,7 +35,7 @@ export default function DropdownFilter({ value, options, onClick, icon }: Props)
         <div ref={dropdownRef} className="relative">
             <div onClick={toggleExpanded} className="cursor-pointer block w-full py-3 px-4 border-gray-400 border rounded-lg sm:text-sm">
                 <div className="flex justify-between items-center">
-                    <div className="min-w-28 flex items-center justify-start space-x-2">
+                    <div className="min-w-28 flex items-center justify-start space-x-2 text-gray-700">
                         {value}
                     </div>
                     <Media resource={icon} className="h-4 w-4" />
@@ -56,7 +56,7 @@ export default function DropdownFilter({ value, options, onClick, icon }: Props)
                                 {options.map((option, index) => (
                                     <li
                                         key={index}
-                                        className="w-full rounded-md p-2 text-right hover:bg-gray-100 cursor-pointer"
+                                        className="w-full rounded-md p-2 text-right text-gray-700 hover:bg-gray-100 cursor-pointer"
                                         onClick={() => {
                                             onClick(option);
                                             toggleExpanded();

@@ -26,7 +26,7 @@ const blockComponents = {
                 <ul className="flex">
                     {tabs.map((tab, index) => (
                         <li
-                            className={`relative py-2 px-1.5 sm:px-5 rounded-t-sm ${tab !== activeTab ? "cursor-pointer" : " bg-gray-300"}`}
+                            className={`relative py-2 px-1.5 sm:px-5 rounded-t-sm text-gray-800 ${tab !== activeTab ? "cursor-pointer" : " bg-gray-300"}`}
                             key={tab.id || index}
                             onClick={() => {setActiveTab(tab)}}
                         >

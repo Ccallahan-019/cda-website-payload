@@ -20,11 +20,11 @@ export default function Stat({ stat }: Props) {
             className="flex-1 px-8 py-10 sm:px-12 lg:px-16 lg:py-12 text-center text-shadow-lg text-shadow-gray-300/40"
         >
             {stat.statPostfix ? (
-                <p className="text-5xl font-normallg:text-6xl">
+                <p className="text-5xl text-gray-800 font-normal lg:text-6xl">
                     {`${countUp} ${statPostfix}`}
                 </p>
             ) : (
-                <p className="text-5xl font-normallg:text-6xl">{countUp}</p>
+                <p className="text-5xl text-gray-800 font-normal lg:text-6xl">{countUp}</p>
             )}
 
             <p className="mt-3 text-lg font-normal text-gray-700">{statDescription}</p>

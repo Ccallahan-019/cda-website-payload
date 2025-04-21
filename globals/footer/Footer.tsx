@@ -41,7 +41,7 @@ export default function Footer({ footerData }: Props) {
                     <div className="flex flex-col md:items-end justify-center">
                         <p className="text-sm font-semibold tracking-widest text-gray-600 uppercase">{footerData.linksHeading}</p>
 
-                        <ul className="mt-4 mr-1 space-y-2 flex flex-col md:items-end">
+                        <ul className="mt-4 mr-1 text-gray-800 space-y-2 flex flex-col md:items-end">
                             {footerData.links.map((link, index) => (
                                 <li key={index}>
                                     <Link href={(link.link as Page).slug}>

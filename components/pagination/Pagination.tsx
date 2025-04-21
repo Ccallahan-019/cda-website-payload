@@ -60,11 +60,11 @@ export default function Pagination({
     return (
         <div className="space-y-8">
             {totalCount > 1 ? (
-                <div>
+                <div className="text-gray-700">
                     {`Showing ${startIndex} - ${endIndex} of ${totalCount} ${rangeLabels.plural}`}
                 </div>
             ): (
-                <div>
+                <div className="text-gray-700">
                     {`Showing ${startIndex} of ${totalCount} ${rangeLabels.singular}`}
                 </div>
             )}
