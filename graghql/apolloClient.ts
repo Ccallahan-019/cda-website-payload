@@ -11,7 +11,7 @@ export function getApolloClient(token?: string) {
     return new ApolloClient({
       cache: new InMemoryCache(),
       link:new HttpLink({
-        uri: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/graphql`,
+        uri: `${process.env.NEXT_PUBLIC_SERVER_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL}/api/graphql`,
         fetch,
         headers: token ? { Authorization: `JWT ${token}` } : {},
       })
