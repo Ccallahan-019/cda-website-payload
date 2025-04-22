@@ -9,10 +9,10 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "generate:schema": "payload-graphql generate:schema",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation payload start && next start",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "seed": "npm run payload migrate:fresh",
     "lint": "next lint",
-    "ci": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && npm run build"
+    "ci": "cross-env NODE_OPTIONS=--no-deprecation payload start && payload migrate && npm run build"
   },
   "dependencies": {
     "@apollo/client": "^3.13.6",
