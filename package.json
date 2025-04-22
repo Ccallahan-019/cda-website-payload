@@ -3,16 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation payload dev && next dev",
-    "build": "cross-env NODE_OPTIONS=--no-deprecation payload build && next build",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "ci": "payload migrate && npm run build && npm run start",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "generate:schema": "payload-graphql generate:schema",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "seed": "npm run payload migrate:fresh",
-    "lint": "next lint",
-    "ci": "cross-env NODE_OPTIONS=--no-deprecation payload start && payload migrate && npm run build"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
     "@apollo/client": "^3.13.6",
