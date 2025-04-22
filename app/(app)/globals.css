@@ -25,7 +25,11 @@
   --color-destructive: hsl(0 84.2% 60.2%);
   --color-destructive-foreground: hsl(210 40% 98%);
 
-  --color-border: #dba21d;
+  --color-warning: hsl(34, 83%, 55%);
+  --color-error: hsl(10, 70%, 53%);
+  --color-success: hsl(196, 98%, 34%);
+
+  --color-border: #fcc800;
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: oklch(0.438 0.218 303.724);
 }
@@ -80,6 +84,10 @@
   --color-destructive: hsl(0 84.2% 60.2%);
   --color-destructive-foreground: hsl(210 40% 98%);
 
+  --color-warning: hsl(34, 74%, 39%);
+  --color-error: hsl(10 39% 43%);
+  --color-success: hsl(196 100% 14%);
+
   --color-border: #dba21d;
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: oklch(0.438 0.218 303.724);
@@ -91,29 +99,29 @@
   .payload-richtext {
     h1 {
       font-size: var(--text-5xl);
-      margin: 16px 0 16px 0;
+      margin: 0 0 16px 0;
       color: var(--color-primary);
     }
     h2 {
       font-size: var(--text-4xl);
-      margin: 12px 0 12px 0;
+      margin: 0 0 12px 0;
       color: var(--color-primary);
     }
     h3 {
       font-size: var(--text-3xl);
-      margin: 8px 0 8px 0;
+      margin: 0 0 8px 0;
       color: var(--color-primary);
     }
     h4 {
       font-size: var(--text-2xl);
-      margin: 4px 0 4px 0;
+      margin: 0 0 4px 0;
       color: var(--color-primary);
     }
 
     p {
       font-size: var(--text-lg);
       color: var(--color-gray-800);
-      margin: 8px 0 8px 0;
+      margin: 0 0 8px 0;
     }
 
     a {

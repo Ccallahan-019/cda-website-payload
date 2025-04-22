@@ -279,6 +279,7 @@ export interface Page {
         | MediaWithTextBlock
         | SliderBlock
         | NewslettersBlock
+        | DiocesesAccordianBlock
       )[]
     | null;
   /**
@@ -936,6 +937,31 @@ export interface NewslettersBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DiocesesAccordianBlock".
+ */
+export interface DiocesesAccordianBlock {
+  richText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  dioceses: (number | Diocese)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'diocesesAccordian';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
@@ -1218,6 +1244,7 @@ export interface PageSelect<T extends boolean = true> {
         mediaWithText?: T | MediaWithTextBlockSelect<T>;
         slider?: T | SliderBlockSelect<T>;
         newsletters?: T | NewslettersBlockSelect<T>;
+        diocesesAccordian?: T | DiocesesAccordianBlockSelect<T>;
       };
   slug?: T;
   updatedAt?: T;
@@ -1402,6 +1429,16 @@ export interface NewslettersBlockSelect<T extends boolean = true> {
       };
   downloadImage?: T;
   dropdownIcon?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DiocesesAccordianBlock_select".
+ */
+export interface DiocesesAccordianBlockSelect<T extends boolean = true> {
+  richText?: T;
+  dioceses?: T;
   id?: T;
   blockName?: T;
 }

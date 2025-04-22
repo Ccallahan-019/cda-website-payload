@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+
 import { Hero } from '@/heros/herosConfig'
 import { Content } from '@/blocks/Content/contentConfig'
 import { StatsBar } from '@/blocks/StatsBar/statsBarConfig'
@@ -10,10 +11,13 @@ import { CourtListing } from '@/blocks/CourtListing/courtListingConfig'
 import { Calendar } from '@/blocks/Calendar/calenderConfig'
 import { MediaWithText } from '@/blocks/MediaWithText/mediaWithTextConfig'
 import { Slider } from '@/blocks/Slider/sliderConfig'
+import { Newsletters } from '@/blocks/Newsletters/newslettersConfig'
+import { DiocesesAccordian } from '@/blocks/DiocesesAccordian/diocesesAccordian.config'
+
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
+
 import { revalidatePage } from './hooks/revalidatePage'
-import { Newsletters } from '@/blocks/Newsletters/newslettersConfig'
 import { generatePreviewPath } from '@/utils/generatePreviewPath'
 import { cleanSlugHook } from './hooks/cleanSlugHook'
 
@@ -77,6 +81,7 @@ export const Page: CollectionConfig = {
                 MediaWithText,
                 Slider,
                 Newsletters,
+                DiocesesAccordian,
               ],
               required: false,
               admin: {

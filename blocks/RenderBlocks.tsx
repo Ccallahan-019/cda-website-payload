@@ -11,6 +11,7 @@ import { CalendarBlock } from "@/blocks/Calendar/CalendarComponent";
 import { MediaWithTextBlock } from "./MediaWithText/MediaWithTextComponent";
 import { SliderBlock } from "./Slider/SliderComponent";
 import { NewslettersBlock } from "./Newsletters/NewslettersComponent";
+import { DiocesesAccordianBlock } from "./DiocesesAccordian/Component";
 
 const blockComponents = {
   content: ContentBlock,
@@ -24,6 +25,7 @@ const blockComponents = {
   mediaWithText: MediaWithTextBlock,
   slider: SliderBlock,
   newsletters: NewslettersBlock,
+  diocesesAccordian: DiocesesAccordianBlock,
 }
 
   
