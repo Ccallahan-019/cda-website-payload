@@ -2,7 +2,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-  CREATE TYPE IF NOT EXISTS "public"."enum_news_post_status" AS ENUM('draft', 'published');
+  CREATE TYPE "public"."enum_news_post_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__news_post_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_page_hero_links_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_page_hero_links_link_appearance" AS ENUM('default', 'outline', 'ghost', 'destructive', 'link', 'secondary');
