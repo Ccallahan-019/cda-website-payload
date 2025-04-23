@@ -10,6 +10,7 @@ export const COURT_LISTING_FRAGMENT = gql`
     courts {
         court {
             id
+            slug
             courtName
             courtDiocese {
                 dioceseName

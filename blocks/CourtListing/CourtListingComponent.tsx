@@ -7,6 +7,7 @@ import type { CourtListingBlock as CourtListingBlockProps, LocalCourt } from "@/
 import { useState } from "react";
 import Pagination from "@/components/pagination/Pagination";
 import RichText from "@/lexical-components/RichText";
+import Link from "next/link";
 
 export function getValueFromPath(obj: any, path: string): any {
     return path.split('.').reduce((acc, key) => acc?.[key], obj);
@@ -78,21 +79,35 @@ export const CourtListingBlock: React.FC<CourtListingBlockProps> = (props) => {
 
     const columns =[
             { header: 'Number', accessor: 'courtNumber' },
-            { header: 'Name', accessor: 'courtName' },
+            {
+                header: 'Name',
+                accessor: 'courtName',
+                render: (_: any, row: LocalCourt) => {
+                    if (row.slug) {
+                        return (
+                            <Link href={`/courts/${row.slug}`} className="hover:text-primary">
+                                {row.courtName}
+                            </Link>
+                        )
+                    }
+                    return <p>{row.courtName}</p>
+                    
+                }
+            },
             { header: 'Diocese', accessor: 'courtDiocese.dioceseName' },
             { header: 'Location', accessor: 'courtLocation.courtCity' },
             { 
                 header: 'Instituted', 
                 accessor: 'instituted' as keyof LocalCourt,
                 render: (_: any, row: { instituted: string }) => {
-                    return formatDate(row.instituted);
+                    return <p>{formatDate(row.instituted)}</p>;
                 }
             },
             { 
                 header: 'Anniversary',
                 accessor: 'instituted' as keyof LocalCourt,
                 render: (_: any, row: { instituted: string; }) => {
-                    return convertToAnniversary(row.instituted);
+                    return <p>{convertToAnniversary(row.instituted)}</p>;
                 }
             },
             { 

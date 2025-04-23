@@ -20,12 +20,16 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const slug = value.slug
   const url = value.url
 
-  if (relationTo === 'page') {
-    return `/${slug}`
-  } else if (relationTo === 'media') {
-    return `${url}`
+  switch (relationTo) {
+    case 'page':
+      return `/${slug}`
+    case 'localCourt':
+      return `/courts/${slug}`
+    case 'media':
+      return `${url}`
+    default:
+      return '/'
   }
-  return '/'
 }
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
