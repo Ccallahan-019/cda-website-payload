@@ -2,51 +2,6 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-  CREATE TYPE "public"."enum_news_post_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__news_post_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_page_hero_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_page_hero_links_link_appearance" AS ENUM('default', 'outline', 'ghost', 'destructive', 'link', 'secondary');
-  CREATE TYPE "public"."enum_page_blocks_content_columns_size" AS ENUM('oneThird', 'half', 'twoThirds', 'full');
-  CREATE TYPE "public"."enum_page_blocks_side_bar_alignment" AS ENUM('left', 'right');
-  CREATE TYPE "public"."enum_page_blocks_media_with_text_media_size" AS ENUM('oneThird', 'half', 'twoThirds');
-  CREATE TYPE "public"."enum_page_blocks_media_with_text_media_alignment" AS ENUM('left', 'right');
-  CREATE TYPE "public"."enum_page_hero_type" AS ENUM('none', 'highImpact', 'lowImpact');
-  CREATE TYPE "public"."enum_page_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__page_v_version_hero_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum__page_v_version_hero_links_link_appearance" AS ENUM('default', 'outline', 'ghost', 'destructive', 'link', 'secondary');
-  CREATE TYPE "public"."enum__page_v_blocks_content_columns_size" AS ENUM('oneThird', 'half', 'twoThirds', 'full');
-  CREATE TYPE "public"."enum__page_v_blocks_side_bar_alignment" AS ENUM('left', 'right');
-  CREATE TYPE "public"."enum__page_v_blocks_media_with_text_media_size" AS ENUM('oneThird', 'half', 'twoThirds');
-  CREATE TYPE "public"."enum__page_v_blocks_media_with_text_media_alignment" AS ENUM('left', 'right');
-  CREATE TYPE "public"."enum__page_v_version_hero_type" AS ENUM('none', 'highImpact', 'lowImpact');
-  CREATE TYPE "public"."enum__page_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_contact_contact_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum_event_event_type" AS ENUM('national', 'state', 'local', 'diocesan');
-  CREATE TYPE "public"."enum_event_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__event_v_version_event_type" AS ENUM('national', 'state', 'local', 'diocesan');
-  CREATE TYPE "public"."enum__event_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_project_project_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum_project_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__project_v_version_project_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum__project_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_charity_charity_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum_charity_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__charity_v_version_charity_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum__charity_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_fundraiser_fundraiser_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum_fundraiser_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__fundraiser_v_version_fundraiser_type" AS ENUM('national', 'state', 'local');
-  CREATE TYPE "public"."enum__fundraiser_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_local_court_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__local_court_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_newsletter_type" AS ENUM('local', 'state', 'national');
-  CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'schedulePublish');
-  CREATE TYPE "public"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');
-  CREATE TYPE "public"."enum_payload_jobs_task_slug" AS ENUM('inline', 'schedulePublish');
-  CREATE TYPE "public"."enum_header_nav_items_sub_nav_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_header_nav_items_sub_nav_links_link_appearance" AS ENUM('default', 'outline', 'ghost', 'destructive', 'link', 'secondary');
-  CREATE TYPE "public"."enum_header_nav_items_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_header_nav_items_link_appearance" AS ENUM('default', 'outline', 'ghost', 'destructive', 'link', 'secondary');
   CREATE TABLE IF NOT EXISTS "media" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"alt" varchar NOT NULL,
