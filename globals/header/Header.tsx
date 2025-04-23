@@ -57,24 +57,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         <Logo logo={logo} />
                     )}
                     
-                    <div className="hidden lg:flex items-center justify-center gap-3">
+                    <div className="hidden lg:flex items-center justify-center">
                         {navItems.map((item, index) => (
                             <HeaderNavTab
                                 key={index}
                                 navItem={item}
                                 hoveredItem={hoveredItem}
-                                onClick={item.title && item.subNav && item.subNav.length > 0 ? () => {
-                                    if (item.title) {
-                                        setHoveredItem(item.title)
-                                        setDropdownOverlay(true)
-                                    }
-                                } : () => {
-                                    if (item.title) {
-                                        setIsHeaderVisible(true)
-                                        setHoveredItem(item.title)
-                                    }
 
-                                }}
                                 onMouseEnter={item.title && item.subNav && item.subNav.length > 0 ? () => {
                                     if (item.title) {
                                         setHoveredItem(item.title)
