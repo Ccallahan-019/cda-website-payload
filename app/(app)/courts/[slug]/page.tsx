@@ -8,6 +8,7 @@ import RichText from "@/lexical-components/RichText";
 import { CourtHero } from "@/heros/CourtHero";
 import CourtInfoBanner from "@/components/court-page/CourtInfoBanner";
 import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
+import { Document } from "payload";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -18,9 +19,11 @@ export async function generateStaticParams() {
     query: GET_COURT_SLUGS,
   });
 
-  const params = courts.data.LocalCourts.docs.map(({ slug }: { slug: string }) => {
-    return { slug }
-  });
+  const params = courts.data.LocalCourts.docs.map((doc: Document) => ({
+    slug: doc.slug
+  }));
+
+    console.log(params)
 
     return params;
 }
@@ -46,7 +49,7 @@ type Args = {
     }>
   }
 
-export default async function PageTemplate({ params: paramsPromise }: Args) {
+export default async function CourtPageTemplate({ params: paramsPromise }: Args) {
     const { isEnabled: draft } = await draftMode();
     const { slug = '' } = await paramsPromise;
     const court = await queryCourtBySlug({ slug })
