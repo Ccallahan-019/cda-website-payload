@@ -8,7 +8,6 @@ import RichText from "@/lexical-components/RichText";
 import { CourtHero } from "@/heros/CourtHero";
 import CourtInfoBanner from "@/components/court-page/CourtInfoBanner";
 import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
-import { Document } from "payload";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -19,9 +18,9 @@ export async function generateStaticParams() {
     query: GET_COURT_SLUGS,
   });
 
-  const params = courts.data.LocalCourts.docs.map((doc: Document) => ({
-    slug: doc.slug
-  }));
+  const params = courts.data.LocalCourts.docs.map(({ slug }: { slug: string | null | undefined }) => {
+    return { slug }
+  })
 
     console.log(params)
 
