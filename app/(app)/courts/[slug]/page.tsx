@@ -8,19 +8,22 @@ import RichText from "@/lexical-components/RichText";
 import { CourtHero } from "@/heros/CourtHero";
 import CourtInfoBanner from "@/components/court-page/CourtInfoBanner";
 import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
+import { Document } from "payload";
 
 export const revalidate = 60;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const client = getApolloClient();
-  const courts = await client.query({
+  const { data } = await client.query({
     query: GET_COURT_SLUGS,
   });
+  
+  console.log(data.LocalCourts.docs)
 
-  const params = courts.data.LocalCourts.docs.map(({ slug }: { slug: string | null | undefined }) => {
-    return { slug }
-  })
+  const params = data.LocalCourts.docs.map((doc: Document) => ({
+    slug: doc.slug
+  }))
 
     console.log(params)
 
