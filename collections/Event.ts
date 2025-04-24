@@ -65,6 +65,24 @@ export const Event: CollectionConfig = {
                 },
               ],
             },
+            {
+              name: 'associatedCourt',
+              type: 'relationship',
+              required: false,
+              relationTo: 'localCourt',
+              admin: {
+                condition: (_, { eventType } = {}) => eventType === 'local'
+              }
+            },
+            {
+              name: 'associatedDiocese',
+              type: 'relationship',
+              required: false,
+              relationTo: 'localCourt',
+              admin: {
+                condition: (_, { eventType } = {}) => eventType === 'diocesan'
+              }
+            }
           ]
         },
         {

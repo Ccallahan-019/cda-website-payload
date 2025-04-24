@@ -11,30 +11,6 @@ const contactQuery: Where = {
     },
 }
 
-const eventQuery: Where = {
-    eventType: {
-        equals: 'local'
-    }
-}
-
-const projectQuery: Where = {
-    projectType: {
-        equals: 'local'
-    }
-}
-
-const charityQuery: Where = {
-    charityType: {
-        equals: 'local'
-    }
-}
-
-const fundraiserQuery: Where = {
-    fundraiserType: {
-        equals: 'local'
-    }
-}
-
 
 export const LocalCourt: CollectionConfig = {
   slug: 'localCourt',
@@ -119,6 +95,9 @@ export const LocalCourt: CollectionConfig = {
                     {
                         name: 'courtOfficers',
                         type: 'group',
+                        admin: {
+                            description: 'These fields have been pre-filtered to only include contacts whose \'type\' is \'local\'.'
+                        },
                         fields: [
                             {
                                 name: 'courtRegent',
@@ -175,7 +154,7 @@ export const LocalCourt: CollectionConfig = {
                             };
                         },
                         admin: {
-                            description: 'Save this court to enable newsletter filtering.'
+                            description: 'As long as this court has been saved, this field has been pre-filtered to only include newsletters that have been associated with this court.'
                         }
                     }
                 ]
@@ -185,59 +164,87 @@ export const LocalCourt: CollectionConfig = {
                 fields: [
                     {
                         name: 'courtEvents',
-                        type: 'array',
+                        type: 'relationship',
+                        relationTo: 'event',
                         required: false,
-                        fields: [
-                            {
-                                name: 'event',
-                                type: 'relationship',
-                                required: true,
-                                relationTo: 'event',
-                                filterOptions: eventQuery,
-                            },
-                        ],
+                        hasMany: true,
+                        filterOptions: ({ data }) => {
+                            const courtId = data?.id;
+                      
+                            if (!courtId) return true; // fallback to show all
+                      
+                            return {
+                                associatedCourt: {
+                                    equals: courtId
+                                }
+                            };
+                        },
+                        admin: {
+                            description: 'As long as this court has been saved, this field has been pre-filtered to only include events that have been associated with this court.'
+                        }
                     },
                     {
                         name: 'courtProjects',
-                        type: 'array',
+                        type: 'relationship',
+                        relationTo: 'project',
                         required: false,
-                        fields: [
-                            {
-                                name: 'project',
-                                type: 'relationship',
-                                required: true,
-                                relationTo: 'project',
-                                filterOptions: projectQuery,
-                            },
-                        ],
+                        hasMany: true,
+                        filterOptions: ({ data }) => {
+                            const courtId = data?.id;
+                      
+                            if (!courtId) return true; // fallback to show all
+                      
+                            return {
+                                associatedCourt: {
+                                    equals: courtId
+                                }
+                            };
+                        },
+                        admin: {
+                            description: 'As long as this court has been saved, this field has been pre-filtered to only include projects that have been associated with this court.'
+                        }
                     },
                     {
                         name: 'courtCharities',
-                        type: 'array',
+                        type: 'relationship',
+                        relationTo: 'charity',
                         required: false,
-                        fields: [
-                            {
-                                name: 'charity',
-                                type: 'relationship',
-                                required: true,
-                                relationTo: 'charity',
-                                filterOptions: charityQuery,
-                            },
-                        ],
+                        hasMany: true,
+                        filterOptions: ({ data }) => {
+                            const courtId = data?.id;
+                      
+                            if (!courtId) return true; // fallback to show all
+                      
+                            return {
+                                associatedCourt: {
+                                    equals: courtId
+                                }
+                            };
+                        },
+                        admin: {
+                            description: 'As long as this court has been saved, this field has been pre-filtered to only include charities that have been associated with this court.'
+                        }
                     },
                     {
                         name: 'courtFundraisers',
-                        type: 'array',
+                        type: 'relationship',
+                        relationTo: 'fundraiser',
                         required: false,
-                        fields: [
-                            {
-                                name: 'fundraiser',
-                                type: 'relationship',
-                                required: true,
-                                relationTo: 'fundraiser',
-                                filterOptions: fundraiserQuery,
-                            },
-                        ],
+                        hasMany: true,
+                        filterOptions: ({ data }) => {
+                            const courtId = data?.id;
+                      
+                            if (!courtId) return true; // fallback to show all
+                      
+                            return {
+                                associatedCourt: {
+                                    equals: courtId
+                                }
+                            };
+                        },
+                        admin: {
+                            description: 'As long as this court has been saved, this field has been pre-filtered to only include fundraisers that have been associated with this court.'
+                        }
                     },
                 ]
             },

@@ -54,6 +54,15 @@ export const Charity: CollectionConfig = {
                   },
               ],
             },
+            {
+              name: 'associatedCourt',
+              type: 'relationship',
+              required: false,
+              relationTo: 'localCourt',
+              admin: {
+                condition: (_, { charityType } = {}) => charityType === 'local'
+              }
+            },
           ]
         },
         {
