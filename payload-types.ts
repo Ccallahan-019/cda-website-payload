@@ -529,6 +529,9 @@ export interface LocalCourt {
     courtZipcode?: string | null;
   };
   courtPhoneNumber?: string | null;
+  /**
+   * These fields have been pre-filtered to only include contacts whose 'type' is 'local'.
+   */
   courtOfficers?: {
     courtRegent?: (number | null) | Contact;
     courtViceRegent?: (number | null) | Contact;
@@ -537,33 +540,25 @@ export interface LocalCourt {
     courtTreasurer?: (number | null) | Contact;
   };
   /**
-   * Save this court to enable newsletter filtering.
+   * As long as this court has been saved, this field has been pre-filtered to only include newsletters that have been associated with this court.
    */
   courtNewsletters?: (number | Newsletter)[] | null;
-  courtEvents?:
-    | {
-        event: number | Event;
-        id?: string | null;
-      }[]
-    | null;
-  courtProjects?:
-    | {
-        project: number | Project;
-        id?: string | null;
-      }[]
-    | null;
-  courtCharities?:
-    | {
-        charity: number | Charity;
-        id?: string | null;
-      }[]
-    | null;
-  courtFundraisers?:
-    | {
-        fundraiser: number | Fundraiser;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include events that have been associated with this court.
+   */
+  courtEvents?: (number | Event)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include projects that have been associated with this court.
+   */
+  courtProjects?: (number | Project)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include charities that have been associated with this court.
+   */
+  courtCharities?: (number | Charity)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include fundraisers that have been associated with this court.
+   */
+  courtFundraisers?: (number | Fundraiser)[] | null;
   heroImage?: (number | null) | Media;
   content?: {
     root: {
@@ -644,6 +639,8 @@ export interface Event {
   eventDate: string;
   eventDescription: string;
   eventType: 'national' | 'state' | 'local' | 'diocesan';
+  associatedCourt?: (number | null) | LocalCourt;
+  associatedDiocese?: (number | null) | LocalCourt;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -706,6 +703,7 @@ export interface Project {
    */
   projectDescription: string;
   projectType: 'national' | 'state' | 'local';
+  associatedCourt?: (number | null) | LocalCourt;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -742,6 +740,7 @@ export interface Charity {
    */
   charityDescription: string;
   charityType: 'national' | 'state' | 'local';
+  associatedCourt?: (number | null) | LocalCourt;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -778,6 +777,7 @@ export interface Fundraiser {
    */
   fundraiserDescription: string;
   fundraiserType: 'national' | 'state' | 'local';
+  associatedCourt?: (number | null) | LocalCourt;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -1508,6 +1508,8 @@ export interface EventSelect<T extends boolean = true> {
   eventDate?: T;
   eventDescription?: T;
   eventType?: T;
+  associatedCourt?: T;
+  associatedDiocese?: T;
   heroImage?: T;
   content?: T;
   relatedEvents?: T;
@@ -1524,6 +1526,7 @@ export interface ProjectSelect<T extends boolean = true> {
   projectName?: T;
   projectDescription?: T;
   projectType?: T;
+  associatedCourt?: T;
   heroImage?: T;
   content?: T;
   slug?: T;
@@ -1539,6 +1542,7 @@ export interface CharitySelect<T extends boolean = true> {
   charityName?: T;
   charityDescription?: T;
   charityType?: T;
+  associatedCourt?: T;
   heroImage?: T;
   content?: T;
   slug?: T;
@@ -1554,6 +1558,7 @@ export interface FundraiserSelect<T extends boolean = true> {
   fundraiserName?: T;
   fundraiserDescription?: T;
   fundraiserType?: T;
+  associatedCourt?: T;
   heroImage?: T;
   content?: T;
   slug?: T;
@@ -1590,30 +1595,10 @@ export interface LocalCourtSelect<T extends boolean = true> {
         courtTreasurer?: T;
       };
   courtNewsletters?: T;
-  courtEvents?:
-    | T
-    | {
-        event?: T;
-        id?: T;
-      };
-  courtProjects?:
-    | T
-    | {
-        project?: T;
-        id?: T;
-      };
-  courtCharities?:
-    | T
-    | {
-        charity?: T;
-        id?: T;
-      };
-  courtFundraisers?:
-    | T
-    | {
-        fundraiser?: T;
-        id?: T;
-      };
+  courtEvents?: T;
+  courtProjects?: T;
+  courtCharities?: T;
+  courtFundraisers?: T;
   heroImage?: T;
   content?: T;
   slug?: T;

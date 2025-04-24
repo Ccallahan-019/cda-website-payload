@@ -2100,6 +2100,18 @@ export const event = pgTable(
     }),
     eventDescription: varchar("event_description"),
     eventType: enum_event_event_type("event_type"),
+    associatedCourt: integer("associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    associatedDiocese: integer("associated_diocese_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
@@ -2122,6 +2134,12 @@ export const event = pgTable(
     _status: enum_event_status("_status").default("draft"),
   },
   (columns) => ({
+    event_associated_court_idx: index("event_associated_court_idx").on(
+      columns.associatedCourt,
+    ),
+    event_associated_diocese_idx: index("event_associated_diocese_idx").on(
+      columns.associatedDiocese,
+    ),
     event_hero_image_idx: index("event_hero_image_idx").on(columns.heroImage),
     event_slug_idx: uniqueIndex("event_slug_idx").on(columns.slug),
     event_updated_at_idx: index("event_updated_at_idx").on(columns.updatedAt),
@@ -2174,6 +2192,17 @@ export const _event_v = pgTable(
     }),
     version_eventDescription: varchar("version_event_description"),
     version_eventType: enum__event_v_version_event_type("version_event_type"),
+    version_associatedCourt: integer("version_associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_associatedDiocese: integer(
+      "version_associated_diocese_id",
+    ).references(() => local_court.id, {
+      onDelete: "set null",
+    }),
     version_heroImage: integer("version_hero_image_id").references(
       () => media.id,
       {
@@ -2213,6 +2242,12 @@ export const _event_v = pgTable(
   },
   (columns) => ({
     _event_v_parent_idx: index("_event_v_parent_idx").on(columns.parent),
+    _event_v_version_version_associated_court_idx: index(
+      "_event_v_version_version_associated_court_idx",
+    ).on(columns.version_associatedCourt),
+    _event_v_version_version_associated_diocese_idx: index(
+      "_event_v_version_version_associated_diocese_idx",
+    ).on(columns.version_associatedDiocese),
     _event_v_version_version_hero_image_idx: index(
       "_event_v_version_version_hero_image_idx",
     ).on(columns.version_heroImage),
@@ -2275,6 +2310,12 @@ export const project = pgTable(
     projectName: varchar("project_name"),
     projectDescription: varchar("project_description"),
     projectType: enum_project_project_type("project_type"),
+    associatedCourt: integer("associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
@@ -2297,6 +2338,9 @@ export const project = pgTable(
     _status: enum_project_status("_status").default("draft"),
   },
   (columns) => ({
+    project_associated_court_idx: index("project_associated_court_idx").on(
+      columns.associatedCourt,
+    ),
     project_hero_image_idx: index("project_hero_image_idx").on(
       columns.heroImage,
     ),
@@ -2322,6 +2366,12 @@ export const _project_v = pgTable(
     version_projectDescription: varchar("version_project_description"),
     version_projectType: enum__project_v_version_project_type(
       "version_project_type",
+    ),
+    version_associatedCourt: integer("version_associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
     ),
     version_heroImage: integer("version_hero_image_id").references(
       () => media.id,
@@ -2362,6 +2412,9 @@ export const _project_v = pgTable(
   },
   (columns) => ({
     _project_v_parent_idx: index("_project_v_parent_idx").on(columns.parent),
+    _project_v_version_version_associated_court_idx: index(
+      "_project_v_version_version_associated_court_idx",
+    ).on(columns.version_associatedCourt),
     _project_v_version_version_hero_image_idx: index(
       "_project_v_version_version_hero_image_idx",
     ).on(columns.version_heroImage),
@@ -2397,6 +2450,12 @@ export const charity = pgTable(
     charityName: varchar("charity_name"),
     charityDescription: varchar("charity_description"),
     charityType: enum_charity_charity_type("charity_type"),
+    associatedCourt: integer("associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
@@ -2419,6 +2478,9 @@ export const charity = pgTable(
     _status: enum_charity_status("_status").default("draft"),
   },
   (columns) => ({
+    charity_associated_court_idx: index("charity_associated_court_idx").on(
+      columns.associatedCourt,
+    ),
     charity_hero_image_idx: index("charity_hero_image_idx").on(
       columns.heroImage,
     ),
@@ -2444,6 +2506,12 @@ export const _charity_v = pgTable(
     version_charityDescription: varchar("version_charity_description"),
     version_charityType: enum__charity_v_version_charity_type(
       "version_charity_type",
+    ),
+    version_associatedCourt: integer("version_associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
     ),
     version_heroImage: integer("version_hero_image_id").references(
       () => media.id,
@@ -2484,6 +2552,9 @@ export const _charity_v = pgTable(
   },
   (columns) => ({
     _charity_v_parent_idx: index("_charity_v_parent_idx").on(columns.parent),
+    _charity_v_version_version_associated_court_idx: index(
+      "_charity_v_version_version_associated_court_idx",
+    ).on(columns.version_associatedCourt),
     _charity_v_version_version_hero_image_idx: index(
       "_charity_v_version_version_hero_image_idx",
     ).on(columns.version_heroImage),
@@ -2519,6 +2590,12 @@ export const fundraiser = pgTable(
     fundraiserName: varchar("fundraiser_name"),
     fundraiserDescription: varchar("fundraiser_description"),
     fundraiserType: enum_fundraiser_fundraiser_type("fundraiser_type"),
+    associatedCourt: integer("associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
@@ -2541,6 +2618,9 @@ export const fundraiser = pgTable(
     _status: enum_fundraiser_status("_status").default("draft"),
   },
   (columns) => ({
+    fundraiser_associated_court_idx: index(
+      "fundraiser_associated_court_idx",
+    ).on(columns.associatedCourt),
     fundraiser_hero_image_idx: index("fundraiser_hero_image_idx").on(
       columns.heroImage,
     ),
@@ -2566,6 +2646,12 @@ export const _fundraiser_v = pgTable(
     version_fundraiserDescription: varchar("version_fundraiser_description"),
     version_fundraiserType: enum__fundraiser_v_version_fundraiser_type(
       "version_fundraiser_type",
+    ),
+    version_associatedCourt: integer("version_associated_court_id").references(
+      () => local_court.id,
+      {
+        onDelete: "set null",
+      },
     ),
     version_heroImage: integer("version_hero_image_id").references(
       () => media.id,
@@ -2608,6 +2694,9 @@ export const _fundraiser_v = pgTable(
     _fundraiser_v_parent_idx: index("_fundraiser_v_parent_idx").on(
       columns.parent,
     ),
+    _fundraiser_v_version_version_associated_court_idx: index(
+      "_fundraiser_v_version_version_associated_court_idx",
+    ).on(columns.version_associatedCourt),
     _fundraiser_v_version_version_hero_image_idx: index(
       "_fundraiser_v_version_version_hero_image_idx",
     ).on(columns.version_heroImage),
@@ -2635,114 +2724,6 @@ export const _fundraiser_v = pgTable(
     _fundraiser_v_autosave_idx: index("_fundraiser_v_autosave_idx").on(
       columns.autosave,
     ),
-  }),
-);
-
-export const local_court_court_events = pgTable(
-  "local_court_court_events",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    event: integer("event_id").references(() => event.id, {
-      onDelete: "set null",
-    }),
-  },
-  (columns) => ({
-    _orderIdx: index("local_court_court_events_order_idx").on(columns._order),
-    _parentIDIdx: index("local_court_court_events_parent_id_idx").on(
-      columns._parentID,
-    ),
-    local_court_court_events_event_idx: index(
-      "local_court_court_events_event_idx",
-    ).on(columns.event),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [local_court.id],
-      name: "local_court_court_events_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const local_court_court_projects = pgTable(
-  "local_court_court_projects",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    project: integer("project_id").references(() => project.id, {
-      onDelete: "set null",
-    }),
-  },
-  (columns) => ({
-    _orderIdx: index("local_court_court_projects_order_idx").on(columns._order),
-    _parentIDIdx: index("local_court_court_projects_parent_id_idx").on(
-      columns._parentID,
-    ),
-    local_court_court_projects_project_idx: index(
-      "local_court_court_projects_project_idx",
-    ).on(columns.project),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [local_court.id],
-      name: "local_court_court_projects_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const local_court_court_charities = pgTable(
-  "local_court_court_charities",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    charity: integer("charity_id").references(() => charity.id, {
-      onDelete: "set null",
-    }),
-  },
-  (columns) => ({
-    _orderIdx: index("local_court_court_charities_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("local_court_court_charities_parent_id_idx").on(
-      columns._parentID,
-    ),
-    local_court_court_charities_charity_idx: index(
-      "local_court_court_charities_charity_idx",
-    ).on(columns.charity),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [local_court.id],
-      name: "local_court_court_charities_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
-export const local_court_court_fundraisers = pgTable(
-  "local_court_court_fundraisers",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    fundraiser: integer("fundraiser_id").references(() => fundraiser.id, {
-      onDelete: "set null",
-    }),
-  },
-  (columns) => ({
-    _orderIdx: index("local_court_court_fundraisers_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("local_court_court_fundraisers_parent_id_idx").on(
-      columns._parentID,
-    ),
-    local_court_court_fundraisers_fundraiser_idx: index(
-      "local_court_court_fundraisers_fundraiser_idx",
-    ).on(columns.fundraiser),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [local_court.id],
-      name: "local_court_court_fundraisers_parent_id_fk",
-    }).onDelete("cascade"),
   }),
 );
 
@@ -2857,6 +2838,10 @@ export const local_court_rels = pgTable(
     parent: integer("parent_id").notNull(),
     path: varchar("path").notNull(),
     newsletterID: integer("newsletter_id"),
+    eventID: integer("event_id"),
+    projectID: integer("project_id"),
+    charityID: integer("charity_id"),
+    fundraiserID: integer("fundraiser_id"),
   },
   (columns) => ({
     order: index("local_court_rels_order_idx").on(columns.order),
@@ -2865,6 +2850,18 @@ export const local_court_rels = pgTable(
     local_court_rels_newsletter_id_idx: index(
       "local_court_rels_newsletter_id_idx",
     ).on(columns.newsletterID),
+    local_court_rels_event_id_idx: index("local_court_rels_event_id_idx").on(
+      columns.eventID,
+    ),
+    local_court_rels_project_id_idx: index(
+      "local_court_rels_project_id_idx",
+    ).on(columns.projectID),
+    local_court_rels_charity_id_idx: index(
+      "local_court_rels_charity_id_idx",
+    ).on(columns.charityID),
+    local_court_rels_fundraiser_id_idx: index(
+      "local_court_rels_fundraiser_id_idx",
+    ).on(columns.fundraiserID),
     parentFk: foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [local_court.id],
@@ -2875,121 +2872,25 @@ export const local_court_rels = pgTable(
       foreignColumns: [newsletter.id],
       name: "local_court_rels_newsletter_fk",
     }).onDelete("cascade"),
-  }),
-);
-
-export const _local_court_v_version_court_events = pgTable(
-  "_local_court_v_version_court_events",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: serial("id").primaryKey(),
-    event: integer("event_id").references(() => event.id, {
-      onDelete: "set null",
-    }),
-    _uuid: varchar("_uuid"),
-  },
-  (columns) => ({
-    _orderIdx: index("_local_court_v_version_court_events_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("_local_court_v_version_court_events_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _local_court_v_version_court_events_event_idx: index(
-      "_local_court_v_version_court_events_event_idx",
-    ).on(columns.event),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [_local_court_v.id],
-      name: "_local_court_v_version_court_events_parent_id_fk",
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "local_court_rels_event_fk",
     }).onDelete("cascade"),
-  }),
-);
-
-export const _local_court_v_version_court_projects = pgTable(
-  "_local_court_v_version_court_projects",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: serial("id").primaryKey(),
-    project: integer("project_id").references(() => project.id, {
-      onDelete: "set null",
-    }),
-    _uuid: varchar("_uuid"),
-  },
-  (columns) => ({
-    _orderIdx: index("_local_court_v_version_court_projects_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "_local_court_v_version_court_projects_parent_id_idx",
-    ).on(columns._parentID),
-    _local_court_v_version_court_projects_project_idx: index(
-      "_local_court_v_version_court_projects_project_idx",
-    ).on(columns.project),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [_local_court_v.id],
-      name: "_local_court_v_version_court_projects_parent_id_fk",
+    projectIdFk: foreignKey({
+      columns: [columns["projectID"]],
+      foreignColumns: [project.id],
+      name: "local_court_rels_project_fk",
     }).onDelete("cascade"),
-  }),
-);
-
-export const _local_court_v_version_court_charities = pgTable(
-  "_local_court_v_version_court_charities",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: serial("id").primaryKey(),
-    charity: integer("charity_id").references(() => charity.id, {
-      onDelete: "set null",
-    }),
-    _uuid: varchar("_uuid"),
-  },
-  (columns) => ({
-    _orderIdx: index("_local_court_v_version_court_charities_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "_local_court_v_version_court_charities_parent_id_idx",
-    ).on(columns._parentID),
-    _local_court_v_version_court_charities_charity_idx: index(
-      "_local_court_v_version_court_charities_charity_idx",
-    ).on(columns.charity),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [_local_court_v.id],
-      name: "_local_court_v_version_court_charities_parent_id_fk",
+    charityIdFk: foreignKey({
+      columns: [columns["charityID"]],
+      foreignColumns: [charity.id],
+      name: "local_court_rels_charity_fk",
     }).onDelete("cascade"),
-  }),
-);
-
-export const _local_court_v_version_court_fundraisers = pgTable(
-  "_local_court_v_version_court_fundraisers",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: serial("id").primaryKey(),
-    fundraiser: integer("fundraiser_id").references(() => fundraiser.id, {
-      onDelete: "set null",
-    }),
-    _uuid: varchar("_uuid"),
-  },
-  (columns) => ({
-    _orderIdx: index("_local_court_v_version_court_fundraisers_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index(
-      "_local_court_v_version_court_fundraisers_parent_id_idx",
-    ).on(columns._parentID),
-    _local_court_v_version_court_fundraisers_fundraiser_idx: index(
-      "_local_court_v_version_court_fundraisers_fundraiser_idx",
-    ).on(columns.fundraiser),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [_local_court_v.id],
-      name: "_local_court_v_version_court_fundraisers_parent_id_fk",
+    fundraiserIdFk: foreignKey({
+      columns: [columns["fundraiserID"]],
+      foreignColumns: [fundraiser.id],
+      name: "local_court_rels_fundraiser_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -3155,6 +3056,10 @@ export const _local_court_v_rels = pgTable(
     parent: integer("parent_id").notNull(),
     path: varchar("path").notNull(),
     newsletterID: integer("newsletter_id"),
+    eventID: integer("event_id"),
+    projectID: integer("project_id"),
+    charityID: integer("charity_id"),
+    fundraiserID: integer("fundraiser_id"),
   },
   (columns) => ({
     order: index("_local_court_v_rels_order_idx").on(columns.order),
@@ -3163,6 +3068,18 @@ export const _local_court_v_rels = pgTable(
     _local_court_v_rels_newsletter_id_idx: index(
       "_local_court_v_rels_newsletter_id_idx",
     ).on(columns.newsletterID),
+    _local_court_v_rels_event_id_idx: index(
+      "_local_court_v_rels_event_id_idx",
+    ).on(columns.eventID),
+    _local_court_v_rels_project_id_idx: index(
+      "_local_court_v_rels_project_id_idx",
+    ).on(columns.projectID),
+    _local_court_v_rels_charity_id_idx: index(
+      "_local_court_v_rels_charity_id_idx",
+    ).on(columns.charityID),
+    _local_court_v_rels_fundraiser_id_idx: index(
+      "_local_court_v_rels_fundraiser_id_idx",
+    ).on(columns.fundraiserID),
     parentFk: foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [_local_court_v.id],
@@ -3172,6 +3089,26 @@ export const _local_court_v_rels = pgTable(
       columns: [columns["newsletterID"]],
       foreignColumns: [newsletter.id],
       name: "_local_court_v_rels_newsletter_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "_local_court_v_rels_event_fk",
+    }).onDelete("cascade"),
+    projectIdFk: foreignKey({
+      columns: [columns["projectID"]],
+      foreignColumns: [project.id],
+      name: "_local_court_v_rels_project_fk",
+    }).onDelete("cascade"),
+    charityIdFk: foreignKey({
+      columns: [columns["charityID"]],
+      foreignColumns: [charity.id],
+      name: "_local_court_v_rels_charity_fk",
+    }).onDelete("cascade"),
+    fundraiserIdFk: foreignKey({
+      columns: [columns["fundraiserID"]],
+      foreignColumns: [fundraiser.id],
+      name: "_local_court_v_rels_fundraiser_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -4764,6 +4701,16 @@ export const relations_event_rels = relations(event_rels, ({ one }) => ({
   }),
 }));
 export const relations_event = relations(event, ({ one, many }) => ({
+  associatedCourt: one(local_court, {
+    fields: [event.associatedCourt],
+    references: [local_court.id],
+    relationName: "associatedCourt",
+  }),
+  associatedDiocese: one(local_court, {
+    fields: [event.associatedDiocese],
+    references: [local_court.id],
+    relationName: "associatedDiocese",
+  }),
   heroImage: one(media, {
     fields: [event.heroImage],
     references: [media.id],
@@ -4791,6 +4738,16 @@ export const relations__event_v = relations(_event_v, ({ one, many }) => ({
     references: [event.id],
     relationName: "parent",
   }),
+  version_associatedCourt: one(local_court, {
+    fields: [_event_v.version_associatedCourt],
+    references: [local_court.id],
+    relationName: "version_associatedCourt",
+  }),
+  version_associatedDiocese: one(local_court, {
+    fields: [_event_v.version_associatedDiocese],
+    references: [local_court.id],
+    relationName: "version_associatedDiocese",
+  }),
   version_heroImage: one(media, {
     fields: [_event_v.version_heroImage],
     references: [media.id],
@@ -4801,6 +4758,11 @@ export const relations__event_v = relations(_event_v, ({ one, many }) => ({
   }),
 }));
 export const relations_project = relations(project, ({ one }) => ({
+  associatedCourt: one(local_court, {
+    fields: [project.associatedCourt],
+    references: [local_court.id],
+    relationName: "associatedCourt",
+  }),
   heroImage: one(media, {
     fields: [project.heroImage],
     references: [media.id],
@@ -4813,6 +4775,11 @@ export const relations__project_v = relations(_project_v, ({ one }) => ({
     references: [project.id],
     relationName: "parent",
   }),
+  version_associatedCourt: one(local_court, {
+    fields: [_project_v.version_associatedCourt],
+    references: [local_court.id],
+    relationName: "version_associatedCourt",
+  }),
   version_heroImage: one(media, {
     fields: [_project_v.version_heroImage],
     references: [media.id],
@@ -4820,6 +4787,11 @@ export const relations__project_v = relations(_project_v, ({ one }) => ({
   }),
 }));
 export const relations_charity = relations(charity, ({ one }) => ({
+  associatedCourt: one(local_court, {
+    fields: [charity.associatedCourt],
+    references: [local_court.id],
+    relationName: "associatedCourt",
+  }),
   heroImage: one(media, {
     fields: [charity.heroImage],
     references: [media.id],
@@ -4832,6 +4804,11 @@ export const relations__charity_v = relations(_charity_v, ({ one }) => ({
     references: [charity.id],
     relationName: "parent",
   }),
+  version_associatedCourt: one(local_court, {
+    fields: [_charity_v.version_associatedCourt],
+    references: [local_court.id],
+    relationName: "version_associatedCourt",
+  }),
   version_heroImage: one(media, {
     fields: [_charity_v.version_heroImage],
     references: [media.id],
@@ -4839,6 +4816,11 @@ export const relations__charity_v = relations(_charity_v, ({ one }) => ({
   }),
 }));
 export const relations_fundraiser = relations(fundraiser, ({ one }) => ({
+  associatedCourt: one(local_court, {
+    fields: [fundraiser.associatedCourt],
+    references: [local_court.id],
+    relationName: "associatedCourt",
+  }),
   heroImage: one(media, {
     fields: [fundraiser.heroImage],
     references: [media.id],
@@ -4851,72 +4833,17 @@ export const relations__fundraiser_v = relations(_fundraiser_v, ({ one }) => ({
     references: [fundraiser.id],
     relationName: "parent",
   }),
+  version_associatedCourt: one(local_court, {
+    fields: [_fundraiser_v.version_associatedCourt],
+    references: [local_court.id],
+    relationName: "version_associatedCourt",
+  }),
   version_heroImage: one(media, {
     fields: [_fundraiser_v.version_heroImage],
     references: [media.id],
     relationName: "version_heroImage",
   }),
 }));
-export const relations_local_court_court_events = relations(
-  local_court_court_events,
-  ({ one }) => ({
-    _parentID: one(local_court, {
-      fields: [local_court_court_events._parentID],
-      references: [local_court.id],
-      relationName: "courtEvents",
-    }),
-    event: one(event, {
-      fields: [local_court_court_events.event],
-      references: [event.id],
-      relationName: "event",
-    }),
-  }),
-);
-export const relations_local_court_court_projects = relations(
-  local_court_court_projects,
-  ({ one }) => ({
-    _parentID: one(local_court, {
-      fields: [local_court_court_projects._parentID],
-      references: [local_court.id],
-      relationName: "courtProjects",
-    }),
-    project: one(project, {
-      fields: [local_court_court_projects.project],
-      references: [project.id],
-      relationName: "project",
-    }),
-  }),
-);
-export const relations_local_court_court_charities = relations(
-  local_court_court_charities,
-  ({ one }) => ({
-    _parentID: one(local_court, {
-      fields: [local_court_court_charities._parentID],
-      references: [local_court.id],
-      relationName: "courtCharities",
-    }),
-    charity: one(charity, {
-      fields: [local_court_court_charities.charity],
-      references: [charity.id],
-      relationName: "charity",
-    }),
-  }),
-);
-export const relations_local_court_court_fundraisers = relations(
-  local_court_court_fundraisers,
-  ({ one }) => ({
-    _parentID: one(local_court, {
-      fields: [local_court_court_fundraisers._parentID],
-      references: [local_court.id],
-      relationName: "courtFundraisers",
-    }),
-    fundraiser: one(fundraiser, {
-      fields: [local_court_court_fundraisers.fundraiser],
-      references: [fundraiser.id],
-      relationName: "fundraiser",
-    }),
-  }),
-);
 export const relations_local_court_rels = relations(
   local_court_rels,
   ({ one }) => ({
@@ -4929,6 +4856,26 @@ export const relations_local_court_rels = relations(
       fields: [local_court_rels.newsletterID],
       references: [newsletter.id],
       relationName: "newsletter",
+    }),
+    eventID: one(event, {
+      fields: [local_court_rels.eventID],
+      references: [event.id],
+      relationName: "event",
+    }),
+    projectID: one(project, {
+      fields: [local_court_rels.projectID],
+      references: [project.id],
+      relationName: "project",
+    }),
+    charityID: one(charity, {
+      fields: [local_court_rels.charityID],
+      references: [charity.id],
+      relationName: "charity",
+    }),
+    fundraiserID: one(fundraiser, {
+      fields: [local_court_rels.fundraiserID],
+      references: [fundraiser.id],
+      relationName: "fundraiser",
     }),
   }),
 );
@@ -4965,18 +4912,6 @@ export const relations_local_court = relations(
       references: [contact.id],
       relationName: "courtOfficers_courtTreasurer",
     }),
-    courtEvents: many(local_court_court_events, {
-      relationName: "courtEvents",
-    }),
-    courtProjects: many(local_court_court_projects, {
-      relationName: "courtProjects",
-    }),
-    courtCharities: many(local_court_court_charities, {
-      relationName: "courtCharities",
-    }),
-    courtFundraisers: many(local_court_court_fundraisers, {
-      relationName: "courtFundraisers",
-    }),
     heroImage: one(media, {
       fields: [local_court.heroImage],
       references: [media.id],
@@ -4984,66 +4919,6 @@ export const relations_local_court = relations(
     }),
     _rels: many(local_court_rels, {
       relationName: "_rels",
-    }),
-  }),
-);
-export const relations__local_court_v_version_court_events = relations(
-  _local_court_v_version_court_events,
-  ({ one }) => ({
-    _parentID: one(_local_court_v, {
-      fields: [_local_court_v_version_court_events._parentID],
-      references: [_local_court_v.id],
-      relationName: "version_courtEvents",
-    }),
-    event: one(event, {
-      fields: [_local_court_v_version_court_events.event],
-      references: [event.id],
-      relationName: "event",
-    }),
-  }),
-);
-export const relations__local_court_v_version_court_projects = relations(
-  _local_court_v_version_court_projects,
-  ({ one }) => ({
-    _parentID: one(_local_court_v, {
-      fields: [_local_court_v_version_court_projects._parentID],
-      references: [_local_court_v.id],
-      relationName: "version_courtProjects",
-    }),
-    project: one(project, {
-      fields: [_local_court_v_version_court_projects.project],
-      references: [project.id],
-      relationName: "project",
-    }),
-  }),
-);
-export const relations__local_court_v_version_court_charities = relations(
-  _local_court_v_version_court_charities,
-  ({ one }) => ({
-    _parentID: one(_local_court_v, {
-      fields: [_local_court_v_version_court_charities._parentID],
-      references: [_local_court_v.id],
-      relationName: "version_courtCharities",
-    }),
-    charity: one(charity, {
-      fields: [_local_court_v_version_court_charities.charity],
-      references: [charity.id],
-      relationName: "charity",
-    }),
-  }),
-);
-export const relations__local_court_v_version_court_fundraisers = relations(
-  _local_court_v_version_court_fundraisers,
-  ({ one }) => ({
-    _parentID: one(_local_court_v, {
-      fields: [_local_court_v_version_court_fundraisers._parentID],
-      references: [_local_court_v.id],
-      relationName: "version_courtFundraisers",
-    }),
-    fundraiser: one(fundraiser, {
-      fields: [_local_court_v_version_court_fundraisers.fundraiser],
-      references: [fundraiser.id],
-      relationName: "fundraiser",
     }),
   }),
 );
@@ -5059,6 +4934,26 @@ export const relations__local_court_v_rels = relations(
       fields: [_local_court_v_rels.newsletterID],
       references: [newsletter.id],
       relationName: "newsletter",
+    }),
+    eventID: one(event, {
+      fields: [_local_court_v_rels.eventID],
+      references: [event.id],
+      relationName: "event",
+    }),
+    projectID: one(project, {
+      fields: [_local_court_v_rels.projectID],
+      references: [project.id],
+      relationName: "project",
+    }),
+    charityID: one(charity, {
+      fields: [_local_court_v_rels.charityID],
+      references: [charity.id],
+      relationName: "charity",
+    }),
+    fundraiserID: one(fundraiser, {
+      fields: [_local_court_v_rels.fundraiserID],
+      references: [fundraiser.id],
+      relationName: "fundraiser",
     }),
   }),
 );
@@ -5099,18 +4994,6 @@ export const relations__local_court_v = relations(
       fields: [_local_court_v.version_courtOfficers_courtTreasurer],
       references: [contact.id],
       relationName: "version_courtOfficers_courtTreasurer",
-    }),
-    version_courtEvents: many(_local_court_v_version_court_events, {
-      relationName: "version_courtEvents",
-    }),
-    version_courtProjects: many(_local_court_v_version_court_projects, {
-      relationName: "version_courtProjects",
-    }),
-    version_courtCharities: many(_local_court_v_version_court_charities, {
-      relationName: "version_courtCharities",
-    }),
-    version_courtFundraisers: many(_local_court_v_version_court_fundraisers, {
-      relationName: "version_courtFundraisers",
     }),
     version_heroImage: one(media, {
       fields: [_local_court_v.version_heroImage],
@@ -5498,16 +5381,8 @@ type DatabaseSchema = {
   _charity_v: typeof _charity_v;
   fundraiser: typeof fundraiser;
   _fundraiser_v: typeof _fundraiser_v;
-  local_court_court_events: typeof local_court_court_events;
-  local_court_court_projects: typeof local_court_court_projects;
-  local_court_court_charities: typeof local_court_court_charities;
-  local_court_court_fundraisers: typeof local_court_court_fundraisers;
   local_court: typeof local_court;
   local_court_rels: typeof local_court_rels;
-  _local_court_v_version_court_events: typeof _local_court_v_version_court_events;
-  _local_court_v_version_court_projects: typeof _local_court_v_version_court_projects;
-  _local_court_v_version_court_charities: typeof _local_court_v_version_court_charities;
-  _local_court_v_version_court_fundraisers: typeof _local_court_v_version_court_fundraisers;
   _local_court_v: typeof _local_court_v;
   _local_court_v_rels: typeof _local_court_v_rels;
   newsletter: typeof newsletter;
@@ -5600,16 +5475,8 @@ type DatabaseSchema = {
   relations__charity_v: typeof relations__charity_v;
   relations_fundraiser: typeof relations_fundraiser;
   relations__fundraiser_v: typeof relations__fundraiser_v;
-  relations_local_court_court_events: typeof relations_local_court_court_events;
-  relations_local_court_court_projects: typeof relations_local_court_court_projects;
-  relations_local_court_court_charities: typeof relations_local_court_court_charities;
-  relations_local_court_court_fundraisers: typeof relations_local_court_court_fundraisers;
   relations_local_court_rels: typeof relations_local_court_rels;
   relations_local_court: typeof relations_local_court;
-  relations__local_court_v_version_court_events: typeof relations__local_court_v_version_court_events;
-  relations__local_court_v_version_court_projects: typeof relations__local_court_v_version_court_projects;
-  relations__local_court_v_version_court_charities: typeof relations__local_court_v_version_court_charities;
-  relations__local_court_v_version_court_fundraisers: typeof relations__local_court_v_version_court_fundraisers;
   relations__local_court_v_rels: typeof relations__local_court_v_rels;
   relations__local_court_v: typeof relations__local_court_v;
   relations_newsletter: typeof relations_newsletter;
