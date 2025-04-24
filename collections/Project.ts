@@ -54,6 +54,15 @@ export const Project: CollectionConfig = {
                 },
               ],
             },
+            {
+              name: 'associatedCourt',
+              type: 'relationship',
+              required: false,
+              relationTo: 'localCourt',
+              admin: {
+                condition: (_, { projectType } = {}) => projectType === 'local'
+              }
+            },
           ]
         },
         {
