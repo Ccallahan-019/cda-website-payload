@@ -12,7 +12,7 @@ export const CourtHero: React.FC<{
   return (
     <div className="relative flex items-end">
       <div className="container z-10 text-white relative pb-8 pt-32">
-        <div className="max-w-[80rem] mx-auto">
+        <div className="w-full max-w-[80rem] mx-auto">
           <div className="uppercase text-sm mb-6">
             {courtNumber ? (
                 <p>{`Local Court #${courtNumber}`}</p>
