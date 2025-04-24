@@ -2836,6 +2836,7 @@ export const local_court = pgTable(
     local_court_hero_image_idx: index("local_court_hero_image_idx").on(
       columns.heroImage,
     ),
+    local_court_slug_idx: uniqueIndex("local_court_slug_idx").on(columns.slug),
     local_court_updated_at_idx: index("local_court_updated_at_idx").on(
       columns.updatedAt,
     ),
@@ -3119,6 +3120,9 @@ export const _local_court_v = pgTable(
     _local_court_v_version_version_hero_image_idx: index(
       "_local_court_v_version_version_hero_image_idx",
     ).on(columns.version_heroImage),
+    _local_court_v_version_version_slug_idx: index(
+      "_local_court_v_version_version_slug_idx",
+    ).on(columns.version_slug),
     _local_court_v_version_version_updated_at_idx: index(
       "_local_court_v_version_version_updated_at_idx",
     ).on(columns.version_updatedAt),

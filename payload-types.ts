@@ -581,9 +581,9 @@ export interface LocalCourt {
     [k: string]: unknown;
   } | null;
   /**
-   * This will be the postfix to the courts url (as in, cda-pa.org/local-courts/<slug>) and will create a new page corresponding to this court. You only need to include the postfix, i.e. columbia. Lowercase and dashes only, no special characters.
+   * This will be the postfix to the courts url (as in, cda-pa.org/courts/<slug>) and will create a new page corresponding to this court. You only need to include the postfix, i.e. columbia. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the court's name.
    */
-  slug?: string | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;

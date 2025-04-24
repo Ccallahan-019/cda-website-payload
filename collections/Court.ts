@@ -3,7 +3,7 @@ import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 import { Where } from 'payload'
-import { cleanSlugHook } from './hooks/cleanSlugHook'
+import { cleanSlug } from './hooks/cleanSlugHook'
 
 const contactQuery: Where = {
     contactType: {
@@ -274,12 +274,24 @@ export const LocalCourt: CollectionConfig = {
     {
         name: 'slug',
         type: 'text',
-        required: false,
+        required: true,
+        unique: true,
         admin: {
-            description: 'This will be the postfix to the courts url (as in, cda-pa.org/local-courts/<slug>) and will create a new page corresponding to this court. You only need to include the postfix, i.e. columbia. Lowercase and dashes only, no special characters.'
+            description: 'This will be the postfix to the courts url (as in, cda-pa.org/courts/<slug>) and will create a new page corresponding to this court. You only need to include the postfix, i.e. columbia. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the court\'s name.'
         },
           hooks: {
-            beforeValidate: [cleanSlugHook]
+            beforeValidate: [
+                ({ value, data }) => {
+                    if (!value) {
+                        if (data?.courtName) {
+                            const defaultSlug = cleanSlug(data?.courtName);
+                            return defaultSlug;
+                        }
+                        return value;
+                    }
+                    return cleanSlug(value);
+                }
+            ]
         }
     }
   ],

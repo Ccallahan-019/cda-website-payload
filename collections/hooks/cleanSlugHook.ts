@@ -10,7 +10,7 @@ const forbiddenPrefixes = [
   'courts/',
 ];
 
-const cleanSlug = (input: string) =>
+export const cleanSlug = (input: string) =>
   input
     .replace(/ /g, '-')
     .replace(/[^\w-]+/g, '')
