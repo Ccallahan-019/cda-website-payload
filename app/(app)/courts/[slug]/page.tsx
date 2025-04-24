@@ -18,14 +18,10 @@ export async function generateStaticParams() {
   const { data } = await client.query({
     query: GET_COURT_SLUGS,
   });
-  
-  console.log(data.LocalCourts.docs)
 
   const params = data.LocalCourts.docs.map((doc: Document) => ({
     slug: doc.slug
   }))
-
-    console.log(params)
 
     return params;
 }
