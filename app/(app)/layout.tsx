@@ -52,7 +52,7 @@ export default async function RootLayout({
           }}
         />
         <Header {...header} />
-        <div className="relative z-[0]">
+        <div className="relative z-[0] min-h-screen">
           {children}
         </div>
         <Footer footerData={footer} />
