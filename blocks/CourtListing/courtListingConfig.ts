@@ -23,17 +23,10 @@ export const CourtListing: Block = {
     },
     {
         name: 'courts',
-        type: 'array',
+        type: 'relationship',
         required: true,
-        fields: [
-            {
-                name: 'court',
-                type: 'relationship',
-                required: true,
-                relationTo: 'localCourt',
-                unique: true
-            }
-        ]
+        relationTo: 'localCourt',
+        hasMany: true,
     },
     {
         name: 'rowsPerPage',

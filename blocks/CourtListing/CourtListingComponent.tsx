@@ -45,22 +45,21 @@ const convertToAnniversary = (date: LocalCourt["instituted"]) => {
 
 export const CourtListingBlock: React.FC<CourtListingBlockProps> = (props) => {
     const { richText, courts, rowsPerPage } = props
-    const courtObjects = courts.map((court) => court.court);
 
-    const [sortedData, setSortedData] = useState(courtObjects);
+    const [sortedData, setSortedData] = useState(courts);
     const [sortKey, setSortKey] = useState<string | null>(null);
     const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
     const [currentPage, setCurrentPage] = useState(1);
 
     let totalPages: number;
-    let paginatedCourts: typeof courtObjects;
+    let paginatedCourts: typeof courts;
 
     if (rowsPerPage) {
         totalPages = Math.ceil(courts.length / rowsPerPage);
-        paginatedCourts = courtObjects.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+        paginatedCourts = courts.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
     } else {
         totalPages = 1;
-        paginatedCourts = courtObjects;
+        paginatedCourts = courts;
     }
 
     const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
@@ -133,11 +132,11 @@ export const CourtListingBlock: React.FC<CourtListingBlockProps> = (props) => {
             <div className="py-10 px-4 sm:px-6 rounded-xl bg-background/60 backdrop-blur-sm shadow-xl">
                 {richText && <RichText data={richText} />}
 
-                {Array.isArray(courtObjects) && courtObjects.length > 0 && (
+                {Array.isArray(paginatedCourts) && paginatedCourts.length > 0 && (
                     <Pagination
                         pages={totalPages}
                         currentPage={currentPage}
-                        pageLength={rowsPerPage || courtObjects.length}
+                        pageLength={rowsPerPage || courts.length}
                         totalCount={courts.length}
                         rangeLabels={{ singular: 'Court', plural: 'Courts' }}
                         onPageChange={handlePageChange}
