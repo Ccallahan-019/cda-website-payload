@@ -12,6 +12,7 @@ import { MediaWithTextBlock } from "./MediaWithText/MediaWithTextComponent";
 import { SliderBlock } from "./Slider/SliderComponent";
 import { NewslettersBlock } from "./Newsletters/NewslettersComponent";
 import { DiocesesAccordianBlock } from "./DiocesesAccordian/Component";
+import { ArchiveBlock } from "./Archive/ArchiveComponent";
 
 const blockComponents = {
   content: ContentBlock,
@@ -26,6 +27,7 @@ const blockComponents = {
   slider: SliderBlock,
   newsletters: NewslettersBlock,
   diocesesAccordian: DiocesesAccordianBlock,
+  archive: ArchiveBlock,
 }
 
   
