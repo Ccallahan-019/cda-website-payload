@@ -9,9 +9,26 @@ import RichText from "@/lexical-components/RichText";
 import { CourtHero } from "@/heros/CourtHero";
 import CourtInfoBanner from "@/components/court-page/CourtInfoBanner";
 import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
+import { Document } from "payload";
+import { GET_COURT_SLUGS } from "@/graghql/queries/courtSlugQuery";
 
 export const revalidate = 60;
 export const dynamicParams = true;
+
+
+
+export async function generateStaticParams() {
+  const client = getApolloServerClient();
+  const { data } = await client.query({
+    query: GET_COURT_SLUGS,
+  });
+
+  const params = data.LocalCourts.docs.map((doc: Document) => ({
+    slug: doc.slug
+  }))
+
+    return params;
+}
 
 const queryCourtBySlug = async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode();
