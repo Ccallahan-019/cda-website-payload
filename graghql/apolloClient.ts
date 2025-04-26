@@ -6,7 +6,7 @@ import {
 } from "@apollo/client-integration-nextjs";
 import fetch from 'cross-fetch';
 
-export function getApolloClient(token?: string) {
+export function getApolloServerClient(token?: string) {
   const { getClient } = registerApolloClient(() => {
     return new ApolloClient({
       cache: new InMemoryCache(),
