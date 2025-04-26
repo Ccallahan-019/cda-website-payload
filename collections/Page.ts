@@ -20,6 +20,7 @@ import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { revalidatePage } from './hooks/revalidatePage'
 import { generatePreviewPath } from '@/utils/generatePreviewPath'
 import { cleanSlugHook } from './hooks/cleanSlugHook'
+import { Archive } from '@/blocks/Archive/archiveConfig'
 
 export const Page: CollectionConfig = {
   slug: 'page',
@@ -82,6 +83,7 @@ export const Page: CollectionConfig = {
                 Slider,
                 Newsletters,
                 DiocesesAccordian,
+                Archive,
               ],
               required: false,
               admin: {
