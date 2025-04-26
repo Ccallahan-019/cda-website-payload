@@ -2,7 +2,7 @@ import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
-import { cleanSlugHook } from './hooks/cleanSlugHook'
+import { cleanSlug } from './hooks/cleanSlugHook'
 
 export const Event: CollectionConfig = {
   slug: 'event',
@@ -138,15 +138,26 @@ export const Event: CollectionConfig = {
     {
       name: 'slug',
       type: 'text',
-      unique: true,
       required: true,
+      unique: true,
       admin: {
-        description: 'This will be the postfix to the events url (as in, cda-pa.org/events/<slug>) and will create a new page corresponding to this event. You only need to include the postfix, i.e. 2024-national-convention. Lowercase and dashes only, no special characters.'
+          description: 'This will be the postfix to the events url (as in, cda-pa.org/events/<slug>) and will create a new page corresponding to this event. You only need to include the postfix, i.e. state-convention-2023. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the events\'s name.'
       },
-      hooks: {
-        beforeValidate: [cleanSlugHook]
+        hooks: {
+          beforeValidate: [
+              ({ value, data }) => {
+                  if (!value) {
+                      if (data?.eventName) {
+                          const defaultSlug = cleanSlug(data?.eventName);
+                          return defaultSlug;
+                      }
+                      return value;
+                  }
+                  return cleanSlug(value);
+              }
+          ]
       }
-    },
+    }
   ],
   versions: {
     drafts: {

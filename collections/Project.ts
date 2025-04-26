@@ -2,7 +2,7 @@ import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { FixedToolbarFeature, HeadingFeature, HorizontalRuleFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
-import { cleanSlugHook } from './hooks/cleanSlugHook'
+import { cleanSlug } from './hooks/cleanSlugHook'
 
 export const Project: CollectionConfig = {
   slug: 'project',
@@ -97,15 +97,26 @@ export const Project: CollectionConfig = {
     {
       name: 'slug',
       type: 'text',
-      unique: true,
       required: true,
+      unique: true,
       admin: {
-        description: 'This will be the postfix to the projects url (as in, cda-pa.org/projects/<slug>) and will create a new page corresponding to this project. You only need to include the postfix, i.e. courage-lion. Lowercase and dashes only, no special characters.'
+          description: 'This will be the postfix to the project url (as in, cda-pa.org/projects/<slug>) and will create a new page corresponding to this project. You only need to include the postfix, i.e. courage-lion. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the project\'s name.'
       },
-      hooks: {
-        beforeValidate: [cleanSlugHook]
+        hooks: {
+          beforeValidate: [
+              ({ value, data }) => {
+                  if (!value) {
+                      if (data?.projectName) {
+                          const defaultSlug = cleanSlug(data?.projectName);
+                          return defaultSlug;
+                      }
+                      return value;
+                  }
+                  return cleanSlug(value);
+              }
+          ]
       }
-    },
+    }
   ],
   versions: {
     drafts: {

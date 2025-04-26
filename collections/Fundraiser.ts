@@ -2,7 +2,7 @@ import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
-import { cleanSlugHook } from './hooks/cleanSlugHook'
+import { cleanSlug } from './hooks/cleanSlugHook'
 
 export const Fundraiser: CollectionConfig = {
   slug: 'fundraiser',
@@ -97,15 +97,26 @@ export const Fundraiser: CollectionConfig = {
     {
       name: 'slug',
       type: 'text',
-      unique: true,
       required: true,
+      unique: true,
       admin: {
-        description: 'This will be the postfix to the fundraisers url (as in, cda-pa.org/fundraisers/<slug>) and will create a new page corresponding to this fundraiser. You only need to include the postfix, i.e. lucky-lottery-calendars. Lowercase and dashes only, no special characters.'
+          description: 'This will be the postfix to the fundraiser url (as in, cda-pa.org/fundraisers/<slug>) and will create a new page corresponding to this fundraiser. You only need to include the postfix, i.e. lucky-lottery-calendar. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the fundraiser\'s name.'
       },
-      hooks: {
-        beforeValidate: [cleanSlugHook]
+        hooks: {
+          beforeValidate: [
+              ({ value, data }) => {
+                  if (!value) {
+                      if (data?.fundraiserName) {
+                          const defaultSlug = cleanSlug(data?.fundraiserName);
+                          return defaultSlug;
+                      }
+                      return value;
+                  }
+                  return cleanSlug(value);
+              }
+          ]
       }
-    },
+    }
   ],
   versions: {
     drafts: {
