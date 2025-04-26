@@ -3,30 +3,15 @@ export const dynamic= 'force-dynamic';
 import { notFound } from "next/navigation";
 import { getApolloServerClient } from "@/graghql/apolloClient";
 import { GET_COURT_BY_SLUG } from "@/graghql/queries/courtQuery";
-import { GET_COURT_SLUGS } from "@/graghql/queries/courtSlugQuery";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 import RichText from "@/lexical-components/RichText";
 import { CourtHero } from "@/heros/CourtHero";
 import CourtInfoBanner from "@/components/court-page/CourtInfoBanner";
 import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
-import { Document } from "payload";
 
 export const revalidate = 60;
 export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  const client = getApolloServerClient();
-  const { data } = await client.query({
-    query: GET_COURT_SLUGS,
-  });
-
-  const params = data.LocalCourts.docs.map((doc: Document) => ({
-    slug: doc.slug
-  }))
-
-    return params;
-}
 
 const queryCourtBySlug = async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode();

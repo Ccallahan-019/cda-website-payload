@@ -3,32 +3,11 @@ export const dynamic = 'force-dynamic';
 import { notFound } from "next/navigation";
 import { getApolloServerClient } from "@/graghql/apolloClient";
 import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pageQuery";
-import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { RenderHero } from "@/heros/RenderHero";
-import type { Document } from "payload";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 
-export const revalidate = 60;
-export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  const client = getApolloServerClient();
-  const pages = await client.query({
-    query: GET_SLUGS,
-  });
-
-  const params = pages.data.Pages.docs
-    ?.filter((doc: Document) => {
-      return doc.slug !== 'home'
-    })
-    .map((doc: Document) => ({
-      slug: doc.slug.split('/')
-    }));
-
-    return params;
-}
 
 const queryPageBySlug = async ({ path }: { path: string }) => {
   const { isEnabled: draft } = await draftMode();
