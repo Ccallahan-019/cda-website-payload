@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getApolloClient } from "@/graghql/apolloClient";
+import { getApolloServerClient } from "@/graghql/apolloClient";
 import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pageQuery";
 import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
@@ -12,7 +12,7 @@ export const revalidate = 60;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const client = getApolloClient();
+  const client = getApolloServerClient();
   const pages = await client.query({
     query: GET_SLUGS,
   });
@@ -33,7 +33,7 @@ const queryPageBySlug = async ({ path }: { path: string }) => {
   const cookieStore = await cookies();
   const token = draft ? cookieStore.get('payload-token')?.value : undefined;
 
-  const client = getApolloClient(token);
+  const client = getApolloServerClient(token);
   
   const { data } = await client.query({
     query: GET_PAGE_BY_SLUG,

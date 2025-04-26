@@ -1,12 +1,12 @@
 export const dynamic = 'force-dynamic';
 
-import { getApolloClient } from "@/graghql/apolloClient";
+import { getApolloServerClient } from "@/graghql/apolloClient";
 import { GET_CONTACT_FORM } from "@/graghql/queries/contactFormQuery";
 import ContactForm from "../../../components/ui/forms/ContactForm";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 
 export default async function ContactPage() {
-    const client = getApolloClient();
+    const client = getApolloServerClient();
       
     const { data } = await client.query({
         query: GET_CONTACT_FORM,
