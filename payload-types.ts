@@ -280,6 +280,7 @@ export interface Page {
         | SliderBlock
         | NewslettersBlock
         | DiocesesAccordianBlock
+        | ArchiveBlock
       )[]
     | null;
   /**
@@ -502,10 +503,7 @@ export interface CourtListingBlock {
     };
     [k: string]: unknown;
   };
-  courts: {
-    court: number | LocalCourt;
-    id?: string | null;
-  }[];
+  courts: (number | LocalCourt)[];
   rowsPerPage: number;
   id?: string | null;
   blockName?: string | null;
@@ -659,7 +657,7 @@ export interface Event {
   };
   relatedEvents?: (number | Event)[] | null;
   /**
-   * This will be the postfix to the events url (as in, cda-pa.org/events/<slug>) and will create a new page corresponding to this event. You only need to include the postfix, i.e. 2024-national-convention. Lowercase and dashes only, no special characters.
+   * This will be the postfix to the events url (as in, cda-pa.org/events/<slug>) and will create a new page corresponding to this event. You only need to include the postfix, i.e. state-convention-2023. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the events's name.
    */
   slug: string;
   updatedAt: string;
@@ -721,7 +719,7 @@ export interface Project {
     [k: string]: unknown;
   };
   /**
-   * This will be the postfix to the projects url (as in, cda-pa.org/projects/<slug>) and will create a new page corresponding to this project. You only need to include the postfix, i.e. courage-lion. Lowercase and dashes only, no special characters.
+   * This will be the postfix to the project url (as in, cda-pa.org/projects/<slug>) and will create a new page corresponding to this project. You only need to include the postfix, i.e. courage-lion. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the project's name.
    */
   slug: string;
   updatedAt: string;
@@ -758,7 +756,7 @@ export interface Charity {
     [k: string]: unknown;
   };
   /**
-   * This will be the postfix to the charities url (as in, cda-pa.org/charities/<slug>) and will create a new page corresponding to this charity. You only need to include the postfix, i.e. charity-name. Lowercase and dashes only, no special characters.
+   * This will be the postfix to the charities url (as in, cda-pa.org/charities/<slug>) and will create a new page corresponding to this charity. You only need to include the postfix, i.e. charity-name. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the charity's name.
    */
   slug: string;
   updatedAt: string;
@@ -795,7 +793,7 @@ export interface Fundraiser {
     [k: string]: unknown;
   };
   /**
-   * This will be the postfix to the fundraisers url (as in, cda-pa.org/fundraisers/<slug>) and will create a new page corresponding to this fundraiser. You only need to include the postfix, i.e. lucky-lottery-calendars. Lowercase and dashes only, no special characters.
+   * This will be the postfix to the fundraiser url (as in, cda-pa.org/fundraisers/<slug>) and will create a new page corresponding to this fundraiser. You only need to include the postfix, i.e. lucky-lottery-calendar. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the fundraiser's name.
    */
   slug: string;
   updatedAt: string;
@@ -959,6 +957,56 @@ export interface DiocesesAccordianBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'diocesesAccordian';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlock".
+ */
+export interface ArchiveBlock {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  collection: 'event' | 'project' | 'charity' | 'fundraiser';
+  type: 'national' | 'state' | 'local';
+  autoPopulate?: boolean | null;
+  limit?: number | null;
+  selectedDocs?:
+    | (
+        | {
+            relationTo: 'event';
+            value: number | Event;
+          }
+        | {
+            relationTo: 'charity';
+            value: number | Charity;
+          }
+        | {
+            relationTo: 'fundraiser';
+            value: number | Fundraiser;
+          }
+        | {
+            relationTo: 'project';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  pagination?: boolean | null;
+  entriesPerPage?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'archive';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1245,6 +1293,7 @@ export interface PageSelect<T extends boolean = true> {
         slider?: T | SliderBlockSelect<T>;
         newsletters?: T | NewslettersBlockSelect<T>;
         diocesesAccordian?: T | DiocesesAccordianBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
       };
   slug?: T;
   updatedAt?: T;
@@ -1357,12 +1406,7 @@ export interface NewsPostsBlockSelect<T extends boolean = true> {
  */
 export interface CourtListingBlockSelect<T extends boolean = true> {
   richText?: T;
-  courts?:
-    | T
-    | {
-        court?: T;
-        id?: T;
-      };
+  courts?: T;
   rowsPerPage?: T;
   id?: T;
   blockName?: T;
@@ -1439,6 +1483,22 @@ export interface NewslettersBlockSelect<T extends boolean = true> {
 export interface DiocesesAccordianBlockSelect<T extends boolean = true> {
   richText?: T;
   dioceses?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArchiveBlock_select".
+ */
+export interface ArchiveBlockSelect<T extends boolean = true> {
+  introContent?: T;
+  collection?: T;
+  type?: T;
+  autoPopulate?: T;
+  limit?: T;
+  selectedDocs?: T;
+  pagination?: T;
+  entriesPerPage?: T;
   id?: T;
   blockName?: T;
 }

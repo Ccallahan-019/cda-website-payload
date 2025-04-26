@@ -54,6 +54,14 @@ export const enum_page_blocks_media_with_text_media_alignment = pgEnum(
   "enum_page_blocks_media_with_text_media_alignment",
   ["left", "right"],
 );
+export const enum_page_blocks_archive_collection = pgEnum(
+  "enum_page_blocks_archive_collection",
+  ["event", "project", "charity", "fundraiser"],
+);
+export const enum_page_blocks_archive_type = pgEnum(
+  "enum_page_blocks_archive_type",
+  ["national", "state", "local"],
+);
 export const enum_page_hero_type = pgEnum("enum_page_hero_type", [
   "none",
   "highImpact",
@@ -86,6 +94,14 @@ export const enum__page_v_blocks_media_with_text_media_size = pgEnum(
 export const enum__page_v_blocks_media_with_text_media_alignment = pgEnum(
   "enum__page_v_blocks_media_with_text_media_alignment",
   ["left", "right"],
+);
+export const enum__page_v_blocks_archive_collection = pgEnum(
+  "enum__page_v_blocks_archive_collection",
+  ["event", "project", "charity", "fundraiser"],
+);
+export const enum__page_v_blocks_archive_type = pgEnum(
+  "enum__page_v_blocks_archive_type",
+  ["national", "state", "local"],
 );
 export const enum__page_v_version_hero_type = pgEnum(
   "enum__page_v_version_hero_type",
@@ -792,34 +808,6 @@ export const page_blocks_news_posts = pgTable(
   }),
 );
 
-export const page_blocks_court_listing_courts = pgTable(
-  "page_blocks_court_listing_courts",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: varchar("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    court: integer("court_id").references(() => local_court.id, {
-      onDelete: "set null",
-    }),
-  },
-  (columns) => ({
-    _orderIdx: index("page_blocks_court_listing_courts_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("page_blocks_court_listing_courts_parent_id_idx").on(
-      columns._parentID,
-    ),
-    page_blocks_court_listing_courts_court_idx: uniqueIndex(
-      "page_blocks_court_listing_courts_court_idx",
-    ).on(columns.court),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [page_blocks_court_listing.id],
-      name: "page_blocks_court_listing_courts_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
 export const page_blocks_court_listing = pgTable(
   "page_blocks_court_listing",
   {
@@ -1090,6 +1078,37 @@ export const page_blocks_dioceses_accordian = pgTable(
   }),
 );
 
+export const page_blocks_archive = pgTable(
+  "page_blocks_archive",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: varchar("id").primaryKey(),
+    introContent: jsonb("intro_content"),
+    collection:
+      enum_page_blocks_archive_collection("collection").default("event"),
+    type: enum_page_blocks_archive_type("type").default("state"),
+    autoPopulate: boolean("auto_populate").default(true),
+    limit: numeric("limit").default("10"),
+    pagination: boolean("pagination").default(true),
+    entriesPerPage: numeric("entries_per_page").default("3"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_archive_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_archive_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("page_blocks_archive_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page.id],
+      name: "page_blocks_archive_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const page = pgTable(
   "page",
   {
@@ -1136,24 +1155,67 @@ export const page_rels = pgTable(
     order: integer("order"),
     parent: integer("parent_id").notNull(),
     path: varchar("path").notNull(),
+    localCourtID: integer("local_court_id"),
     dioceseID: integer("diocese_id"),
+    eventID: integer("event_id"),
+    charityID: integer("charity_id"),
+    fundraiserID: integer("fundraiser_id"),
+    projectID: integer("project_id"),
   },
   (columns) => ({
     order: index("page_rels_order_idx").on(columns.order),
     parentIdx: index("page_rels_parent_idx").on(columns.parent),
     pathIdx: index("page_rels_path_idx").on(columns.path),
+    page_rels_local_court_id_idx: index("page_rels_local_court_id_idx").on(
+      columns.localCourtID,
+    ),
     page_rels_diocese_id_idx: index("page_rels_diocese_id_idx").on(
       columns.dioceseID,
+    ),
+    page_rels_event_id_idx: index("page_rels_event_id_idx").on(columns.eventID),
+    page_rels_charity_id_idx: index("page_rels_charity_id_idx").on(
+      columns.charityID,
+    ),
+    page_rels_fundraiser_id_idx: index("page_rels_fundraiser_id_idx").on(
+      columns.fundraiserID,
+    ),
+    page_rels_project_id_idx: index("page_rels_project_id_idx").on(
+      columns.projectID,
     ),
     parentFk: foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [page.id],
       name: "page_rels_parent_fk",
     }).onDelete("cascade"),
+    localCourtIdFk: foreignKey({
+      columns: [columns["localCourtID"]],
+      foreignColumns: [local_court.id],
+      name: "page_rels_local_court_fk",
+    }).onDelete("cascade"),
     dioceseIdFk: foreignKey({
       columns: [columns["dioceseID"]],
       foreignColumns: [diocese.id],
       name: "page_rels_diocese_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "page_rels_event_fk",
+    }).onDelete("cascade"),
+    charityIdFk: foreignKey({
+      columns: [columns["charityID"]],
+      foreignColumns: [charity.id],
+      name: "page_rels_charity_fk",
+    }).onDelete("cascade"),
+    fundraiserIdFk: foreignKey({
+      columns: [columns["fundraiserID"]],
+      foreignColumns: [fundraiser.id],
+      name: "page_rels_fundraiser_fk",
+    }).onDelete("cascade"),
+    projectIdFk: foreignKey({
+      columns: [columns["projectID"]],
+      foreignColumns: [project.id],
+      name: "page_rels_project_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -1505,35 +1567,6 @@ export const _page_v_blocks_news_posts = pgTable(
   }),
 );
 
-export const _page_v_blocks_court_listing_courts = pgTable(
-  "_page_v_blocks_court_listing_courts",
-  {
-    _order: integer("_order").notNull(),
-    _parentID: integer("_parent_id").notNull(),
-    id: serial("id").primaryKey(),
-    court: integer("court_id").references(() => local_court.id, {
-      onDelete: "set null",
-    }),
-    _uuid: varchar("_uuid"),
-  },
-  (columns) => ({
-    _orderIdx: index("_page_v_blocks_court_listing_courts_order_idx").on(
-      columns._order,
-    ),
-    _parentIDIdx: index("_page_v_blocks_court_listing_courts_parent_id_idx").on(
-      columns._parentID,
-    ),
-    _page_v_blocks_court_listing_courts_court_idx: index(
-      "_page_v_blocks_court_listing_courts_court_idx",
-    ).on(columns.court),
-    _parentIDFk: foreignKey({
-      columns: [columns["_parentID"]],
-      foreignColumns: [_page_v_blocks_court_listing.id],
-      name: "_page_v_blocks_court_listing_courts_parent_id_fk",
-    }).onDelete("cascade"),
-  }),
-);
-
 export const _page_v_blocks_court_listing = pgTable(
   "_page_v_blocks_court_listing",
   {
@@ -1822,6 +1855,38 @@ export const _page_v_blocks_dioceses_accordian = pgTable(
   }),
 );
 
+export const _page_v_blocks_archive = pgTable(
+  "_page_v_blocks_archive",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    introContent: jsonb("intro_content"),
+    collection:
+      enum__page_v_blocks_archive_collection("collection").default("event"),
+    type: enum__page_v_blocks_archive_type("type").default("state"),
+    autoPopulate: boolean("auto_populate").default(true),
+    limit: numeric("limit").default("10"),
+    pagination: boolean("pagination").default(true),
+    entriesPerPage: numeric("entries_per_page").default("3"),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_archive_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_archive_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_archive_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_archive_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const _page_v = pgTable(
   "_page_v",
   {
@@ -1907,24 +1972,69 @@ export const _page_v_rels = pgTable(
     order: integer("order"),
     parent: integer("parent_id").notNull(),
     path: varchar("path").notNull(),
+    localCourtID: integer("local_court_id"),
     dioceseID: integer("diocese_id"),
+    eventID: integer("event_id"),
+    charityID: integer("charity_id"),
+    fundraiserID: integer("fundraiser_id"),
+    projectID: integer("project_id"),
   },
   (columns) => ({
     order: index("_page_v_rels_order_idx").on(columns.order),
     parentIdx: index("_page_v_rels_parent_idx").on(columns.parent),
     pathIdx: index("_page_v_rels_path_idx").on(columns.path),
+    _page_v_rels_local_court_id_idx: index(
+      "_page_v_rels_local_court_id_idx",
+    ).on(columns.localCourtID),
     _page_v_rels_diocese_id_idx: index("_page_v_rels_diocese_id_idx").on(
       columns.dioceseID,
+    ),
+    _page_v_rels_event_id_idx: index("_page_v_rels_event_id_idx").on(
+      columns.eventID,
+    ),
+    _page_v_rels_charity_id_idx: index("_page_v_rels_charity_id_idx").on(
+      columns.charityID,
+    ),
+    _page_v_rels_fundraiser_id_idx: index("_page_v_rels_fundraiser_id_idx").on(
+      columns.fundraiserID,
+    ),
+    _page_v_rels_project_id_idx: index("_page_v_rels_project_id_idx").on(
+      columns.projectID,
     ),
     parentFk: foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [_page_v.id],
       name: "_page_v_rels_parent_fk",
     }).onDelete("cascade"),
+    localCourtIdFk: foreignKey({
+      columns: [columns["localCourtID"]],
+      foreignColumns: [local_court.id],
+      name: "_page_v_rels_local_court_fk",
+    }).onDelete("cascade"),
     dioceseIdFk: foreignKey({
       columns: [columns["dioceseID"]],
       foreignColumns: [diocese.id],
       name: "_page_v_rels_diocese_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "_page_v_rels_event_fk",
+    }).onDelete("cascade"),
+    charityIdFk: foreignKey({
+      columns: [columns["charityID"]],
+      foreignColumns: [charity.id],
+      name: "_page_v_rels_charity_fk",
+    }).onDelete("cascade"),
+    fundraiserIdFk: foreignKey({
+      columns: [columns["fundraiserID"]],
+      foreignColumns: [fundraiser.id],
+      name: "_page_v_rels_fundraiser_fk",
+    }).onDelete("cascade"),
+    projectIdFk: foreignKey({
+      columns: [columns["projectID"]],
+      foreignColumns: [project.id],
+      name: "_page_v_rels_project_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -4042,31 +4152,13 @@ export const relations_page_blocks_news_posts = relations(
     }),
   }),
 );
-export const relations_page_blocks_court_listing_courts = relations(
-  page_blocks_court_listing_courts,
-  ({ one }) => ({
-    _parentID: one(page_blocks_court_listing, {
-      fields: [page_blocks_court_listing_courts._parentID],
-      references: [page_blocks_court_listing.id],
-      relationName: "courts",
-    }),
-    court: one(local_court, {
-      fields: [page_blocks_court_listing_courts.court],
-      references: [local_court.id],
-      relationName: "court",
-    }),
-  }),
-);
 export const relations_page_blocks_court_listing = relations(
   page_blocks_court_listing,
-  ({ one, many }) => ({
+  ({ one }) => ({
     _parentID: one(page, {
       fields: [page_blocks_court_listing._parentID],
       references: [page.id],
       relationName: "_blocks_courtListing",
-    }),
-    courts: many(page_blocks_court_listing_courts, {
-      relationName: "courts",
     }),
   }),
 );
@@ -4192,16 +4284,51 @@ export const relations_page_blocks_dioceses_accordian = relations(
     }),
   }),
 );
+export const relations_page_blocks_archive = relations(
+  page_blocks_archive,
+  ({ one }) => ({
+    _parentID: one(page, {
+      fields: [page_blocks_archive._parentID],
+      references: [page.id],
+      relationName: "_blocks_archive",
+    }),
+  }),
+);
 export const relations_page_rels = relations(page_rels, ({ one }) => ({
   parent: one(page, {
     fields: [page_rels.parent],
     references: [page.id],
     relationName: "_rels",
   }),
+  localCourtID: one(local_court, {
+    fields: [page_rels.localCourtID],
+    references: [local_court.id],
+    relationName: "localCourt",
+  }),
   dioceseID: one(diocese, {
     fields: [page_rels.dioceseID],
     references: [diocese.id],
     relationName: "diocese",
+  }),
+  eventID: one(event, {
+    fields: [page_rels.eventID],
+    references: [event.id],
+    relationName: "event",
+  }),
+  charityID: one(charity, {
+    fields: [page_rels.charityID],
+    references: [charity.id],
+    relationName: "charity",
+  }),
+  fundraiserID: one(fundraiser, {
+    fields: [page_rels.fundraiserID],
+    references: [fundraiser.id],
+    relationName: "fundraiser",
+  }),
+  projectID: one(project, {
+    fields: [page_rels.projectID],
+    references: [project.id],
+    relationName: "project",
   }),
 }));
 export const relations_page = relations(page, ({ one, many }) => ({
@@ -4248,6 +4375,9 @@ export const relations_page = relations(page, ({ one, many }) => ({
   }),
   _blocks_diocesesAccordian: many(page_blocks_dioceses_accordian, {
     relationName: "_blocks_diocesesAccordian",
+  }),
+  _blocks_archive: many(page_blocks_archive, {
+    relationName: "_blocks_archive",
   }),
   _rels: many(page_rels, {
     relationName: "_rels",
@@ -4414,31 +4544,13 @@ export const relations__page_v_blocks_news_posts = relations(
     }),
   }),
 );
-export const relations__page_v_blocks_court_listing_courts = relations(
-  _page_v_blocks_court_listing_courts,
-  ({ one }) => ({
-    _parentID: one(_page_v_blocks_court_listing, {
-      fields: [_page_v_blocks_court_listing_courts._parentID],
-      references: [_page_v_blocks_court_listing.id],
-      relationName: "courts",
-    }),
-    court: one(local_court, {
-      fields: [_page_v_blocks_court_listing_courts.court],
-      references: [local_court.id],
-      relationName: "court",
-    }),
-  }),
-);
 export const relations__page_v_blocks_court_listing = relations(
   _page_v_blocks_court_listing,
-  ({ one, many }) => ({
+  ({ one }) => ({
     _parentID: one(_page_v, {
       fields: [_page_v_blocks_court_listing._parentID],
       references: [_page_v.id],
       relationName: "_blocks_courtListing",
-    }),
-    courts: many(_page_v_blocks_court_listing_courts, {
-      relationName: "courts",
     }),
   }),
 );
@@ -4564,16 +4676,51 @@ export const relations__page_v_blocks_dioceses_accordian = relations(
     }),
   }),
 );
+export const relations__page_v_blocks_archive = relations(
+  _page_v_blocks_archive,
+  ({ one }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_archive._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_archive",
+    }),
+  }),
+);
 export const relations__page_v_rels = relations(_page_v_rels, ({ one }) => ({
   parent: one(_page_v, {
     fields: [_page_v_rels.parent],
     references: [_page_v.id],
     relationName: "_rels",
   }),
+  localCourtID: one(local_court, {
+    fields: [_page_v_rels.localCourtID],
+    references: [local_court.id],
+    relationName: "localCourt",
+  }),
   dioceseID: one(diocese, {
     fields: [_page_v_rels.dioceseID],
     references: [diocese.id],
     relationName: "diocese",
+  }),
+  eventID: one(event, {
+    fields: [_page_v_rels.eventID],
+    references: [event.id],
+    relationName: "event",
+  }),
+  charityID: one(charity, {
+    fields: [_page_v_rels.charityID],
+    references: [charity.id],
+    relationName: "charity",
+  }),
+  fundraiserID: one(fundraiser, {
+    fields: [_page_v_rels.fundraiserID],
+    references: [fundraiser.id],
+    relationName: "fundraiser",
+  }),
+  projectID: one(project, {
+    fields: [_page_v_rels.projectID],
+    references: [project.id],
+    relationName: "project",
   }),
 }));
 export const relations__page_v = relations(_page_v, ({ one, many }) => ({
@@ -4625,6 +4772,9 @@ export const relations__page_v = relations(_page_v, ({ one, many }) => ({
   }),
   _blocks_diocesesAccordian: many(_page_v_blocks_dioceses_accordian, {
     relationName: "_blocks_diocesesAccordian",
+  }),
+  _blocks_archive: many(_page_v_blocks_archive, {
+    relationName: "_blocks_archive",
   }),
   _rels: many(_page_v_rels, {
     relationName: "_rels",
@@ -5271,6 +5421,8 @@ type DatabaseSchema = {
   enum_page_blocks_side_bar_alignment: typeof enum_page_blocks_side_bar_alignment;
   enum_page_blocks_media_with_text_media_size: typeof enum_page_blocks_media_with_text_media_size;
   enum_page_blocks_media_with_text_media_alignment: typeof enum_page_blocks_media_with_text_media_alignment;
+  enum_page_blocks_archive_collection: typeof enum_page_blocks_archive_collection;
+  enum_page_blocks_archive_type: typeof enum_page_blocks_archive_type;
   enum_page_hero_type: typeof enum_page_hero_type;
   enum_page_status: typeof enum_page_status;
   enum__page_v_version_hero_links_link_type: typeof enum__page_v_version_hero_links_link_type;
@@ -5279,6 +5431,8 @@ type DatabaseSchema = {
   enum__page_v_blocks_side_bar_alignment: typeof enum__page_v_blocks_side_bar_alignment;
   enum__page_v_blocks_media_with_text_media_size: typeof enum__page_v_blocks_media_with_text_media_size;
   enum__page_v_blocks_media_with_text_media_alignment: typeof enum__page_v_blocks_media_with_text_media_alignment;
+  enum__page_v_blocks_archive_collection: typeof enum__page_v_blocks_archive_collection;
+  enum__page_v_blocks_archive_type: typeof enum__page_v_blocks_archive_type;
   enum__page_v_version_hero_type: typeof enum__page_v_version_hero_type;
   enum__page_v_version_status: typeof enum__page_v_version_status;
   enum_contact_contact_type: typeof enum_contact_contact_type;
@@ -5327,7 +5481,6 @@ type DatabaseSchema = {
   page_blocks_tabs: typeof page_blocks_tabs;
   page_blocks_news_posts_posts: typeof page_blocks_news_posts_posts;
   page_blocks_news_posts: typeof page_blocks_news_posts;
-  page_blocks_court_listing_courts: typeof page_blocks_court_listing_courts;
   page_blocks_court_listing: typeof page_blocks_court_listing;
   page_blocks_calendar_months_month_items: typeof page_blocks_calendar_months_month_items;
   page_blocks_calendar_months: typeof page_blocks_calendar_months;
@@ -5338,6 +5491,7 @@ type DatabaseSchema = {
   page_blocks_newsletters_newsletters: typeof page_blocks_newsletters_newsletters;
   page_blocks_newsletters: typeof page_blocks_newsletters;
   page_blocks_dioceses_accordian: typeof page_blocks_dioceses_accordian;
+  page_blocks_archive: typeof page_blocks_archive;
   page: typeof page;
   page_rels: typeof page_rels;
   _page_v_version_hero_links: typeof _page_v_version_hero_links;
@@ -5353,7 +5507,6 @@ type DatabaseSchema = {
   _page_v_blocks_tabs: typeof _page_v_blocks_tabs;
   _page_v_blocks_news_posts_posts: typeof _page_v_blocks_news_posts_posts;
   _page_v_blocks_news_posts: typeof _page_v_blocks_news_posts;
-  _page_v_blocks_court_listing_courts: typeof _page_v_blocks_court_listing_courts;
   _page_v_blocks_court_listing: typeof _page_v_blocks_court_listing;
   _page_v_blocks_calendar_months_month_items: typeof _page_v_blocks_calendar_months_month_items;
   _page_v_blocks_calendar_months: typeof _page_v_blocks_calendar_months;
@@ -5364,6 +5517,7 @@ type DatabaseSchema = {
   _page_v_blocks_newsletters_newsletters: typeof _page_v_blocks_newsletters_newsletters;
   _page_v_blocks_newsletters: typeof _page_v_blocks_newsletters;
   _page_v_blocks_dioceses_accordian: typeof _page_v_blocks_dioceses_accordian;
+  _page_v_blocks_archive: typeof _page_v_blocks_archive;
   _page_v: typeof _page_v;
   _page_v_rels: typeof _page_v_rels;
   contact_contact_roles: typeof contact_contact_roles;
@@ -5421,7 +5575,6 @@ type DatabaseSchema = {
   relations_page_blocks_tabs: typeof relations_page_blocks_tabs;
   relations_page_blocks_news_posts_posts: typeof relations_page_blocks_news_posts_posts;
   relations_page_blocks_news_posts: typeof relations_page_blocks_news_posts;
-  relations_page_blocks_court_listing_courts: typeof relations_page_blocks_court_listing_courts;
   relations_page_blocks_court_listing: typeof relations_page_blocks_court_listing;
   relations_page_blocks_calendar_months_month_items: typeof relations_page_blocks_calendar_months_month_items;
   relations_page_blocks_calendar_months: typeof relations_page_blocks_calendar_months;
@@ -5432,6 +5585,7 @@ type DatabaseSchema = {
   relations_page_blocks_newsletters_newsletters: typeof relations_page_blocks_newsletters_newsletters;
   relations_page_blocks_newsletters: typeof relations_page_blocks_newsletters;
   relations_page_blocks_dioceses_accordian: typeof relations_page_blocks_dioceses_accordian;
+  relations_page_blocks_archive: typeof relations_page_blocks_archive;
   relations_page_rels: typeof relations_page_rels;
   relations_page: typeof relations_page;
   relations__page_v_version_hero_links: typeof relations__page_v_version_hero_links;
@@ -5447,7 +5601,6 @@ type DatabaseSchema = {
   relations__page_v_blocks_tabs: typeof relations__page_v_blocks_tabs;
   relations__page_v_blocks_news_posts_posts: typeof relations__page_v_blocks_news_posts_posts;
   relations__page_v_blocks_news_posts: typeof relations__page_v_blocks_news_posts;
-  relations__page_v_blocks_court_listing_courts: typeof relations__page_v_blocks_court_listing_courts;
   relations__page_v_blocks_court_listing: typeof relations__page_v_blocks_court_listing;
   relations__page_v_blocks_calendar_months_month_items: typeof relations__page_v_blocks_calendar_months_month_items;
   relations__page_v_blocks_calendar_months: typeof relations__page_v_blocks_calendar_months;
@@ -5458,6 +5611,7 @@ type DatabaseSchema = {
   relations__page_v_blocks_newsletters_newsletters: typeof relations__page_v_blocks_newsletters_newsletters;
   relations__page_v_blocks_newsletters: typeof relations__page_v_blocks_newsletters;
   relations__page_v_blocks_dioceses_accordian: typeof relations__page_v_blocks_dioceses_accordian;
+  relations__page_v_blocks_archive: typeof relations__page_v_blocks_archive;
   relations__page_v_rels: typeof relations__page_v_rels;
   relations__page_v: typeof relations__page_v;
   relations_contact_contact_roles: typeof relations_contact_contact_roles;
