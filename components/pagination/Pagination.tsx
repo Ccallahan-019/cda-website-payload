@@ -31,16 +31,18 @@ export default function Pagination({
 }: Props) {
     const pageArr = [];
 
-    let startPage = Math.max(1, currentPage - 1);
-    const endPage = Math.min(pages, startPage + maxVisiblePages - 1);
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = startPage + maxVisiblePages - 1;
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
+    if (endPage > pages) {
+        endPage = pages;
         startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
 
     for (let i = startPage; i <= endPage; i++) {
         pageArr.push(i);
     }
+
 
     let startIndex;
     let endIndex;
