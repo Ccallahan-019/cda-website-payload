@@ -55,11 +55,11 @@ export const CourtListingBlock: React.FC<CourtListingBlockProps> = (props) => {
     let paginatedCourts: typeof courts;
 
     if (rowsPerPage) {
-        totalPages = Math.ceil(courts.length / rowsPerPage);
-        paginatedCourts = courts.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+        totalPages = Math.ceil(sortedData.length / rowsPerPage);
+        paginatedCourts = sortedData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
     } else {
         totalPages = 1;
-        paginatedCourts = courts;
+        paginatedCourts = sortedData;
     }
 
     const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
@@ -143,8 +143,13 @@ export const CourtListingBlock: React.FC<CourtListingBlockProps> = (props) => {
                         onNextPage={handleNextPage}
                         onPrevPage={handlePrevPage}
                     >
-                        <Table columns={columns} data={paginatedCourts as LocalCourt[]} onSort={handleSort} />
-                        <CourtCards courts={paginatedCourts as LocalCourt[]} />
+                        {Array.isArray(paginatedCourts) && paginatedCourts.length > 0 && typeof paginatedCourts[0] === 'object' && (
+                            <div>
+                                <Table columns={columns} data={paginatedCourts as LocalCourt[]} onSort={handleSort} />
+                                <CourtCards courts={paginatedCourts as LocalCourt[]} />
+                            </div>
+                        )}
+                        
                     </Pagination>
                 )}
             </div>
