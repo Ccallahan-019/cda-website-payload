@@ -10,7 +10,7 @@ import { LivePreviewListener } from "@/components/live-preview-listener/LivePrev
 import { Document } from "payload";
 import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 export const dynamicParams = true;
  
 export async function generateStaticParams() {

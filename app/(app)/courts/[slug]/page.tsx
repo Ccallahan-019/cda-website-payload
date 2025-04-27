@@ -12,7 +12,7 @@ import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
 import { Document } from "payload";
 import { GET_COURT_SLUGS } from "@/graghql/queries/courtSlugQuery";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 export const dynamicParams = true;
 
 
