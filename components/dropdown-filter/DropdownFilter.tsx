@@ -49,7 +49,7 @@ export default function DropdownFilter({ value, options, onClick, icon }: Props)
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.2, ease: "easeInOut" }}
-                        className="absolute w-full z-10 overflow-hidden border-gray-300 bg-white shadow border rounded-lg block text-sm px-4"
+                        className="absolute w-full z-20 overflow-hidden border-gray-300 bg-white shadow border rounded-lg block text-sm px-4"
                     >
                         <div className=" py-2 space-y-2">
                             <ul className="flex flex-col">
