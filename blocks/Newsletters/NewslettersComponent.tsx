@@ -18,6 +18,8 @@ export const NewslettersBlock: React.FC<NewslettersBlockProps> = (props) => {
         return 2024
     }))]
 
+    years.sort((a, b) => b - a)
+
     const [year, setYear] = useState<string | number>(years[0]);
     const filteredNewsletters = newsletters.filter((item) => {
         if (typeof item.newsletter === 'object') {
