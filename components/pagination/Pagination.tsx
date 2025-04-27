@@ -83,10 +83,10 @@ export default function Pagination({
                     <LeftChevron height="20px" width="20px" />
                 </button>
 
-                {pageArr.map((page, index) => (
+                {pageArr.map((page) => (
                     <button
                         onClick={() => onPageChange(page)}
-                        key={index}
+                        key={page}
                         className={`inline-flex items-center justify-center px-3 py-2 text-sm font-bold text-gray-600 border border-gray-400 rounded-md w-9
                                 ${currentPage === page ? "z-10 bg-gray-100 text-gray-700 border-gray-700": "bg-white"}
                             `}
