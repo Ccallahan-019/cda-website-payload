@@ -10,7 +10,6 @@ export const ARCHIVE_FRAGMENT = gql`
     type
     autoPopulate
     limit
-    pagination
     entriesPerPage
     selectedDocs {
         relationTo
