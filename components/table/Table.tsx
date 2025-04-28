@@ -43,7 +43,7 @@ export type Column<T> = {
                     {columns.map((column, colIndex) => {
                       const value = getValueFromPath(row, column.accessor);
                       return (
-                        <td key={colIndex} className="hidden py-4 pl-4 pr-3 text-sm font-medium text-gray-900 lg:table-cell whitespace-nowrap sm:pl-6 md:pl-0">
+                        <td key={colIndex} className="hidden py-4 pl-4 pr-3 text-sm font-medium text-gray-900 lg:table-cell sm:pl-6 md:pl-0">
                           {column.render ? column.render(value, row) : value?.toString()}
                         </td>
                       );
