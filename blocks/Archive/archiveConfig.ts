@@ -121,6 +121,7 @@ export const Archive: Block = {
       name: 'entriesPerPage',
       type: 'number',
       defaultValue: 3,
+      max: 12,
       admin: {
         step: 1,
         condition: (_, siblingData) => siblingData.pagination === true,
