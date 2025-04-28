@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_FUNDRAISERS = gql`
-  query GetFundraisers($type: Fundraiser_fundraiserType_Input, $limit: Int) {
-    Fundraisers(limit: $limit, where: { fundraiserType: { equals: $type } }, sort: "-createAt") {
+  query GetFundraisers($type: Fundraiser_fundraiserType_Input, $limit: Int, $page: Int) {
+    Fundraisers(limit: $limit, page: $page, where: { fundraiserType: { equals: $type } }, sort: "-createdAt") {
       docs {
         id
         heroImage {
@@ -15,6 +15,7 @@ export const GET_FUNDRAISERS = gql`
         fundraiserDescription
         slug
       }
+      totalDocs
     }
   }
 `;

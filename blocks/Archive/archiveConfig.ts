@@ -80,6 +80,7 @@ export const Archive: Block = {
     {
       name: 'limit',
       type: 'number',
+      min: 1,
       admin: {
         condition: (_, siblingData) => siblingData.autoPopulate === true,
         step: 1,
@@ -121,10 +122,10 @@ export const Archive: Block = {
       name: 'entriesPerPage',
       type: 'number',
       defaultValue: 3,
+      min: 1,
       max: 12,
       admin: {
         step: 1,
-        condition: (_, siblingData) => siblingData.pagination === true,
       }
     },
   ],

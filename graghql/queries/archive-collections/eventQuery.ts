@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_EVENTS = gql`
-  query GetEvents($type:  Event_eventType_Input, $limit: Int) {
-    Events(limit: $limit, where: { eventType: { equals: $type } }, sort: "-createAt") {
+  query GetEvents($type:  Event_eventType_Input, $limit: Int, $page: Int) {
+    Events(limit: $limit, page: $page, where: { eventType: { equals: $type } }, sort: "-createdAt") {
       docs {
         id
         heroImage {
@@ -15,6 +15,7 @@ export const GET_EVENTS = gql`
         eventDescription
         slug
       }
+      totalDocs
     }
   }
 `;
