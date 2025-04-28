@@ -94,6 +94,7 @@ export const Archive: Block = {
         condition: (_, siblingData) => siblingData.autoPopulate === false,
       },
       hasMany: true,
+      maxRows: 20,
       label: 'Selection',
       relationTo: ["event", "charity", "fundraiser", "project"],
       filterOptions: ({ blockData, relationTo }) => {
@@ -115,11 +116,6 @@ export const Archive: Block = {
           [typeField]: { equals: type },
         };
       },
-    },
-    {
-      name: 'pagination',
-      type: 'checkbox',
-      defaultValue: true,
     },
     {
       name: 'entriesPerPage',
