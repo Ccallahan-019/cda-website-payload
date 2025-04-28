@@ -28,13 +28,14 @@ export const collectionQueryMap = {
   };
 
 export const Archive: React.FC<ArchiveBlockProps> = (props) => {
-    const { introContent, collection, type, autoPopulate, limit, selectedDocs, pagination, entriesPerPage = 3 } = props
+    const { introContent, collection, type, autoPopulate, limit, selectedDocs, entriesPerPage = 3 } = props
 
     const [currentPage, setCurrentPage] = useState(1);
 
     const query = collectionQueryMap[collection];
     const { data: collectionData } = useSuspenseQuery(query, {
         variables: { type, limit },
+        skip: !autoPopulate
     });
 
     const data: Document = collectionData
@@ -180,57 +181,34 @@ export const Archive: React.FC<ArchiveBlockProps> = (props) => {
         setCurrentPage(page);
     }
 
-    if (pagination) {
-        return (
-            <div className="container my-16 sm:my-20">
-                <div className="mb-16">
-                    {introContent && <RichText data={introContent} />}
-                </div>
-                <Pagination
-                    pages={totalPages}
-                    currentPage={currentPage}
-                    rangeLabels={labels}
-                    pageLength={entriesPerPage || cardData.length}
-                    totalCount={cardData.length}
-                    onPageChange={handlePageChange}
-                    onNextPage={handleNextPage}
-                    onPrevPage={handlePrevPage}
-                >
-                    <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
-                        {paginatedEntries.map((card, index) => {
-                            if (card) {
-                                return (
-                                    <div key={card.id || index} className="col-span-4">
-                                        <ArchiveCard cardData={card} />
-                                    </div>
-                                )
-                            }
-                            return null;
-                        })}
-                    </div>
-                </Pagination>
-            </div>
-        )
-    }
-
     return (
-
         <div className="container my-16 sm:my-20">
             <div className="mb-16">
                 {introContent && <RichText data={introContent} />}
             </div>
-            <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
-                {cardData.map((card, index) => {
-                    if (card) {
-                        return (
-                            <div key={card.id || index} className="col-span-4">
-                                <ArchiveCard cardData={card} />
-                            </div>
-                        )
-                    }
-                    return null;
-                })}
-            </div>
+            <Pagination
+                pages={totalPages}
+                currentPage={currentPage}
+                rangeLabels={labels}
+                pageLength={entriesPerPage || cardData.length}
+                totalCount={cardData.length}
+                onPageChange={handlePageChange}
+                onNextPage={handleNextPage}
+                onPrevPage={handlePrevPage}
+            >
+                <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
+                    {paginatedEntries.map((card, index) => {
+                        if (card) {
+                            return (
+                                <div key={card.id || index} className="col-span-4">
+                                    <ArchiveCard cardData={card} />
+                                </div>
+                            )
+                        }
+                        return null;
+                    })}
+                </div>
+            </Pagination>
         </div>
     )
 }
