@@ -22,11 +22,37 @@ export const CourtListing: Block = {
         label: false,
     },
     {
-        name: 'courts',
-        type: 'relationship',
+        name: 'selectionType',
+        type: 'select',
         required: true,
+        options: [
+            { label: 'All Courts', value: 'all' },
+            { label: 'By Diocese', value: 'diocese' },
+            { label: 'Manual Selection', value: 'manual' }
+        ],
+        defaultValue: 'all'
+    },
+    {
+        name: 'selectedCourts',
+        type: 'relationship',
+        required: false,
         relationTo: 'localCourt',
+        maxRows: 20,
         hasMany: true,
+        admin: {
+            condition: (_, { selectionType }) => selectionType === 'manual',
+            description: 'Select the courts you would like to include in the listing; you may choose up to 20 courts. If you do not select any courts, the listing will default to displaying every court.'
+        }
+    },
+    {
+        name: 'selectedDiocese',
+        type: 'relationship',
+        required: false,
+        relationTo: 'diocese',
+        admin: {
+            condition: (_, { selectionType }) => selectionType === 'diocese',
+            description: 'Select the diocese you would like to filter the listing by. If you do not select a diocese, the listing will default to displaying every court.'
+        }
     },
     {
         name: 'rowsPerPage',

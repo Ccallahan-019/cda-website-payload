@@ -7,24 +7,12 @@ export const COURT_LISTING_FRAGMENT = gql`
     id
     richText
     rowsPerPage
-    courts {
+    selectionType
+    selectedCourts {
         id
-        slug
-        courtName
-        courtDiocese {
-            dioceseName
-        }
-        courtLocation {
-            courtCity
-        }
-        instituted
-        courtNumber
-        courtOfficers {
-            courtRegent {
-                contactName
-                contactEmail
-            }
-        }
+    }
+    selectedDiocese {
+        id
     }
   }
 `;
