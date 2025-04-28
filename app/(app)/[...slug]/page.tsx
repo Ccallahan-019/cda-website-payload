@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import { getApolloServerClient } from "@/graghql/apolloClient";
-import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pageQuery";
+import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pages/pageQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { RenderHero } from "@/heros/RenderHero";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 import { Document } from "payload";
-import { GET_SLUGS } from "@/graghql/queries/slugQuery";
+import { GET_SLUGS } from "@/graghql/queries/pages/slugQuery";
 
 export const revalidate = 3600;
 export const dynamicParams = true;

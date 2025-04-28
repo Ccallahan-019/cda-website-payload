@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { LAYOUT_FRAGMENTS } from '../fragments/layoutFrag';
+import { LAYOUT_FRAGMENTS } from '../../fragments/layoutFrag';
 
 
 export const GET_PAGE_BY_SLUG = gql`

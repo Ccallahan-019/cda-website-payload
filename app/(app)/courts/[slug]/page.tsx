@@ -2,7 +2,7 @@ export const dynamic= 'force-dynamic';
 
 import { notFound } from "next/navigation";
 import { getApolloServerClient } from "@/graghql/apolloClient";
-import { GET_COURT_BY_SLUG } from "@/graghql/queries/courtQuery";
+import { GET_COURT_BY_SLUG } from "@/graghql/queries/pages/courtQuery";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 import RichText from "@/lexical-components/RichText";
@@ -10,7 +10,7 @@ import { CourtHero } from "@/heros/CourtHero";
 import CourtInfoBanner from "@/components/court-page/CourtInfoBanner";
 import CourtOfficerCard from "@/components/court-page/CourtOfficerCard";
 import { Document } from "payload";
-import { GET_COURT_SLUGS } from "@/graghql/queries/courtSlugQuery";
+import { GET_COURT_SLUGS } from "@/graghql/queries/pages/courtSlugQuery";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
