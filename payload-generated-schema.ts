@@ -46,6 +46,10 @@ export const enum_page_blocks_side_bar_alignment = pgEnum(
   "enum_page_blocks_side_bar_alignment",
   ["left", "right"],
 );
+export const enum_page_blocks_court_listing_selection_type = pgEnum(
+  "enum_page_blocks_court_listing_selection_type",
+  ["all", "diocese", "manual"],
+);
 export const enum_page_blocks_media_with_text_media_size = pgEnum(
   "enum_page_blocks_media_with_text_media_size",
   ["oneThird", "half", "twoThirds"],
@@ -86,6 +90,10 @@ export const enum__page_v_blocks_content_columns_size = pgEnum(
 export const enum__page_v_blocks_side_bar_alignment = pgEnum(
   "enum__page_v_blocks_side_bar_alignment",
   ["left", "right"],
+);
+export const enum__page_v_blocks_court_listing_selection_type = pgEnum(
+  "enum__page_v_blocks_court_listing_selection_type",
+  ["all", "diocese", "manual"],
 );
 export const enum__page_v_blocks_media_with_text_media_size = pgEnum(
   "enum__page_v_blocks_media_with_text_media_size",
@@ -816,6 +824,16 @@ export const page_blocks_court_listing = pgTable(
     _path: text("_path").notNull(),
     id: varchar("id").primaryKey(),
     richText: jsonb("rich_text"),
+    selectionType:
+      enum_page_blocks_court_listing_selection_type("selection_type").default(
+        "all",
+      ),
+    selectedDiocese: integer("selected_diocese_id").references(
+      () => diocese.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     rowsPerPage: numeric("rows_per_page").default("10"),
     blockName: varchar("block_name"),
   },
@@ -825,6 +843,9 @@ export const page_blocks_court_listing = pgTable(
       columns._parentID,
     ),
     _pathIdx: index("page_blocks_court_listing_path_idx").on(columns._path),
+    page_blocks_court_listing_selected_diocese_idx: index(
+      "page_blocks_court_listing_selected_diocese_idx",
+    ).on(columns.selectedDiocese),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [page.id],
@@ -1091,7 +1112,6 @@ export const page_blocks_archive = pgTable(
     type: enum_page_blocks_archive_type("type").default("state"),
     autoPopulate: boolean("auto_populate").default(true),
     limit: numeric("limit").default("10"),
-    pagination: boolean("pagination").default(true),
     entriesPerPage: numeric("entries_per_page").default("3"),
     blockName: varchar("block_name"),
   },
@@ -1575,6 +1595,16 @@ export const _page_v_blocks_court_listing = pgTable(
     _path: text("_path").notNull(),
     id: serial("id").primaryKey(),
     richText: jsonb("rich_text"),
+    selectionType:
+      enum__page_v_blocks_court_listing_selection_type(
+        "selection_type",
+      ).default("all"),
+    selectedDiocese: integer("selected_diocese_id").references(
+      () => diocese.id,
+      {
+        onDelete: "set null",
+      },
+    ),
     rowsPerPage: numeric("rows_per_page").default("10"),
     _uuid: varchar("_uuid"),
     blockName: varchar("block_name"),
@@ -1587,6 +1617,9 @@ export const _page_v_blocks_court_listing = pgTable(
       columns._parentID,
     ),
     _pathIdx: index("_page_v_blocks_court_listing_path_idx").on(columns._path),
+    _page_v_blocks_court_listing_selected_diocese_idx: index(
+      "_page_v_blocks_court_listing_selected_diocese_idx",
+    ).on(columns.selectedDiocese),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
       foreignColumns: [_page_v.id],
@@ -1868,7 +1901,6 @@ export const _page_v_blocks_archive = pgTable(
     type: enum__page_v_blocks_archive_type("type").default("state"),
     autoPopulate: boolean("auto_populate").default(true),
     limit: numeric("limit").default("10"),
-    pagination: boolean("pagination").default(true),
     entriesPerPage: numeric("entries_per_page").default("3"),
     _uuid: varchar("_uuid"),
     blockName: varchar("block_name"),
@@ -4160,6 +4192,11 @@ export const relations_page_blocks_court_listing = relations(
       references: [page.id],
       relationName: "_blocks_courtListing",
     }),
+    selectedDiocese: one(diocese, {
+      fields: [page_blocks_court_listing.selectedDiocese],
+      references: [diocese.id],
+      relationName: "selectedDiocese",
+    }),
   }),
 );
 export const relations_page_blocks_calendar_months_month_items = relations(
@@ -4551,6 +4588,11 @@ export const relations__page_v_blocks_court_listing = relations(
       fields: [_page_v_blocks_court_listing._parentID],
       references: [_page_v.id],
       relationName: "_blocks_courtListing",
+    }),
+    selectedDiocese: one(diocese, {
+      fields: [_page_v_blocks_court_listing.selectedDiocese],
+      references: [diocese.id],
+      relationName: "selectedDiocese",
     }),
   }),
 );
@@ -5419,6 +5461,7 @@ type DatabaseSchema = {
   enum_page_hero_links_link_appearance: typeof enum_page_hero_links_link_appearance;
   enum_page_blocks_content_columns_size: typeof enum_page_blocks_content_columns_size;
   enum_page_blocks_side_bar_alignment: typeof enum_page_blocks_side_bar_alignment;
+  enum_page_blocks_court_listing_selection_type: typeof enum_page_blocks_court_listing_selection_type;
   enum_page_blocks_media_with_text_media_size: typeof enum_page_blocks_media_with_text_media_size;
   enum_page_blocks_media_with_text_media_alignment: typeof enum_page_blocks_media_with_text_media_alignment;
   enum_page_blocks_archive_collection: typeof enum_page_blocks_archive_collection;
@@ -5429,6 +5472,7 @@ type DatabaseSchema = {
   enum__page_v_version_hero_links_link_appearance: typeof enum__page_v_version_hero_links_link_appearance;
   enum__page_v_blocks_content_columns_size: typeof enum__page_v_blocks_content_columns_size;
   enum__page_v_blocks_side_bar_alignment: typeof enum__page_v_blocks_side_bar_alignment;
+  enum__page_v_blocks_court_listing_selection_type: typeof enum__page_v_blocks_court_listing_selection_type;
   enum__page_v_blocks_media_with_text_media_size: typeof enum__page_v_blocks_media_with_text_media_size;
   enum__page_v_blocks_media_with_text_media_alignment: typeof enum__page_v_blocks_media_with_text_media_alignment;
   enum__page_v_blocks_archive_collection: typeof enum__page_v_blocks_archive_collection;

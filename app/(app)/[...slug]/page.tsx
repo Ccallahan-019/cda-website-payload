@@ -7,28 +7,28 @@ import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { RenderHero } from "@/heros/RenderHero";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
-import { Document } from "payload";
-import { GET_SLUGS } from "@/graghql/queries/slugQuery";
+// import { Document } from "payload";
+// import { GET_SLUGS } from "@/graghql/queries/slugQuery";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
  
-export async function generateStaticParams() {
-  const client = getApolloServerClient();
-  const pages = await client.query({
-    query: GET_SLUGS,
-  });
+// export async function generateStaticParams() {
+//   const client = getApolloServerClient();
+//   const pages = await client.query({
+//     query: GET_SLUGS,
+//   });
 
-  const params = pages.data.Pages.docs
-    ?.filter((doc: Document) => {
-      return doc.slug !== 'home'
-    })
-    .map((doc: Document) => ({
-      slug: doc.slug.split('/')
-    }));
+//   const params = pages.data.Pages.docs
+//     ?.filter((doc: Document) => {
+//       return doc.slug !== 'home'
+//     })
+//     .map((doc: Document) => ({
+//       slug: doc.slug.split('/')
+//     }));
 
-    return params;
-}
+//     return params;
+// }
 
 const queryPageBySlug = async ({ path }: { path: string }) => {
   const { isEnabled: draft } = await draftMode();

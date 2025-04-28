@@ -503,7 +503,15 @@ export interface CourtListingBlock {
     };
     [k: string]: unknown;
   };
-  courts: (number | LocalCourt)[];
+  selectionType: 'all' | 'diocese' | 'manual';
+  /**
+   * Select the courts you would like to include in the listing; you may choose up to 20 courts. If you do not select any courts, the listing will default to displaying every court.
+   */
+  selectedCourts?: (number | LocalCourt)[] | null;
+  /**
+   * Select the diocese you would like to filter the listing by. If you do not select a diocese, the listing will default to displaying every court.
+   */
+  selectedDiocese?: (number | null) | Diocese;
   rowsPerPage: number;
   id?: string | null;
   blockName?: string | null;
@@ -1002,7 +1010,6 @@ export interface ArchiveBlock {
           }
       )[]
     | null;
-  pagination?: boolean | null;
   entriesPerPage?: number | null;
   id?: string | null;
   blockName?: string | null;
@@ -1406,7 +1413,9 @@ export interface NewsPostsBlockSelect<T extends boolean = true> {
  */
 export interface CourtListingBlockSelect<T extends boolean = true> {
   richText?: T;
-  courts?: T;
+  selectionType?: T;
+  selectedCourts?: T;
+  selectedDiocese?: T;
   rowsPerPage?: T;
   id?: T;
   blockName?: T;
@@ -1497,7 +1506,6 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   autoPopulate?: T;
   limit?: T;
   selectedDocs?: T;
-  pagination?: T;
   entriesPerPage?: T;
   id?: T;
   blockName?: T;
