@@ -24,10 +24,6 @@ function manualWhere(ids: (number | null)[]) {
     return Object.keys(where).length > 0 ? where : {};
 }
 
-function getValueFromPath(obj: any, path: string): any {
-  return path.split('.').reduce((acc, key) => acc?.[key], obj);
-}
-
 function convertToAnniversary(date: string) {
   const institutedDate = new Date(date);
   const today = new Date();
@@ -36,22 +32,6 @@ function convertToAnniversary(date: string) {
     today.getMonth() > institutedDate.getMonth() ||
     (today.getMonth() === institutedDate.getMonth() && today.getDate() >= institutedDate.getDate());
   return `${hasOccurredThisYear ? years : years - 1} years`;
-}
-
-function sortData<T>(data: T[], key: keyof T | string, direction: 'asc' | 'desc' = 'asc'): T[] {
-  return [...data].sort((a, b) => {
-    const aVal = typeof key === 'string' ? getValueFromPath(a, key) : a[key];
-    const bVal = typeof key === 'string' ? getValueFromPath(b, key) : b[key];
-
-    if (aVal == null) return 1;
-    if (bVal == null) return -1;
-
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-    }
-
-    return direction === 'asc' ? aVal - bVal : bVal - aVal;
-  });
 }
 
 export const CourtListing: React.FC<CourtListingBlockProps> = ({
@@ -67,6 +47,7 @@ export const CourtListing: React.FC<CourtListingBlockProps> = ({
 
   // Build query filters based on selection type
   const variables = useMemo(() => {
+    const sort = sortDir === 'asc' ? sortKey : `-${sortKey}`;
     if (selectionType === 'manual' && Array.isArray(selectedCourts) && selectedCourts.length > 0) {
       const ids = selectedCourts.map((court) => {
         if (typeof court === 'object') {
@@ -74,13 +55,27 @@ export const CourtListing: React.FC<CourtListingBlockProps> = ({
         }
         return null
     }) || [];
-      return { where: manualWhere(ids), limit: rowsPerPage, page: currentPage };
+      return { 
+        where: manualWhere(ids),
+        limit: rowsPerPage,
+        page: currentPage,
+        sort
+      };
     }
     if (selectionType === 'diocese' && selectedDiocese && typeof selectedDiocese === 'object') {
-      return { dioceseId: selectedDiocese.id, limit: rowsPerPage, page: currentPage };
+      return {
+        dioceseId: selectedDiocese.id,
+        limit: rowsPerPage,
+        page: currentPage,
+        sort
+      };
     }
-    return { limit: rowsPerPage, page: currentPage }; // All courts
-  }, [selectionType, selectedCourts, selectedDiocese, currentPage, rowsPerPage]);
+    return {
+      limit: rowsPerPage,
+      page: currentPage,
+      sort
+    }; // All courts
+  }, [selectionType, selectedCourts, selectedDiocese, currentPage, rowsPerPage, sortDir, sortKey]);
 
   let query;
 
@@ -101,13 +96,10 @@ export const CourtListing: React.FC<CourtListingBlockProps> = ({
 
   const courts: LocalCourt[] = useMemo(() => {
     if (data?.LocalCourts?.docs) {
-      if (sortKey) {
-        return sortData(data.LocalCourts.docs, sortKey, sortDir);
-      }
       return data.LocalCourts.docs;
     }
     return [];
-  }, [data, sortKey, sortDir]);
+  }, [data]);
 
   const totalCount = data?.LocalCourts?.totalDocs || 0;
   const totalPages = rowsPerPage ? Math.ceil(totalCount / rowsPerPage) : 1;
@@ -147,7 +139,7 @@ export const CourtListing: React.FC<CourtListingBlockProps> = ({
     },
     {
       header: 'Court Regent',
-      accessor: 'courtOfficers.courtRegent',
+      accessor: 'courtOfficers.courtRegent.contactName',
       render: (_: any, row: LocalCourt) => (
         row.courtOfficers?.courtRegent && typeof row.courtOfficers.courtRegent === "object" ? (
           <div>
