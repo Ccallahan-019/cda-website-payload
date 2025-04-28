@@ -194,7 +194,7 @@ After deployment, you may find that you would like to add more features to your 
 This will require seperating your development and production environments and creating a CI pipeline.
 If you are using a Vercel Postgres database hosted in Neon, create a seperate branch of your database specifically dedicated for development.
 You can do so from your database dashboard in Neon. 
-This will create a new database connection string for you child branch, which you should save in a `.env.local` file in the root of your project's directory.
+This will create a new database connection string for your child branch, which you should save in a `.env.local` file in the root of your project's directory.
 
 During development, Payload will automatically push changes in your database schema to your Neon database. _This only works in development mode_.
 Once you have created and tested new features in development, you will need to migrate these changes to the production database.
@@ -232,4 +232,4 @@ _This will cause an error during migration_.
 To fix this, manually remove all ENUM type declarations that already exist in your production database from the beginning of your first migration file.
 Thankfully, this only needs done during your first migration.
 
-For more information on Payload migration, visit [Migrations](https://payloadcms.com/docs/database/migrations) in Payload's documentation.
+For more information on Payload database migrations, visit [Migrations](https://payloadcms.com/docs/database/migrations) in Payload's documentation.
