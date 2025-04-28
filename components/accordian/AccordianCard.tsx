@@ -26,7 +26,7 @@ export default function AccordianCard({ diocese }: Props) {
         <div>
             <button
                 onClick={toggleExpanded}
-                className="py-8 px-4 sm:px-6 flex items-center justify-between w-full text-xl sm:text-2xl font-semibold text-left text-gray-900"
+                className="py-8 px-4 sm:px-6 flex items-center justify-between w-full text-xl sm:text-2xl font-semibold text-left text-gray-900 cursor-pointer"
             >
                 <span>{dioceseName}</span>
                 <span className="ml-4">
