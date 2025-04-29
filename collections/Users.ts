@@ -12,6 +12,7 @@ export const Users: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'email',
+    enableRichTextLink: false,
   },
   auth: true,
   fields: [
