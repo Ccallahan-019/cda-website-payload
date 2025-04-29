@@ -3,6 +3,7 @@ import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 import { cleanSlug } from './hooks/cleanSlugHook'
+import { generatePreviewPath } from '@/utils/generatePreviewPath'
 
 export const Fundraiser: CollectionConfig = {
   slug: 'fundraiser',
@@ -13,7 +14,24 @@ export const Fundraiser: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    useAsTitle: 'fundraiserName'
+    useAsTitle: 'fundraiserName',
+    livePreview: {
+      url: ({ data, req }) => {
+        const path = generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'fundraiser',
+          req,
+        })
+
+        return path
+      },
+    },
+    preview: (data, { req }) =>
+      generatePreviewPath({
+        slug: typeof data?.slug === 'string' ? data.slug : '',
+        collection: 'fundraiser',
+        req,
+      }),
   },
   fields: [
     {
