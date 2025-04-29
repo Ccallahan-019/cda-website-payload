@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cda-pa.org',
+        hostname: 'www.cda-pa.org',
         port: '',
         pathname: '/api/**',
         search: '?undefined',
