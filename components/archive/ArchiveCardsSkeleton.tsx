@@ -6,7 +6,7 @@ export default function ArchiveCardsSkeleton({ entriesPerPage }: Props) {
     const entryArr: number[] = [];
 
     if (entriesPerPage) {
-        for (let i = 0; i <= entriesPerPage; i++) {
+        for (let i = 1; i <= entriesPerPage; i++) {
             entryArr.push(i);
         }
     }

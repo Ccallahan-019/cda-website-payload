@@ -5,7 +5,7 @@ type Props = {
 export default function CourtCardsSkeleton({ rowsPerPage }: Props) {
     const rowsArr: number[] = [];
 
-    for (let i = 0; i <= rowsPerPage; i++) {
+    for (let i = 1; i <= rowsPerPage; i++) {
         rowsArr.push(i);
     }
 
