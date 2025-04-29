@@ -11,6 +11,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Users } from './collections/Users'
 import { collections } from './collections/collectionsArray'
 import { globals } from './globals/globalsArray'
+import { getServerURLs } from './utils/getURL'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -44,6 +45,8 @@ export default buildConfig({
       ],
     },
   },
+  cors: getServerURLs().filter(Boolean),
+  csrf: getServerURLs().filter(Boolean),
   collections: collections,
   globals: globals,
   editor: lexicalEditor({}),
