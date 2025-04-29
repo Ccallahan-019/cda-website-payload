@@ -58,14 +58,18 @@ export default async function EventPageTemplate({ params: paramsPromise }: Args)
     }
 
   return (
-    <article>
+    <article className="flex flex-col min-h-screen">
       {draft && <LivePreviewListener />}
       
       <EventHero event={event} />
 
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={event.content} enableGutter={false} />
+      <div className="grow flex flex-col items-center gap-4">
+        <div className="grow flex flex-col container">
+          <RichText
+            className="grow w-full max-w-[64rem] mx-auto bg-background/70 backdrop-blur-sm py-10 px-4 sm:px-6 md:px-10"
+            data={event.content}
+            enableGutter={false}
+          />
         </div>
       </div>
     </article>
