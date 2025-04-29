@@ -1,5 +1,3 @@
-export const dynamic= 'force-dynamic';
-
 import { notFound } from "next/navigation";
 import { getApolloServerClient } from "@/graghql/apolloClient";
 import { GET_COURT_BY_SLUG } from "@/graghql/queries/pages/courtQuery";
