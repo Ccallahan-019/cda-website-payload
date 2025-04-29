@@ -48,9 +48,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
         <div className="z-[1000] sticky top-0 left-0 w-full">
             <header
                 className={`
-                    relative px-6 py-1 lg:py-0 border-b
-                    ${hasScrolled || hoveredItem || isHeaderVisible ? "bg-background border-gray-300 shadow-md"
-                    : "shadow-none bg-transparent border-transparent"
+                    relative px-6 py-1 lg:py-0 border-b bg-background border-gray-300
+                    ${hasScrolled || hoveredItem || isHeaderVisible ? "shadow-md"
+                    : "shadow-none"
                 }`}>
                 <div className="flex items-center justify-between">
                     {logo && typeof logo === 'object' && (

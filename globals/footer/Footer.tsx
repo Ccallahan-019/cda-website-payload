@@ -8,7 +8,7 @@ type Props = {
 
 export default function Footer({ footerData }: Props) {
     return (
-        <section className="z-50 py-5">
+        <section className="z-50 py-5 bg-background border-t border-gray-300">
             <div className="space-y-2">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-12">
                     <div className="md:col-span-2 lg:pr-8 space-y-3">
