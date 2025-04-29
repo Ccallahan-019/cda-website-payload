@@ -25,6 +25,10 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
       return `/${slug}`
     case 'localCourt':
       return `/courts/${slug}`
+    case 'event':
+      return `/events/${slug}`
+    case 'fundraiser':
+      return `/fundraisers/${slug}`
     case 'media':
       return `${url}`
     default:
