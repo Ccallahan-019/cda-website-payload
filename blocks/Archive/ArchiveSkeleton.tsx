@@ -1,6 +1,7 @@
 import { ArchiveBlock as ArchiveBlockProps } from "@/payload-types";
 import RichText from "@/lexical-components/RichText";
 import ArchiveCardsSkeleton from "@/components/archive/ArchiveCardsSkeleton";
+import PaginationSkeleton from "@/components/pagination/PaginationSkeleton";
 
 export const ArchiveSkeleton: React.FC<ArchiveBlockProps> = (props) => {
     const { introContent, entriesPerPage } = props
@@ -12,8 +13,9 @@ export const ArchiveSkeleton: React.FC<ArchiveBlockProps> = (props) => {
                     <RichText data={introContent} />
                 </div>
             )}
-            <div className="rounded h-[22px] w-1/6 mb-8 bg-gray-300" />
-            <ArchiveCardsSkeleton entriesPerPage={entriesPerPage} />
+            <PaginationSkeleton>
+                <ArchiveCardsSkeleton entriesPerPage={entriesPerPage} />
+            </PaginationSkeleton>
         </div>
     )
 }
