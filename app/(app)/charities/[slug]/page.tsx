@@ -5,8 +5,7 @@ import { LivePreviewListener } from "@/components/live-preview-listener/LivePrev
 import { Document } from "payload";
 import RichText from "@/lexical-components/RichText";
 import { GET_CHARITY_BY_SLUG, GET_CHARITY_SLUGS } from "@/graghql/queries/pages/charityQueries";
-import { CharityHero } from "@/heros/charityHero";
-
+import { CharityHero } from "@/heros/CharityHero";
 export const revalidate = 3600;
 export const dynamicParams = true;
 

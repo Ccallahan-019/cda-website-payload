@@ -14,7 +14,7 @@ export const CharityHero: React.FC<{
       <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_64rem_1fr] text-white pb-8">
         <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
           <div className="uppercase text-sm mb-6">
-            {charityType && <p>{`${charityType} Fundraiser`}</p>}
+            {charityType && <p>{`${charityType} Charity`}</p>}
           </div>
 
           <div className="">
