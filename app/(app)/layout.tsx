@@ -11,6 +11,7 @@ import { GET_BACKGROUND } from "@/graghql/queries/backgroundQuery";
 import { Background } from "@/globals/background/BackgroundComponent";
 import { AdminBar } from "@/components/admin-bar/AdminBar";
 import { draftMode } from "next/headers";
+import { Analytics } from "@vercel/analytics/react"
 
 const merriweather = Merriweather_Sans({ subsets: ['latin'] })
 
@@ -56,6 +57,7 @@ export default async function RootLayout({
           {children}
         </div>
         <Footer footerData={footer} />
+        <Analytics />
       </body>
     </html>
   );
