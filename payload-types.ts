@@ -181,6 +181,36 @@ export interface NewsPost {
    * Write a short description of the news post.
    */
   description: string;
+  referenceType?: ('new' | 'existing') | null;
+  referenceTo?:
+    | ({
+        relationTo: 'charity';
+        value: number | Charity;
+      } | null)
+    | ({
+        relationTo: 'fundraiser';
+        value: number | Fundraiser;
+      } | null)
+    | ({
+        relationTo: 'event';
+        value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'localCourt';
+        value: number | LocalCourt;
+      } | null)
+    | ({
+        relationTo: 'page';
+        value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'project';
+        value: number | Project;
+      } | null);
+  /**
+   * This will be postfix to the news url (as in, cda-pa.org/news/<slug>) and will create a new page corresponding to this news post. You only need to include the postfix, i.e. donation-form-change. Lowercase and dashes only, no special characters.
+   */
+  slug?: string | null;
   heroImage?: (number | null) | Media;
   content?: {
     root: {
@@ -198,30 +228,331 @@ export interface NewsPost {
     [k: string]: unknown;
   } | null;
   relatedNewsPosts?: (number | NewsPost)[] | null;
-  /**
-   * This will be postfix to the news url (as in, cda-pa.org/news/<slug>) and will create a new page corresponding to this news post. You only need to include the postfix, i.e. donation-form-change. Lowercase and dashes only, no special characters.
-   */
-  slug?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "charity".
  */
-export interface User {
+export interface Charity {
   id: number;
+  charityName: string;
+  /**
+   * Write a short description of the charity.
+   */
+  charityDescription: string;
+  charityType: 'national' | 'state' | 'local';
+  associatedCourt?: (number | null) | LocalCourt;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * This will be the postfix to the charities url (as in, cda-pa.org/charities/<slug>) and will create a new page corresponding to this charity. You only need to include the postfix, i.e. charity-name. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the charity's name.
+   */
+  slug: string;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "localCourt".
+ */
+export interface LocalCourt {
+  id: number;
+  courtName: string;
+  courtDiocese: number | Diocese;
+  courtNumber: number;
+  instituted: string;
+  courtWebsite?: string | null;
+  courtLocation?: {
+    courtAddress?: string | null;
+    courtCity?: string | null;
+    courtState?: string | null;
+    courtZipcode?: string | null;
+  };
+  courtPhoneNumber?: string | null;
+  /**
+   * These fields have been pre-filtered to only include contacts whose 'type' is 'local'.
+   */
+  courtOfficers?: {
+    courtRegent?: (number | null) | Contact;
+    courtViceRegent?: (number | null) | Contact;
+    courtRecordingSecretary?: (number | null) | Contact;
+    courtFinancialSecretary?: (number | null) | Contact;
+    courtTreasurer?: (number | null) | Contact;
+  };
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include newsletters that have been associated with this court.
+   */
+  courtNewsletters?: (number | Newsletter)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include events that have been associated with this court.
+   */
+  courtEvents?: (number | Event)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include projects that have been associated with this court.
+   */
+  courtProjects?: (number | Project)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include charities that have been associated with this court.
+   */
+  courtCharities?: (number | Charity)[] | null;
+  /**
+   * As long as this court has been saved, this field has been pre-filtered to only include fundraisers that have been associated with this court.
+   */
+  courtFundraisers?: (number | Fundraiser)[] | null;
+  heroImage?: (number | null) | Media;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * This will be the postfix to the courts url (as in, cda-pa.org/courts/<slug>) and will create a new page corresponding to this court. You only need to include the postfix, i.e. columbia. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the court's name.
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "diocese".
+ */
+export interface Diocese {
+  id: number;
+  dioceseName: string;
+  dioceseWebsite?: string | null;
+  dioceseLocation?: {
+    dioceseAddress?: string | null;
+    dioceseCity?: string | null;
+    dioceseState?: string | null;
+    dioceseZipcode?: string | null;
+  };
+  diocesePhoneNumber?: string | null;
+  /**
+   * This field has been pre-filtered to only allow access to contacts that have designated as a District Deputy in the "Contact Positions" field.
+   */
+  districtDeputies: {
+    deputy: number | Contact;
+    id?: string | null;
+  }[];
+  dioceseEvents?:
+    | {
+        event: number | Event;
+        id?: string | null;
+      }[]
+    | null;
+  info?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: number;
+  contactName: string;
+  contactEmail?: string | null;
+  contactImage?: (number | null) | Media;
+  /**
+   * List the roles this contact fills.
+   */
+  contactRoles: {
+    role?: string | null;
+    id?: string | null;
+  }[];
+  /**
+   * Choose what position(s) this contact falls under. More than one can be selected.
+   */
+  contactPositions?: {
+    officer?: boolean | null;
+    chairman?: boolean | null;
+    districtDeputy?: boolean | null;
+  };
+  /**
+   * Choose the scope of this contact. If they are an officer, use their scope as an officer; if not, they are most likely "State", i.e. chairmen who are not officers.
+   */
+  contactType: 'national' | 'state' | 'local';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event".
+ */
+export interface Event {
+  id: number;
+  eventName: string;
+  eventDate: string;
+  eventDescription: string;
+  eventType: 'national' | 'state' | 'local' | 'diocesan';
+  associatedCourt?: (number | null) | LocalCourt;
+  associatedDiocese?: (number | null) | LocalCourt;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedEvents?: (number | Event)[] | null;
+  /**
+   * This will be the postfix to the events url (as in, cda-pa.org/events/<slug>) and will create a new page corresponding to this event. You only need to include the postfix, i.e. state-convention-2023. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the events's name.
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter".
+ */
+export interface Newsletter {
+  id: number;
+  title: string;
+  yearOfRelease: number;
+  quarter?: string | null;
+  type: 'local' | 'state' | 'national';
+  reissueDate?: string | null;
+  associatedCourt?: (number | null) | LocalCourt;
+  displayTitle?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project".
+ */
+export interface Project {
+  id: number;
+  projectName: string;
+  /**
+   * Write a short description of the project.
+   */
+  projectDescription: string;
+  projectType: 'national' | 'state' | 'local';
+  associatedCourt?: (number | null) | LocalCourt;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * This will be the postfix to the project url (as in, cda-pa.org/projects/<slug>) and will create a new page corresponding to this project. You only need to include the postfix, i.e. courage-lion. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the project's name.
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fundraiser".
+ */
+export interface Fundraiser {
+  id: number;
+  fundraiserName: string;
+  /**
+   * Write a short description of the fundraiser.
+   */
+  fundraiserDescription: string;
+  fundraiserType: 'national' | 'state' | 'local';
+  associatedCourt?: (number | null) | LocalCourt;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * This will be the postfix to the fundraiser url (as in, cda-pa.org/fundraisers/<slug>) and will create a new page corresponding to this fundraiser. You only need to include the postfix, i.e. lucky-lottery-calendar. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the fundraiser's name.
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -410,37 +741,6 @@ export interface ContactCardsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact".
- */
-export interface Contact {
-  id: number;
-  contactName: string;
-  contactEmail?: string | null;
-  contactImage?: (number | null) | Media;
-  /**
-   * List the roles this contact fills.
-   */
-  contactRoles: {
-    role?: string | null;
-    id?: string | null;
-  }[];
-  /**
-   * Choose what position(s) this contact falls under. More than one can be selected.
-   */
-  contactPositions?: {
-    officer?: boolean | null;
-    chairman?: boolean | null;
-    districtDeputy?: boolean | null;
-  };
-  /**
-   * Choose the scope of this contact. If they are an officer, use their scope as an officer; if not, they are most likely "State", i.e. chairmen who are not officers.
-   */
-  contactType: 'national' | 'state' | 'local';
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TabsBlock".
  */
 export interface TabsBlock {
@@ -516,297 +816,6 @@ export interface CourtListingBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'courtListing';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "localCourt".
- */
-export interface LocalCourt {
-  id: number;
-  courtName: string;
-  courtDiocese: number | Diocese;
-  courtNumber: number;
-  instituted: string;
-  courtWebsite?: string | null;
-  courtLocation?: {
-    courtAddress?: string | null;
-    courtCity?: string | null;
-    courtState?: string | null;
-    courtZipcode?: string | null;
-  };
-  courtPhoneNumber?: string | null;
-  /**
-   * These fields have been pre-filtered to only include contacts whose 'type' is 'local'.
-   */
-  courtOfficers?: {
-    courtRegent?: (number | null) | Contact;
-    courtViceRegent?: (number | null) | Contact;
-    courtRecordingSecretary?: (number | null) | Contact;
-    courtFinancialSecretary?: (number | null) | Contact;
-    courtTreasurer?: (number | null) | Contact;
-  };
-  /**
-   * As long as this court has been saved, this field has been pre-filtered to only include newsletters that have been associated with this court.
-   */
-  courtNewsletters?: (number | Newsletter)[] | null;
-  /**
-   * As long as this court has been saved, this field has been pre-filtered to only include events that have been associated with this court.
-   */
-  courtEvents?: (number | Event)[] | null;
-  /**
-   * As long as this court has been saved, this field has been pre-filtered to only include projects that have been associated with this court.
-   */
-  courtProjects?: (number | Project)[] | null;
-  /**
-   * As long as this court has been saved, this field has been pre-filtered to only include charities that have been associated with this court.
-   */
-  courtCharities?: (number | Charity)[] | null;
-  /**
-   * As long as this court has been saved, this field has been pre-filtered to only include fundraisers that have been associated with this court.
-   */
-  courtFundraisers?: (number | Fundraiser)[] | null;
-  heroImage?: (number | null) | Media;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * This will be the postfix to the courts url (as in, cda-pa.org/courts/<slug>) and will create a new page corresponding to this court. You only need to include the postfix, i.e. columbia. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the court's name.
-   */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "diocese".
- */
-export interface Diocese {
-  id: number;
-  dioceseName: string;
-  dioceseWebsite?: string | null;
-  dioceseLocation?: {
-    dioceseAddress?: string | null;
-    dioceseCity?: string | null;
-    dioceseState?: string | null;
-    dioceseZipcode?: string | null;
-  };
-  diocesePhoneNumber?: string | null;
-  /**
-   * This field has been pre-filtered to only allow access to contacts that have designated as a District Deputy in the "Contact Positions" field.
-   */
-  districtDeputies: {
-    deputy: number | Contact;
-    id?: string | null;
-  }[];
-  dioceseEvents?:
-    | {
-        event: number | Event;
-        id?: string | null;
-      }[]
-    | null;
-  info?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "event".
- */
-export interface Event {
-  id: number;
-  eventName: string;
-  eventDate: string;
-  eventDescription: string;
-  eventType: 'national' | 'state' | 'local' | 'diocesan';
-  associatedCourt?: (number | null) | LocalCourt;
-  associatedDiocese?: (number | null) | LocalCourt;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedEvents?: (number | Event)[] | null;
-  /**
-   * This will be the postfix to the events url (as in, cda-pa.org/events/<slug>) and will create a new page corresponding to this event. You only need to include the postfix, i.e. state-convention-2023. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the events's name.
-   */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "newsletter".
- */
-export interface Newsletter {
-  id: number;
-  title: string;
-  yearOfRelease: number;
-  quarter?: string | null;
-  type: 'local' | 'state' | 'national';
-  reissueDate?: string | null;
-  associatedCourt?: (number | null) | LocalCourt;
-  displayTitle?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "project".
- */
-export interface Project {
-  id: number;
-  projectName: string;
-  /**
-   * Write a short description of the project.
-   */
-  projectDescription: string;
-  projectType: 'national' | 'state' | 'local';
-  associatedCourt?: (number | null) | LocalCourt;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * This will be the postfix to the project url (as in, cda-pa.org/projects/<slug>) and will create a new page corresponding to this project. You only need to include the postfix, i.e. courage-lion. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the project's name.
-   */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "charity".
- */
-export interface Charity {
-  id: number;
-  charityName: string;
-  /**
-   * Write a short description of the charity.
-   */
-  charityDescription: string;
-  charityType: 'national' | 'state' | 'local';
-  associatedCourt?: (number | null) | LocalCourt;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * This will be the postfix to the charities url (as in, cda-pa.org/charities/<slug>) and will create a new page corresponding to this charity. You only need to include the postfix, i.e. charity-name. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the charity's name.
-   */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "fundraiser".
- */
-export interface Fundraiser {
-  id: number;
-  fundraiserName: string;
-  /**
-   * Write a short description of the fundraiser.
-   */
-  fundraiserDescription: string;
-  fundraiserType: 'national' | 'state' | 'local';
-  associatedCourt?: (number | null) | LocalCourt;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * This will be the postfix to the fundraiser url (as in, cda-pa.org/fundraisers/<slug>) and will create a new page corresponding to this fundraiser. You only need to include the postfix, i.e. lucky-lottery-calendar. Lowercase and dashes only, no special characters. If you do not fill this field in, a slug will be assigned based on the fundraiser's name.
-   */
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1014,6 +1023,23 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1233,10 +1259,12 @@ export interface MediaSelect<T extends boolean = true> {
 export interface NewsPostSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  referenceType?: T;
+  referenceTo?: T;
+  slug?: T;
   heroImage?: T;
   content?: T;
   relatedNewsPosts?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

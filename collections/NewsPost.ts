@@ -35,10 +35,46 @@ export const NewsPost: CollectionConfig = {
                   description: 'Write a short description of the news post.'
                 }
             },
+            {
+              name: 'referenceType',
+              type: 'select',
+              hasMany: false,
+              required: false,
+              options: [
+                { label: 'New Page', value: 'new' },
+                { label: 'Existing Page', value: 'existing' },
+              ]
+            },
+            {
+              name: 'referenceTo',
+              type: 'relationship',
+              hasMany: false,
+              required: false,
+              relationTo: ['charity', 'fundraiser', 'event', 'localCourt', 'page', 'project'],
+              admin: {
+                condition: (_, { referenceType }) => referenceType === 'existing'
+              },
+            },
+            {
+              name: 'slug',
+              type: 'text',
+              unique: true,
+              required: false,
+              admin: {
+                description: 'This will be postfix to the news url (as in, cda-pa.org/news/<slug>) and will create a new page corresponding to this news post. You only need to include the postfix, i.e. donation-form-change. Lowercase and dashes only, no special characters.',
+                condition: (_, { referenceType }) => referenceType === 'new'
+              },
+              hooks: {
+                beforeValidate: [cleanSlugHook]
+              }
+            },
           ]
         },
         {
           label: 'Content',
+                    admin: {
+            condition: (_, { referenceType }) => referenceType === 'new'
+          },
           fields: [
             {
               name: 'heroImage',
@@ -86,18 +122,6 @@ export const NewsPost: CollectionConfig = {
           label: 'Related',
         },
       ]
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      unique: true,
-      required: false,
-      admin: {
-        description: 'This will be postfix to the news url (as in, cda-pa.org/news/<slug>) and will create a new page corresponding to this news post. You only need to include the postfix, i.e. donation-form-change. Lowercase and dashes only, no special characters.'
-      },
-      hooks: {
-        beforeValidate: [cleanSlugHook]
-      }
     },
   ],
   versions: {

@@ -22,10 +22,18 @@ import {
   pgEnum,
 } from "@payloadcms/db-vercel-postgres/drizzle/pg-core";
 import { sql, relations } from "@payloadcms/db-vercel-postgres/drizzle";
+export const enum_news_post_reference_type = pgEnum(
+  "enum_news_post_reference_type",
+  ["new", "existing"],
+);
 export const enum_news_post_status = pgEnum("enum_news_post_status", [
   "draft",
   "published",
 ]);
+export const enum__news_post_v_version_reference_type = pgEnum(
+  "enum__news_post_v_version_reference_type",
+  ["new", "existing"],
+);
 export const enum__news_post_v_version_status = pgEnum(
   "enum__news_post_v_version_status",
   ["draft", "published"],
@@ -276,11 +284,12 @@ export const news_post = pgTable(
     id: serial("id").primaryKey(),
     title: varchar("title"),
     description: varchar("description"),
+    referenceType: enum_news_post_reference_type("reference_type"),
+    slug: varchar("slug"),
     heroImage: integer("hero_image_id").references(() => media.id, {
       onDelete: "set null",
     }),
     content: jsonb("content"),
-    slug: varchar("slug"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -298,10 +307,10 @@ export const news_post = pgTable(
     _status: enum_news_post_status("_status").default("draft"),
   },
   (columns) => ({
+    news_post_slug_idx: uniqueIndex("news_post_slug_idx").on(columns.slug),
     news_post_hero_image_idx: index("news_post_hero_image_idx").on(
       columns.heroImage,
     ),
-    news_post_slug_idx: uniqueIndex("news_post_slug_idx").on(columns.slug),
     news_post_updated_at_idx: index("news_post_updated_at_idx").on(
       columns.updatedAt,
     ),
@@ -319,12 +328,36 @@ export const news_post_rels = pgTable(
     order: integer("order"),
     parent: integer("parent_id").notNull(),
     path: varchar("path").notNull(),
+    charityID: integer("charity_id"),
+    fundraiserID: integer("fundraiser_id"),
+    eventID: integer("event_id"),
+    localCourtID: integer("local_court_id"),
+    pageID: integer("page_id"),
+    projectID: integer("project_id"),
     newsPostID: integer("news_post_id"),
   },
   (columns) => ({
     order: index("news_post_rels_order_idx").on(columns.order),
     parentIdx: index("news_post_rels_parent_idx").on(columns.parent),
     pathIdx: index("news_post_rels_path_idx").on(columns.path),
+    news_post_rels_charity_id_idx: index("news_post_rels_charity_id_idx").on(
+      columns.charityID,
+    ),
+    news_post_rels_fundraiser_id_idx: index(
+      "news_post_rels_fundraiser_id_idx",
+    ).on(columns.fundraiserID),
+    news_post_rels_event_id_idx: index("news_post_rels_event_id_idx").on(
+      columns.eventID,
+    ),
+    news_post_rels_local_court_id_idx: index(
+      "news_post_rels_local_court_id_idx",
+    ).on(columns.localCourtID),
+    news_post_rels_page_id_idx: index("news_post_rels_page_id_idx").on(
+      columns.pageID,
+    ),
+    news_post_rels_project_id_idx: index("news_post_rels_project_id_idx").on(
+      columns.projectID,
+    ),
     news_post_rels_news_post_id_idx: index(
       "news_post_rels_news_post_id_idx",
     ).on(columns.newsPostID),
@@ -332,6 +365,36 @@ export const news_post_rels = pgTable(
       columns: [columns["parent"]],
       foreignColumns: [news_post.id],
       name: "news_post_rels_parent_fk",
+    }).onDelete("cascade"),
+    charityIdFk: foreignKey({
+      columns: [columns["charityID"]],
+      foreignColumns: [charity.id],
+      name: "news_post_rels_charity_fk",
+    }).onDelete("cascade"),
+    fundraiserIdFk: foreignKey({
+      columns: [columns["fundraiserID"]],
+      foreignColumns: [fundraiser.id],
+      name: "news_post_rels_fundraiser_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "news_post_rels_event_fk",
+    }).onDelete("cascade"),
+    localCourtIdFk: foreignKey({
+      columns: [columns["localCourtID"]],
+      foreignColumns: [local_court.id],
+      name: "news_post_rels_local_court_fk",
+    }).onDelete("cascade"),
+    pageIdFk: foreignKey({
+      columns: [columns["pageID"]],
+      foreignColumns: [page.id],
+      name: "news_post_rels_page_fk",
+    }).onDelete("cascade"),
+    projectIdFk: foreignKey({
+      columns: [columns["projectID"]],
+      foreignColumns: [project.id],
+      name: "news_post_rels_project_fk",
     }).onDelete("cascade"),
     newsPostIdFk: foreignKey({
       columns: [columns["newsPostID"]],
@@ -350,6 +413,10 @@ export const _news_post_v = pgTable(
     }),
     version_title: varchar("version_title"),
     version_description: varchar("version_description"),
+    version_referenceType: enum__news_post_v_version_reference_type(
+      "version_reference_type",
+    ),
+    version_slug: varchar("version_slug"),
     version_heroImage: integer("version_hero_image_id").references(
       () => media.id,
       {
@@ -357,7 +424,6 @@ export const _news_post_v = pgTable(
       },
     ),
     version_content: jsonb("version_content"),
-    version_slug: varchar("version_slug"),
     version_updatedAt: timestamp("version_updated_at", {
       mode: "string",
       withTimezone: true,
@@ -391,12 +457,12 @@ export const _news_post_v = pgTable(
     _news_post_v_parent_idx: index("_news_post_v_parent_idx").on(
       columns.parent,
     ),
-    _news_post_v_version_version_hero_image_idx: index(
-      "_news_post_v_version_version_hero_image_idx",
-    ).on(columns.version_heroImage),
     _news_post_v_version_version_slug_idx: index(
       "_news_post_v_version_version_slug_idx",
     ).on(columns.version_slug),
+    _news_post_v_version_version_hero_image_idx: index(
+      "_news_post_v_version_version_hero_image_idx",
+    ).on(columns.version_heroImage),
     _news_post_v_version_version_updated_at_idx: index(
       "_news_post_v_version_version_updated_at_idx",
     ).on(columns.version_updatedAt),
@@ -428,12 +494,36 @@ export const _news_post_v_rels = pgTable(
     order: integer("order"),
     parent: integer("parent_id").notNull(),
     path: varchar("path").notNull(),
+    charityID: integer("charity_id"),
+    fundraiserID: integer("fundraiser_id"),
+    eventID: integer("event_id"),
+    localCourtID: integer("local_court_id"),
+    pageID: integer("page_id"),
+    projectID: integer("project_id"),
     newsPostID: integer("news_post_id"),
   },
   (columns) => ({
     order: index("_news_post_v_rels_order_idx").on(columns.order),
     parentIdx: index("_news_post_v_rels_parent_idx").on(columns.parent),
     pathIdx: index("_news_post_v_rels_path_idx").on(columns.path),
+    _news_post_v_rels_charity_id_idx: index(
+      "_news_post_v_rels_charity_id_idx",
+    ).on(columns.charityID),
+    _news_post_v_rels_fundraiser_id_idx: index(
+      "_news_post_v_rels_fundraiser_id_idx",
+    ).on(columns.fundraiserID),
+    _news_post_v_rels_event_id_idx: index("_news_post_v_rels_event_id_idx").on(
+      columns.eventID,
+    ),
+    _news_post_v_rels_local_court_id_idx: index(
+      "_news_post_v_rels_local_court_id_idx",
+    ).on(columns.localCourtID),
+    _news_post_v_rels_page_id_idx: index("_news_post_v_rels_page_id_idx").on(
+      columns.pageID,
+    ),
+    _news_post_v_rels_project_id_idx: index(
+      "_news_post_v_rels_project_id_idx",
+    ).on(columns.projectID),
     _news_post_v_rels_news_post_id_idx: index(
       "_news_post_v_rels_news_post_id_idx",
     ).on(columns.newsPostID),
@@ -441,6 +531,36 @@ export const _news_post_v_rels = pgTable(
       columns: [columns["parent"]],
       foreignColumns: [_news_post_v.id],
       name: "_news_post_v_rels_parent_fk",
+    }).onDelete("cascade"),
+    charityIdFk: foreignKey({
+      columns: [columns["charityID"]],
+      foreignColumns: [charity.id],
+      name: "_news_post_v_rels_charity_fk",
+    }).onDelete("cascade"),
+    fundraiserIdFk: foreignKey({
+      columns: [columns["fundraiserID"]],
+      foreignColumns: [fundraiser.id],
+      name: "_news_post_v_rels_fundraiser_fk",
+    }).onDelete("cascade"),
+    eventIdFk: foreignKey({
+      columns: [columns["eventID"]],
+      foreignColumns: [event.id],
+      name: "_news_post_v_rels_event_fk",
+    }).onDelete("cascade"),
+    localCourtIdFk: foreignKey({
+      columns: [columns["localCourtID"]],
+      foreignColumns: [local_court.id],
+      name: "_news_post_v_rels_local_court_fk",
+    }).onDelete("cascade"),
+    pageIdFk: foreignKey({
+      columns: [columns["pageID"]],
+      foreignColumns: [page.id],
+      name: "_news_post_v_rels_page_fk",
+    }).onDelete("cascade"),
+    projectIdFk: foreignKey({
+      columns: [columns["projectID"]],
+      foreignColumns: [project.id],
+      name: "_news_post_v_rels_project_fk",
     }).onDelete("cascade"),
     newsPostIdFk: foreignKey({
       columns: [columns["newsPostID"]],
@@ -3970,6 +4090,36 @@ export const relations_news_post_rels = relations(
       references: [news_post.id],
       relationName: "_rels",
     }),
+    charityID: one(charity, {
+      fields: [news_post_rels.charityID],
+      references: [charity.id],
+      relationName: "charity",
+    }),
+    fundraiserID: one(fundraiser, {
+      fields: [news_post_rels.fundraiserID],
+      references: [fundraiser.id],
+      relationName: "fundraiser",
+    }),
+    eventID: one(event, {
+      fields: [news_post_rels.eventID],
+      references: [event.id],
+      relationName: "event",
+    }),
+    localCourtID: one(local_court, {
+      fields: [news_post_rels.localCourtID],
+      references: [local_court.id],
+      relationName: "localCourt",
+    }),
+    pageID: one(page, {
+      fields: [news_post_rels.pageID],
+      references: [page.id],
+      relationName: "page",
+    }),
+    projectID: one(project, {
+      fields: [news_post_rels.projectID],
+      references: [project.id],
+      relationName: "project",
+    }),
     newsPostID: one(news_post, {
       fields: [news_post_rels.newsPostID],
       references: [news_post.id],
@@ -3994,6 +4144,36 @@ export const relations__news_post_v_rels = relations(
       fields: [_news_post_v_rels.parent],
       references: [_news_post_v.id],
       relationName: "_rels",
+    }),
+    charityID: one(charity, {
+      fields: [_news_post_v_rels.charityID],
+      references: [charity.id],
+      relationName: "charity",
+    }),
+    fundraiserID: one(fundraiser, {
+      fields: [_news_post_v_rels.fundraiserID],
+      references: [fundraiser.id],
+      relationName: "fundraiser",
+    }),
+    eventID: one(event, {
+      fields: [_news_post_v_rels.eventID],
+      references: [event.id],
+      relationName: "event",
+    }),
+    localCourtID: one(local_court, {
+      fields: [_news_post_v_rels.localCourtID],
+      references: [local_court.id],
+      relationName: "localCourt",
+    }),
+    pageID: one(page, {
+      fields: [_news_post_v_rels.pageID],
+      references: [page.id],
+      relationName: "page",
+    }),
+    projectID: one(project, {
+      fields: [_news_post_v_rels.projectID],
+      references: [project.id],
+      relationName: "project",
     }),
     newsPostID: one(news_post, {
       fields: [_news_post_v_rels.newsPostID],
@@ -5455,7 +5635,9 @@ export const relations_background = relations(background, ({ one }) => ({
 }));
 
 type DatabaseSchema = {
+  enum_news_post_reference_type: typeof enum_news_post_reference_type;
   enum_news_post_status: typeof enum_news_post_status;
+  enum__news_post_v_version_reference_type: typeof enum__news_post_v_version_reference_type;
   enum__news_post_v_version_status: typeof enum__news_post_v_version_status;
   enum_page_hero_links_link_type: typeof enum_page_hero_links_link_type;
   enum_page_hero_links_link_appearance: typeof enum_page_hero_links_link_appearance;

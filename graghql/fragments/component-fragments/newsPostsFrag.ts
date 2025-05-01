@@ -14,6 +14,31 @@ export const NEWS_POSTS_FRAGMENT = gql`
             updatedAt
             title
             description
+            referenceType
+            referenceTo {
+              relationTo
+              value {
+                ... on Event {
+                  slug
+                }
+                ... on Charity {
+                  slug
+                }
+                ... on Fundraiser {
+                  slug
+                }
+                ... on Project {
+                  slug
+                }
+                ... on LocalCourt {
+                  slug
+                }
+                ... on Page {
+                  slug
+                }
+              }
+            }
+            slug
         }
     }
   }
