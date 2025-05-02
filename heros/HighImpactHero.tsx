@@ -24,11 +24,17 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
                       </ul>
                     )}
                 </div>
-                {media && typeof media === 'object' && media.url && media.height && media.width && (
+                {media && typeof media === 'object' && (
                     <Media
                         className="col-span-12 md:col-span-6 xl:col-span-5 xl:col-start-7 flex justify-end"
                         pictureClassName="grid grid-cols-1 justify-center"
-                        imgClassName=""
+                        size="
+                            (min-width: 1540px) 595px,
+                            (min-width: 1040px) calc(5vw + 412px),
+                            (min-width: 780px) 336px, (min-width: 660px) 576px,
+                            (min-width: 420px) calc(85.45vw + 29px),
+                            calc(16vw + 304px)
+                        "
                         priority
                         resource={media}
                     />
