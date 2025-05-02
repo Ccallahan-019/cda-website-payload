@@ -47,11 +47,11 @@ export const LinkComponent: React.FC<CMSLinkType> = (props) => {
   }
 
   return (
-    <Button size={size} variant={appearance}>
       <Link href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
+        <Button size={size} variant={appearance}>
+          {label && label}
+          {children && children}
+        </Button>
       </Link>
-    </Button>
   )
 }

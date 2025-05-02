@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const buttonClassName = 'inline-flex items-center justify-center whitespace-nowrap rounded text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+const buttonClassName = 'inline-flex items-center justify-center whitespace-nowrap rounded text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-50'
 
 const buttonVariants = {
     default: 'bg-primary text-primary-foreground hover:text-accent-foreground hover:bg-accent/80',
