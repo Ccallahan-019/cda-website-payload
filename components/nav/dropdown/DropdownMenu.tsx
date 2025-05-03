@@ -4,9 +4,10 @@ import { LinkComponent } from "@/components/link/Link";
 
 type Props = {
     navItem: Header["navItems"][number];
+    onLinkClick: () => void
 }
 
-export default function DropdownMenu({ navItem }: Props) {
+export default function DropdownMenu({ navItem, onLinkClick }: Props) {
     return (
         <div className="py-8 bg-gradient-to-r bg-white">
             <div className="mx-auto px-8 max-w-7xl">
@@ -24,7 +25,11 @@ export default function DropdownMenu({ navItem }: Props) {
                                 {nav.links && nav.links.map((item, index) => (
                                     <li key={index}>
                                         {typeof item === "object" && (
-                                            <LinkComponent {...item.link} reference={item.link.reference as Page} />
+                                            <LinkComponent
+                                                {...item.link}
+                                                reference={item.link.reference as Page}
+                                                onClick={onLinkClick}
+                                            />
                                         )}
                                     </li>
                                 ))}

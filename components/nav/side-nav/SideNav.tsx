@@ -7,9 +7,10 @@ type Props = {
 	navItems: Header["navItems"];
 	subMenuIcon: Media;
 	backIcon: Media;
+	onLinkClick: () => void;
 }
 
-export default function SideNav({ navItems, subMenuIcon, backIcon }: Props) {
+export default function SideNav({ navItems, subMenuIcon, backIcon, onLinkClick }: Props) {
     const [clickedItem, setClickedItem] = useState<string | null>(null);
 	const [isSubMenuVisible, setIsSubMenuVisible] = useState(false);
 
@@ -31,6 +32,7 @@ export default function SideNav({ navItems, subMenuIcon, backIcon }: Props) {
 								if (item.title) {
 									setClickedItem(item.title);
 								}
+								onLinkClick();
 							}}
 						/>
 					))}
@@ -47,6 +49,7 @@ export default function SideNav({ navItems, subMenuIcon, backIcon }: Props) {
 								setIsSubMenuVisible(false)
 								setClickedItem(null);
 							}}
+							onLinkClick={onLinkClick}
 						/>
 					)}
 				</div>

@@ -5,11 +5,20 @@ import { LinkComponent } from "@/components/link/Link";
 type Props = {
     navItem: Header["navItems"][number];
     hoveredItem: string | null;
+    isDropdownVisible: boolean;
     onMouseEnter: () => void;
     onMouseLeave: () => void;
+    onLinkClick: () => void;
 }
 
-export default function HeaderNavTab({ navItem, hoveredItem, onMouseEnter, onMouseLeave }: Props) {
+export default function HeaderNavTab({
+    navItem,
+    hoveredItem,
+    isDropdownVisible,
+    onMouseEnter,
+    onMouseLeave,
+    onLinkClick
+}: Props) {
     return (
         <div
             onMouseEnter={onMouseEnter}
@@ -30,8 +39,12 @@ export default function HeaderNavTab({ navItem, hoveredItem, onMouseEnter, onMou
             )}
             
             <div className="absolute top-[100%] left-0 w-full z-100">
-                {navItem.subNav && navItem.subNav.length > 0 && hoveredItem === navItem.title && (
-                    <DropdownMenu navItem={navItem} />
+                {
+                navItem.subNav &&
+                navItem.subNav.length > 0 &&
+                hoveredItem === navItem.title &&
+                isDropdownVisible && (
+                    <DropdownMenu navItem={navItem} onLinkClick={onLinkClick} />
                 )}
             </div>
         </div>

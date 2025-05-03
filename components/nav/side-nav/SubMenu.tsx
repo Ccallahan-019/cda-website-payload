@@ -4,16 +4,17 @@ import { Media as MediaComponent } from "@/components/Media/Media";
 
 type Props = {
     onClick: () => void;
+    onLinkClick: () => void;
     subNav: Header["navItems"][number]["subNav"];
     backIcon: Media;
 }
 
-export default function SubMenu({ onClick, subNav, backIcon }: Props) {
+export default function SubMenu({ onClick, subNav, backIcon, onLinkClick }: Props) {
     return (
         <div className="space-y-5 divide-y divide-gray-200 border-t border-gray-200">
             <div>
                 <button onClick={onClick} type="button" className="flex items-center gap-3 px-8  py-4 cursor-pointer">
-                    <MediaComponent className="h-6 w-6" resource={backIcon} />
+                    <MediaComponent className="h-6 w-6 flex items-center" resource={backIcon} />
                     <p className="text-lg font-medium text-gray-900">Back</p>
                 </button>
             </div>
@@ -26,7 +27,11 @@ export default function SubMenu({ onClick, subNav, backIcon }: Props) {
                             {navItem.links && navItem.links.map((item, index) => (
                                 <li key={index}>
                                     {typeof item === "object" && (
-					                    <LinkComponent {...item.link} reference={item.link.reference as Page} />
+					                    <LinkComponent
+                                            {...item.link}
+                                            reference={item.link.reference as Page}
+                                            onClick={onLinkClick}
+                                        />
 				                    )}
                                 </li>
                             ))}

@@ -28,6 +28,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
         setDropdownOverlay(false);
     }
 
+    const handleLinkClick = () => {
+        setDropdownOverlay(false);
+        setIsSideNavVisible(false);
+    }
+
     const toggleSideNav = () => {
         setIsSideNavVisible(!isSideNavVisible);
         setIsHeaderVisible(!isHeaderVisible)
@@ -63,7 +68,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 key={index}
                                 navItem={item}
                                 hoveredItem={hoveredItem}
-
+                                isDropdownVisible={dropdownOverlay}
                                 onMouseEnter={item.title && item.subNav && item.subNav.length > 0 ? () => {
                                     if (item.title) {
                                         setHoveredItem(item.title)
@@ -75,6 +80,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                     }
                                 }}
                                 onMouseLeave={handleMouseLeave}
+                                onLinkClick={handleLinkClick}
                             />
                         ))}
                     </div>
@@ -96,6 +102,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             
                             {isSideNavVisible && typeof subMenuIcon === "object" && typeof backIcon === "object" && (
                                 <SideNav
+                                    onLinkClick={handleLinkClick}
                                     navItems={navItems}
                                     subMenuIcon={subMenuIcon}
                                     backIcon={backIcon}
