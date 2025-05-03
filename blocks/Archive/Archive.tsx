@@ -185,8 +185,6 @@ export const Archive: React.FC<ArchiveBlockProps> = (props) => {
   const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
   const handlePageChange = (page: number) => setCurrentPage(page);
 
-  console.log(cardData)
-
   return (
     <div className="container my-16 sm:my-20">
       {introContent && (

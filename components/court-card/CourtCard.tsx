@@ -6,7 +6,6 @@ type Props = {
 }
 
 export default function CourtCards({ courts }: Props) {
-    console.log(courts)
     return (
         <div className="lg:hidden flex flex-col mt-4">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6">
