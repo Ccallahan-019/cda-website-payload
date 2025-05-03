@@ -18,7 +18,7 @@ export default function ArchiveCardsSkeleton({ entriesPerPage }: Props) {
             {entryArr.length > 0 && entryArr.map((entry) => (
                 <div key={entry} className="col-span-4">
                     <div className="h-full border border-border rounded-lg overflow-hidden bg-gray-200 animate-pulse">
-                        <div className="relative w-full bg-gray-300 aspect-3/2" />
+                        <div className="relative w-full bg-gray-300 aspect-7/4" />
                         <div className="p-4">
                             <div className="h-5 bg-gray-300 rounded mb-2 w-3/4" />
                             <div className="h-10 bg-gray-300 rounded w-full" />

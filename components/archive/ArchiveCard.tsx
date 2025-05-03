@@ -13,9 +13,14 @@ export default function ArchiveCard({ cardData }: Props) {
         return (
             <Link href={cardData.url}>
                 <div className="h-full border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer">
-                    <div className="relative w-full">
+                    <div className="relative w-full aspect-7/4 flex items-center overflow-hidden">
                         {!image && <div className="w-full aspect-7/4 bg-muted"/>}
-                        {image && typeof image !== 'string' && <Media resource={image} size="33vw" />}
+                        {image && typeof image !== 'string' && (
+                            <Media
+                                resource={image}
+                                size="33vw"
+                            />
+                        )}
                     </div>
                     <div className="p-4">
                         <p className="text-lg text-gray-700">{title}</p>
