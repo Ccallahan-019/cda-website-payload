@@ -1,9 +1,10 @@
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature, BlocksFeature } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 import { cleanSlug } from './hooks/cleanSlugHook'
 import { generatePreviewPath } from '@/utils/generatePreviewPath'
+import { MediaBlock } from '@/blocks/Media/mediaConfig'
 
 export const Fundraiser: CollectionConfig = {
   slug: 'fundraiser',
@@ -102,6 +103,7 @@ export const Fundraiser: CollectionConfig = {
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
+                    BlocksFeature({ blocks: [MediaBlock] }),
                   ]
                 },
               }),

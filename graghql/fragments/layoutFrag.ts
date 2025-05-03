@@ -13,6 +13,7 @@ import { SLIDER_FRAGMENT } from './component-fragments/sliderFrag';
 import { NEWSLETTERS_FRAGMENT } from './component-fragments/newslettersFrag';
 import { DIOCESES_ACCORDIAN_FRAGMENT } from './component-fragments/diocesesAccordianFrag';
 import { ARCHIVE_FRAGMENT } from './component-fragments/archiveFrag';
+import { MEDIA_BLOCK_FRAGMENT } from './component-fragments/mediaBlockFrag';
 
 export const LAYOUT_FRAGMENTS = gql`
     ${CONTENT_FRAGMENT}
@@ -28,4 +29,5 @@ export const LAYOUT_FRAGMENTS = gql`
     ${NEWSLETTERS_FRAGMENT}
     ${DIOCESES_ACCORDIAN_FRAGMENT}
     ${ARCHIVE_FRAGMENT}
+    ${MEDIA_BLOCK_FRAGMENT}
 `;

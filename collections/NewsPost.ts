@@ -1,8 +1,9 @@
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature, BlocksFeature } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 import { cleanSlugHook } from './hooks/cleanSlugHook'
+import { MediaBlock } from '@/blocks/Media/mediaConfig'
 
 export const NewsPost: CollectionConfig = {
   slug: 'newsPost',
@@ -92,6 +93,7 @@ export const NewsPost: CollectionConfig = {
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
+                    BlocksFeature({ blocks: [MediaBlock] }),
                   ]
                 },
               }),

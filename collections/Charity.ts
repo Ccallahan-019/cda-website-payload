@@ -1,8 +1,9 @@
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { FixedToolbarFeature, HeadingFeature, HorizontalRuleFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { BlocksFeature, FixedToolbarFeature, HeadingFeature, HorizontalRuleFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig} from 'payload'
 import { cleanSlug } from './hooks/cleanSlugHook'
+import { MediaBlock } from '@/blocks/Media/mediaConfig'
 
 export const Charity: CollectionConfig = {
   slug: 'charity',
@@ -84,6 +85,7 @@ export const Charity: CollectionConfig = {
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
+                    BlocksFeature({ blocks: [MediaBlock] }),
                   ]
                 },
               }),

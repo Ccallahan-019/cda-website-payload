@@ -13,6 +13,7 @@ import { SliderBlock } from "./Slider/SliderComponent";
 import { NewslettersBlock } from "./Newsletters/NewslettersComponent";
 import { DiocesesAccordianBlock } from "./DiocesesAccordian/Component";
 import { ArchiveBlock } from "./Archive/ArchiveComponent";
+import { MediaBlock } from "./Media/MediaComponent";
 
 const blockComponents = {
   content: ContentBlock,
@@ -28,6 +29,7 @@ const blockComponents = {
   newsletters: NewslettersBlock,
   diocesesAccordian: DiocesesAccordianBlock,
   archive: ArchiveBlock,
+  mediaBlock: MediaBlock
 }
 
   
@@ -49,7 +51,7 @@ const blockComponents = {
                 return (
                   <div className="my-20" key={index}>
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                    <Block {...block} />
+                    <Block {...block} disableInnerContainer />
                   </div>
                 );
               };

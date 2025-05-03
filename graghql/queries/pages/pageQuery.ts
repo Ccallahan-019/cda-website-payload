@@ -46,6 +46,7 @@ export const GET_PAGE_BY_SLUG = gql`
           ...NewslettersBlockFields
           ...DiocesesAccordianBlockFields
           ...ArchiveBlockFields
+          ...MediaBlockFields
         }
       }
     }

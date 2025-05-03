@@ -21,6 +21,7 @@ import { revalidatePage } from './hooks/revalidatePage'
 import { generatePreviewPath } from '@/utils/generatePreviewPath'
 import { cleanSlugHook } from './hooks/cleanSlugHook'
 import { Archive } from '@/blocks/Archive/archiveConfig'
+import { MediaBlock } from '@/blocks/Media/mediaConfig'
 
 export const Page: CollectionConfig = {
   slug: 'page',
@@ -84,6 +85,7 @@ export const Page: CollectionConfig = {
                 Newsletters,
                 DiocesesAccordian,
                 Archive,
+                MediaBlock,
               ],
               required: false,
               admin: {
