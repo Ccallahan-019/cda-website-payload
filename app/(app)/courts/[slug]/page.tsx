@@ -62,7 +62,7 @@ export default async function CourtPageTemplate({ params: paramsPromise }: Args)
       
       <CourtHero court={court} />
 
-      <div className="pt-8">
+      <div className="my-10">
         <div className="container">
             <div className="max-w-[80rem] mx-auto flex flex-col gap-4">
                 <CourtInfoBanner court={court} />
