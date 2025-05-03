@@ -158,6 +158,21 @@ export interface UserAuthOperations {
 export interface Media {
   id: number;
   alt: string;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -670,6 +685,7 @@ export interface Page {
         | NewslettersBlock
         | DiocesesAccordianBlock
         | ArchiveBlock
+        | MediaBlock
       )[]
     | null;
   /**
@@ -1084,6 +1100,16 @@ export interface ArchiveBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -1298,6 +1324,7 @@ export interface PayloadMigration {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1461,6 +1488,7 @@ export interface PageSelect<T extends boolean = true> {
         newsletters?: T | NewslettersBlockSelect<T>;
         diocesesAccordian?: T | DiocesesAccordianBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
       };
   slug?: T;
   updatedAt?: T;
@@ -1667,6 +1695,15 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   limit?: T;
   selectedDocs?: T;
   entriesPerPage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock_select".
+ */
+export interface MediaBlockSelect<T extends boolean = true> {
+  media?: T;
   id?: T;
   blockName?: T;
 }

@@ -13,10 +13,10 @@ import {
   foreignKey,
   serial,
   varchar,
+  jsonb,
   timestamp,
   numeric,
   integer,
-  jsonb,
   boolean,
   text,
   pgEnum,
@@ -247,6 +247,7 @@ export const media = pgTable(
   {
     id: serial("id").primaryKey(),
     alt: varchar("alt").notNull(),
+    caption: jsonb("caption"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -1312,6 +1313,35 @@ export const page_blocks_archive = pgTable(
   }),
 );
 
+export const page_blocks_media_block = pgTable(
+  "page_blocks_media_block",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: varchar("id").primaryKey(),
+    media: integer("media_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("page_blocks_media_block_order_idx").on(columns._order),
+    _parentIDIdx: index("page_blocks_media_block_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("page_blocks_media_block_path_idx").on(columns._path),
+    page_blocks_media_block_media_idx: index(
+      "page_blocks_media_block_media_idx",
+    ).on(columns.media),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [page.id],
+      name: "page_blocks_media_block_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const page = pgTable(
   "page",
   {
@@ -2098,6 +2128,36 @@ export const _page_v_blocks_archive = pgTable(
       columns: [columns["_parentID"]],
       foreignColumns: [_page_v.id],
       name: "_page_v_blocks_archive_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _page_v_blocks_media_block = pgTable(
+  "_page_v_blocks_media_block",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: integer("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: serial("id").primaryKey(),
+    media: integer("media_id").references(() => media.id, {
+      onDelete: "set null",
+    }),
+    _uuid: varchar("_uuid"),
+    blockName: varchar("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_page_v_blocks_media_block_order_idx").on(columns._order),
+    _parentIDIdx: index("_page_v_blocks_media_block_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_page_v_blocks_media_block_path_idx").on(columns._path),
+    _page_v_blocks_media_block_media_idx: index(
+      "_page_v_blocks_media_block_media_idx",
+    ).on(columns.media),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_page_v.id],
+      name: "_page_v_blocks_media_block_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -4574,6 +4634,21 @@ export const relations_page_blocks_archive = relations(
     }),
   }),
 );
+export const relations_page_blocks_media_block = relations(
+  page_blocks_media_block,
+  ({ one }) => ({
+    _parentID: one(page, {
+      fields: [page_blocks_media_block._parentID],
+      references: [page.id],
+      relationName: "_blocks_mediaBlock",
+    }),
+    media: one(media, {
+      fields: [page_blocks_media_block.media],
+      references: [media.id],
+      relationName: "media",
+    }),
+  }),
+);
 export const relations_page_rels = relations(page_rels, ({ one }) => ({
   parent: one(page, {
     fields: [page_rels.parent],
@@ -4658,6 +4733,9 @@ export const relations_page = relations(page, ({ one, many }) => ({
   }),
   _blocks_archive: many(page_blocks_archive, {
     relationName: "_blocks_archive",
+  }),
+  _blocks_mediaBlock: many(page_blocks_media_block, {
+    relationName: "_blocks_mediaBlock",
   }),
   _rels: many(page_rels, {
     relationName: "_rels",
@@ -4971,6 +5049,21 @@ export const relations__page_v_blocks_archive = relations(
     }),
   }),
 );
+export const relations__page_v_blocks_media_block = relations(
+  _page_v_blocks_media_block,
+  ({ one }) => ({
+    _parentID: one(_page_v, {
+      fields: [_page_v_blocks_media_block._parentID],
+      references: [_page_v.id],
+      relationName: "_blocks_mediaBlock",
+    }),
+    media: one(media, {
+      fields: [_page_v_blocks_media_block.media],
+      references: [media.id],
+      relationName: "media",
+    }),
+  }),
+);
 export const relations__page_v_rels = relations(_page_v_rels, ({ one }) => ({
   parent: one(_page_v, {
     fields: [_page_v_rels.parent],
@@ -5060,6 +5153,9 @@ export const relations__page_v = relations(_page_v, ({ one, many }) => ({
   }),
   _blocks_archive: many(_page_v_blocks_archive, {
     relationName: "_blocks_archive",
+  }),
+  _blocks_mediaBlock: many(_page_v_blocks_media_block, {
+    relationName: "_blocks_mediaBlock",
   }),
   _rels: many(_page_v_rels, {
     relationName: "_rels",
@@ -5781,6 +5877,7 @@ type DatabaseSchema = {
   page_blocks_newsletters: typeof page_blocks_newsletters;
   page_blocks_dioceses_accordian: typeof page_blocks_dioceses_accordian;
   page_blocks_archive: typeof page_blocks_archive;
+  page_blocks_media_block: typeof page_blocks_media_block;
   page: typeof page;
   page_rels: typeof page_rels;
   _page_v_version_hero_links: typeof _page_v_version_hero_links;
@@ -5807,6 +5904,7 @@ type DatabaseSchema = {
   _page_v_blocks_newsletters: typeof _page_v_blocks_newsletters;
   _page_v_blocks_dioceses_accordian: typeof _page_v_blocks_dioceses_accordian;
   _page_v_blocks_archive: typeof _page_v_blocks_archive;
+  _page_v_blocks_media_block: typeof _page_v_blocks_media_block;
   _page_v: typeof _page_v;
   _page_v_rels: typeof _page_v_rels;
   contact_contact_roles: typeof contact_contact_roles;
@@ -5875,6 +5973,7 @@ type DatabaseSchema = {
   relations_page_blocks_newsletters: typeof relations_page_blocks_newsletters;
   relations_page_blocks_dioceses_accordian: typeof relations_page_blocks_dioceses_accordian;
   relations_page_blocks_archive: typeof relations_page_blocks_archive;
+  relations_page_blocks_media_block: typeof relations_page_blocks_media_block;
   relations_page_rels: typeof relations_page_rels;
   relations_page: typeof relations_page;
   relations__page_v_version_hero_links: typeof relations__page_v_version_hero_links;
@@ -5901,6 +6000,7 @@ type DatabaseSchema = {
   relations__page_v_blocks_newsletters: typeof relations__page_v_blocks_newsletters;
   relations__page_v_blocks_dioceses_accordian: typeof relations__page_v_blocks_dioceses_accordian;
   relations__page_v_blocks_archive: typeof relations__page_v_blocks_archive;
+  relations__page_v_blocks_media_block: typeof relations__page_v_blocks_media_block;
   relations__page_v_rels: typeof relations__page_v_rels;
   relations__page_v: typeof relations__page_v;
   relations_contact_contact_roles: typeof relations_contact_contact_roles;
