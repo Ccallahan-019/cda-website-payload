@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
-import { getApolloServerClient } from "@/graghql/apolloClient";
-import { GET_PAGE_BY_SLUG } from "@/graghql/queries/pages/pageQuery";
+import { getApolloServerClient } from "@/graphql/apolloClient";
+import { GET_PAGE_BY_SLUG } from "@/graphql/queries/pages/pageQuery";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { RenderHero } from "@/heros/RenderHero";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 import { Document } from "payload";
-import { GET_SLUGS } from "@/graghql/queries/pages/slugQuery";
+import { GET_SLUGS } from "@/graphql/queries/pages/slugQuery";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
- 
+
 export async function generateStaticParams() {
   const client = getApolloServerClient();
   const pages = await client.query({
@@ -19,57 +19,56 @@ export async function generateStaticParams() {
 
   const params = pages.data.Pages.docs
     ?.filter((doc: Document) => {
-      return doc.slug !== 'home'
+      return doc.slug !== "home";
     })
     .map((doc: Document) => ({
-      slug: doc.slug.split('/')
+      slug: doc.slug.split("/"),
     }));
 
-    return params;
+  return params;
 }
 
 const queryPageBySlug = async ({ path }: { path: string }) => {
   const { isEnabled: draft } = await draftMode();
   const cookieStore = await cookies();
-  const token = draft ? cookieStore.get('payload-token')?.value : undefined;
+  const token = draft ? cookieStore.get("payload-token")?.value : undefined;
 
   const client = getApolloServerClient(token);
-  
+
   const { data } = await client.query({
     query: GET_PAGE_BY_SLUG,
     variables: { slug: path, draft },
   });
 
   return data.Pages.docs[0] || null;
-}
+};
 
 type Args = {
   params: Promise<{
-    slug?: string[]
-  }>
-}
+    slug?: string[];
+  }>;
+};
 
 export default async function PageTemplate({ params: paramsPromise }: Args) {
-    const { isEnabled: draft } = await draftMode();
-    const { slug = ['home'] } = await paramsPromise;
-    const path = slug.join('/')
+  const { isEnabled: draft } = await draftMode();
+  const { slug = ["home"] } = await paramsPromise;
+  const path = slug.join("/");
 
-    const page = await queryPageBySlug({
-      path,
-    })
+  const page = await queryPageBySlug({
+    path,
+  });
 
-    if (!page) {
-      return notFound();
-    }
+  if (!page) {
+    return notFound();
+  }
 
-    const { hero, layout } = page;
+  const { hero, layout } = page;
 
-    if (!page) return notFound();
+  if (!page) return notFound();
 
   return (
     <article>
       {draft && <LivePreviewListener />}
-      
 
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
