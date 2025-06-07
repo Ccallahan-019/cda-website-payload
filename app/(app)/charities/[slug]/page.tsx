@@ -1,10 +1,13 @@
 import { notFound } from "next/navigation";
-import { getApolloServerClient } from "@/graghql/apolloClient";
+import { getApolloServerClient } from "@/graphql/apolloClient";
 import { cookies, draftMode } from "next/headers";
 import { LivePreviewListener } from "@/components/live-preview-listener/LivePreviewListener";
 import { Document } from "payload";
 import RichText from "@/lexical-components/RichText";
-import { GET_CHARITY_BY_SLUG, GET_CHARITY_SLUGS } from "@/graghql/queries/pages/charityQueries";
+import {
+  GET_CHARITY_BY_SLUG,
+  GET_CHARITY_SLUGS,
+} from "@/graphql/queries/pages/charityQueries";
 import { CharityHero } from "@/heros/CharityHero";
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -18,48 +21,50 @@ export async function generateStaticParams() {
   let params;
   if (data.Charities.docs) {
     params = data.Charities.docs.map((doc: Document) => ({
-        slug: doc.slug
-    }))
+      slug: doc.slug,
+    }));
   } else {
-    params = []
+    params = [];
   }
-    return params;
+  return params;
 }
 
 const queryCharityBySlug = async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode();
   const cookieStore = await cookies();
-  const token = draft ? cookieStore.get('payload-token')?.value : undefined;
+  const token = draft ? cookieStore.get("payload-token")?.value : undefined;
 
   const client = getApolloServerClient(token);
-  
+
   const { data } = await client.query({
     query: GET_CHARITY_BY_SLUG,
     variables: { slug, draft },
   });
 
   return data.Charities.docs[0] || null;
-}
+};
 
 type Args = {
-    params: Promise<{
-      slug?: string
-    }>
+  params: Promise<{
+    slug?: string;
+  }>;
+};
+
+export default async function CharityPageTemplate({
+  params: paramsPromise,
+}: Args) {
+  const { isEnabled: draft } = await draftMode();
+  const { slug = "" } = await paramsPromise;
+  const charity = await queryCharityBySlug({ slug });
+
+  if (!charity) {
+    return notFound();
   }
-
-export default async function CharityPageTemplate({ params: paramsPromise }: Args) {
-    const { isEnabled: draft } = await draftMode();
-    const { slug = '' } = await paramsPromise;
-    const charity = await queryCharityBySlug({ slug })
-
-    if (!charity) {
-      return notFound();
-    }
 
   return (
     <article className="flex flex-col min-h-screen">
       {draft && <LivePreviewListener />}
-      
+
       <CharityHero charity={charity} />
 
       <div className="grow flex flex-col items-center gap-4">

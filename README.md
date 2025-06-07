@@ -1,19 +1,24 @@
 # PA Catholic Daughters State Court Website- A Dynamic CMS-Driven Web Application
 
 ## Project Description
+
 This project is a modern, high-performance website built with Next.js, Payload CMS, GraphQL, and the Apollo Client.
 This project delivers both statically generated and dynamic content through a customizable and scalable architecture, optimized for flexibility, speed, and content management.
 
 ## Project Stack
 
 ### Next.JS
+
 This application's frontend is powered by **Next.js**, a React framework that allows for static and dynamic routing, image and font optimizations, incremental static regeneration, and both client and server side rendering.
 
 To create a project in Next.js, run the following command in the terminal:
+
 ```
 npx create-next-app@latest
 ```
+
 You will then see the following prompts:
+
 ```
 What is your project named? my-app
 Would you like to use TypeScript? No / Yes
@@ -25,6 +30,7 @@ Would you like to use Turbopack for `next dev`?  No / Yes
 Would you like to customize the import alias (`@/*` by default)? No / Yes
 What import alias would you like configured? @/*
 ```
+
 After you've answered the required prompts, `create-next-app` will create a application folder with the project name you specified within the directory where you ran the initial command from, then install the required dependencies.
 Navigate to the project's directory using `cd <project-name>`, then run `npm run dev` to spin up your new project locally at http://localhost:3000.
 
@@ -40,13 +46,17 @@ To get started with a Payload application, you have (more or less), two choices.
 You can choose to use the Payload website template, or start with a blank project.
 
 To use the website template, run the following command in the terminal:
+
 ```
 npx create-payload-app@latest -t website
 ```
+
 To create a blank project, run:
+
 ```
 npx create-payload-app@latest -t blank
 ```
+
 You will be then be prompted to enter your project's name and select the type of database you would like to use, as Payload requires a database to function.
 This project uses a Vercel Postgres database hosted through Neon. If you're following along with this project, select Vercel Postgres.
 You will be prompted to enter your Vercel connection string, which will be provided to you after setting up a database in Vercel.
@@ -73,10 +83,13 @@ To communication with its database, this application uses the **Apollo Client**,
 More specifically, this project uses the `@apollo/client-integration-nextjs` libary that allows for data fetching during both server and client side rendering.
 
 To use this library in your own project, start by install the necessary packages:
+
 ```
 npm install @apollo/client@latest @apollo/client-integration-nextjs
 ```
+
 This project also uses the `cross-fetch` libary, which you can install by running:
+
 ```
 npm install cross-fetch
 ```
@@ -86,6 +99,7 @@ I have made slight modifications to the RSC implementation that allow for an opt
 When using the Apollo Client, this token is required for Payload's Live Preview functionality to function correctly.
 
 For RSC, create an `apolloClient.ts` file:
+
 ```
 import { HttpLink } from '@apollo/client';
 import {
@@ -110,18 +124,23 @@ export function getApolloServerClient(token?: string) {
   return getClient();
 }
 ```
+
 You can then instantiate a new instance of the Apollo Client anywhere in your project inside an RSC:
+
 ```
-import { getApolloServerClient } from "@/graghql/apolloClient";
+import { getApolloServerClient } from "@/graphql/apolloClient";
 
 const client = getApolloServerClient();
 ```
+
 or,
+
 ```
 const client = getApolloServerClient(token);
 ```
 
 For Client Components and SSR streaming, create an `ApolloProvider.tsx` wrapper:
+
 ```
 "use client";
 
@@ -152,8 +171,10 @@ export default function ApolloProvider({ children }: React.PropsWithChildren) {
   );
 }
 ```
+
 You can then use this wrapper either within a `layout.tsx` file or anywhere in your application where you would need to fetch data within a client component, as it provides its children with an instance of the Apollo Client as context.
 This wrapper is particularly useful when combined with React's `<Suspense>` component. For example:
+
 ```
 import { ArchiveBlock as ArchiveBlockProps } from "@/payload-types";
 import { Archive } from "./Archive";
@@ -179,6 +200,7 @@ If you are creating a new project, Next.js provides you with the option to have 
 If you would like to implement Tailwind into an existing Next.js project, you can find instructions on how to do so [here](https://tailwindcss.com/docs/installation/framework-guides/nextjs).
 
 ### TypeScript
+
 This application is written entirely in **TypeScript**, a strongly typed version of JavaScript.
 For more information on TypeScript, you can find all its documentation [here](https://www.typescriptlang.org/docs/).
 
@@ -193,12 +215,13 @@ Add your project's production evironment variables in your project's dashboard, 
 After deployment, you may find that you would like to add more features to your new Payload project.
 This will require seperating your development and production environments and creating a CI pipeline.
 If you are using a Vercel Postgres database hosted in Neon, create a seperate branch of your database specifically dedicated for development.
-You can do so from your database dashboard in Neon. 
+You can do so from your database dashboard in Neon.
 This will create a new database connection string for your child branch, which you should save in a `.env.local` file in the root of your project's directory.
 
 During development, Payload will automatically push changes in your database schema to your Neon database. _This only works in development mode_.
 Once you have created and tested new features in development, you will need to migrate these changes to the production database.
 First, ensure you have set up your build settings correctly in your `package.json` file:
+
 ```
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
@@ -212,14 +235,17 @@ First, ensure you have set up your build settings correctly in your `package.jso
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
 ```
+
 You will need to mirror these build settings in your Vercel project.
 Specifically, ensure your Vercel project is set to run your `ci` script on build.
 
 Create a `migrations` folder either in your `src` directory or root directory.
 You will then need to prompt Payload to create a migration file. In the terminal, run:
+
 ```
 npm run payload migrate:create
 ```
+
 This will create a new migration that will run prior to your application being built.
 While Payload's migrations are relatively programmatic in nature, it is recommended that you at least check these migration files briefly to ensure they are correct.
 I am aware that these migration files can be extremly large, especially during your first migration, but at least give them a cursory glance.

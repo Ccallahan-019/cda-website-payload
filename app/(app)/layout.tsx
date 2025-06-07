@@ -4,16 +4,16 @@ import "./globals.css";
 import { Header } from "@/globals/header/Header";
 import type { Header as HeaderProps } from "@/payload-types";
 import Footer from "../../globals/footer/Footer";
-import { getApolloServerClient } from "@/graghql/apolloClient";
-import { GET_HEADER } from "@/graghql/queries/headerQuery";
-import { GET_FOOTER } from "@/graghql/queries/footerQuery";
-import { GET_BACKGROUND } from "@/graghql/queries/backgroundQuery";
+import { getApolloServerClient } from "@/graphql/apolloClient";
+import { GET_HEADER } from "@/graphql/queries/headerQuery";
+import { GET_FOOTER } from "@/graphql/queries/footerQuery";
+import { GET_BACKGROUND } from "@/graphql/queries/backgroundQuery";
 import { Background } from "@/globals/background/BackgroundComponent";
 import { AdminBar } from "@/components/admin-bar/AdminBar";
 import { draftMode } from "next/headers";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
-const merriweather = Merriweather_Sans({ subsets: ['latin'] })
+const merriweather = Merriweather_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Catholic Daughters PA State Court",
@@ -29,13 +29,13 @@ export default async function RootLayout({
 
   const client = getApolloServerClient();
   const { data: headerData } = await client.query({
-    query: GET_HEADER
+    query: GET_HEADER,
   });
   const { data: footerData } = await client.query({
-    query: GET_FOOTER
+    query: GET_FOOTER,
   });
   const { data: backgroundData } = await client.query({
-    query: GET_BACKGROUND
+    query: GET_BACKGROUND,
   });
   const header: HeaderProps = headerData?.Header;
   const footer = footerData?.Footer;
@@ -44,18 +44,20 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${merriweather.className} antialiased`}>
-        {background.backgroundMedia && typeof background.backgroundMedia === 'object' && (
-          <Background id={background.backgroundMedia.id} backgroundMedia={background.backgroundMedia} />
-        )}
+        {background.backgroundMedia &&
+          typeof background.backgroundMedia === "object" && (
+            <Background
+              id={background.backgroundMedia.id}
+              backgroundMedia={background.backgroundMedia}
+            />
+          )}
         <AdminBar
           adminBarProps={{
             preview: isEnabled,
           }}
         />
         <Header {...header} />
-        <div className="relative z-[0] min-h-screen">
-          {children}
-        </div>
+        <div className="relative z-[0] min-h-screen">{children}</div>
         <Footer footerData={footer} />
         <Analytics />
       </body>
