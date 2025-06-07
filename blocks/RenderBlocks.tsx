@@ -14,6 +14,7 @@ import { NewslettersBlock } from "./Newsletters/NewslettersComponent";
 import { DiocesesAccordianBlock } from "./DiocesesAccordian/Component";
 import { ArchiveBlock } from "./Archive/ArchiveComponent";
 import { MediaBlock } from "./Media/MediaComponent";
+import { FormBlock } from "./Form/formComponent";
 
 const blockComponents = {
   content: ContentBlock,
@@ -29,7 +30,8 @@ const blockComponents = {
   newsletters: NewslettersBlock,
   diocesesAccordian: DiocesesAccordianBlock,
   archive: ArchiveBlock,
-  mediaBlock: MediaBlock
+  mediaBlock: MediaBlock,
+  formBlock: FormBlock,
 }
 
   
