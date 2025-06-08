@@ -6,7 +6,9 @@ const redis = new Redis({
 });
 
 export async function applyRateLimit(request: Request) {
-  const ip = (request.headers.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0].trim();
+  const ip = (request.headers.get("x-forwarded-for") ?? "127.0.0.1")
+    .split(",")[0]
+    ?.trim();
   const windowSeconds = 60; // 1-minute window
   const maxRequests = 2; // Allow 3 requests per minute
 
@@ -21,6 +23,3 @@ export async function applyRateLimit(request: Request) {
 
   await redis.setex(key, windowSeconds, currentCount + 1); // Increment count & set expiry
 }
-
-
-

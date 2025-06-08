@@ -12,9 +12,11 @@ export const formBuilder = formBuilderPlugin({
   fields: {
     text: {
       fields: [
-        ...(typeof fields.text === "function"
-          ? fields.text().fields
-          : fields.text.fields),
+        ...(fields.text
+          ? typeof fields.text === "function"
+            ? fields.text().fields
+            : fields.text.fields
+          : []),
         {
           name: "isPhoneNumber",
           label: "Phone Number",
@@ -30,9 +32,11 @@ export const formBuilder = formBuilderPlugin({
     },
     email: {
       fields: [
-        ...(typeof fields.email === "function"
-          ? fields.email().fields
-          : fields.email.fields),
+        ...(fields.email
+          ? typeof fields.email === "function"
+            ? fields.email().fields
+            : fields.email.fields
+          : []),
         {
           name: "placeholder",
           type: "text",
@@ -42,9 +46,11 @@ export const formBuilder = formBuilderPlugin({
     },
     textarea: {
       fields: [
-        ...(typeof fields.textarea === "function"
-          ? fields.textarea().fields
-          : fields.textarea.fields),
+        ...(fields.textarea
+          ? typeof fields.textarea === "function"
+            ? fields.textarea().fields
+            : fields.textarea.fields
+          : []),
         {
           name: "placeholder",
           type: "text",
