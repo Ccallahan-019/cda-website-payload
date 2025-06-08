@@ -27,7 +27,8 @@
     ],
     "paths": {
       "@payload-config": ["./payload.config.ts"],
-      "react": ["./node_modules/@types/react"]
+      "react": ["./node_modules/@types/react"],
+      "@/*": ["./*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],

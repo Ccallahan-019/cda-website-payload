@@ -34,7 +34,7 @@
     "csrf": "^3.1.0",
     "dompurify": "^3.2.5",
     "esbuild": "^0.25.3",
-    "framer-motion": "^12.6.3",
+    "framer-motion": "^12.16.0",
     "fs": "^0.0.1-security",
     "graphql": "^16.10.0",
     "isomorphic-dompurify": "^2.24.0",

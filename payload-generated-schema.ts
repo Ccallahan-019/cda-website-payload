@@ -3691,6 +3691,7 @@ export const forms_blocks_email = pgTable(
     label: varchar("label"),
     width: numeric("width"),
     required: boolean("required"),
+    placeholder: varchar("placeholder"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
@@ -3851,6 +3852,8 @@ export const forms_blocks_text = pgTable(
     width: numeric("width"),
     defaultValue: varchar("default_value"),
     required: boolean("required"),
+    isPhoneNumber: boolean("is_phone_number"),
+    placeholder: varchar("placeholder"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
@@ -3879,6 +3882,7 @@ export const forms_blocks_textarea = pgTable(
     width: numeric("width"),
     defaultValue: varchar("default_value"),
     required: boolean("required"),
+    placeholder: varchar("placeholder"),
     blockName: varchar("block_name"),
   },
   (columns) => ({
@@ -3986,6 +3990,7 @@ export const form_submissions = pgTable(
       .references(() => forms.id, {
         onDelete: "set null",
       }),
+    ip: varchar("ip"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
